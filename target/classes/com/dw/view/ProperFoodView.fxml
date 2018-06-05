@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<FlowPane stylesheets="@ProperFood.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.ProperFoodController">
+   <children>
+      <TableView styleClass="tableView"  fx:id="foodTableView">
+        <columns>
+            <TableColumn  text="大大類" styleClass="tableColum" fx:id="categoryColum" />
+            <TableColumn  text="編號" styleClass="tableColum" fx:id="properFoodNoColum" />
+            <TableColumn  text="食品名稱" styleClass="tableColum" fx:id="properFoodNameColum" />
+            <TableColumn  text="價格1" styleClass="tableColum" fx:id="properFoodPrice1Colum" />
+            <TableColumn text="價格2" styleClass="tableColum" fx:id="properFoodPrice2Colum" />
+            <TableColumn  text="價格3" styleClass="tableColum" fx:id="properFoodPrice3Colum"  />
+            <TableColumn  text="價格4" styleClass="tableColum" fx:id="properFoodPrice4Colum" />
+            <TableColumn  text="價格5" styleClass="tableColum" fx:id="properFoodPrice5Colum" />
+            <TableColumn  text="價格6" styleClass="tableColum" fx:id="properFoodPrice6Colum" />
+            <TableColumn  text="價格7" styleClass="tableColum" fx:id="properFoodPrice7Colum" />
+            <TableColumn  text="價格8" styleClass="tableColum" fx:id="properFoodPrice8Colum" />
+            <TableColumn  text="價格9" styleClass="tableColum" fx:id="properFoodPrice9Colum" />
+        </columns>
+      </TableView>
+      <FlowPane styleClass="buttomFlowPane">
+      <FlowPane fx:id="leftButtomFlowPane"  styleClass="leftButtomFlowPane">
+         <children>
+            <Button fx:id="updateButton"  styleClass="leftButton"  text="0 更改" />
+            <Button fx:id="reSetButton"  styleClass="leftButton" text="1重設" />
+         </children>
+      </FlowPane>
+      <FlowPane fx:id="centerButtomFlowPane"  styleClass="centerButtomFlowPane">
+         <children>
+            <Button mnemonicParsing="false" text="關閉" styleClass="closeButton" fx:id="closeButton" />
+         </children>
+      </FlowPane>
+      <FlowPane fx:id="rightButtomFlowPane"  styleClass="rightButtomFlowPane">
+         <children>
+            <Button style="-fx-background-image: url('/image/up.png')" styleClass="upButton" fx:id="upButton"></Button>
+            <Button style="-fx-background-image: url('/image/down.png')" styleClass="downButton" fx:id="downButton" />
+         </children>
+      </FlowPane>
+      </FlowPane>
+   </children>
+</FlowPane>

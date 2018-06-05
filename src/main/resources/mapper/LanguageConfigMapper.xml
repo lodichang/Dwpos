@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.LanguageConfigMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <resultMap id="LanguageConfigResultMap" type="com.dw.entity.LanguageConfig">
+        <id column="ID" property="id" /><!--  -->
+        <result column="VERSION" property="version" /><!--  -->
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="REGION" property="region" />
+        <result column="LANG_KEY" property="langKey" />
+        <result column="LANG_COUNTRY" property="langCountry" />
+        <result column="LANG_VALUE" property="langValue" />
+        <result column="LANG_DESCRIPT" property="langDescript" />
+    </resultMap>
+
+    <select id="getLanguageConfig" resultType="com.dw.entity.LanguageConfig">
+        select * from tb_language_config where 1 = 1
+        <if test="languageDefault != null and languageDefault !=''">
+              and LANG_COUNTRY = #{languageDefault}
+        </if>
+
+    </select>
+
+</mapper>

@@ -1,0 +1,46 @@
+.tableEditFlowPane{
+    -fx-background-color: #34495E;
+}
+.tableEditTitleLabel{
+    -fx-background-color: #6E6E6E;
+    -fx-alignment: center;
+}
+.label{
+    -fx-background-color: #34495E;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+.tableNoFlowPane{
+    -fx-alignment: center-left;
+}
+.tableSizeFlowPane{
+    -fx-background-color: #34495E;
+    -fx-alignment: center-left;
+}
+.tableSizeLabel{
+    -fx-background-color: #34495E;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+.radioButton{
+    -fx-background-color: #34495E;
+    -fx-text-fill: white;
+}
+.roomTypeFlowPane{
+    -fx-alignment: center-left;
+}
+.colorFlowPane{
+    -fx-alignment: center-left;
+}
+.colorValueLabel{
+   -fx-border-width: 1px;
+   -fx-background-color: #E39B46;
+}
+.buttomFlowPane{
+    -fx-background-color: #34495E;
+    -fx-alignment: center;
+}
+.button{
+    -fx-background-color: #5E9BB5;
+    -fx-alignment: center;
+}

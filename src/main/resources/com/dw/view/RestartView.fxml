@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.FlowPane?>
+<FlowPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="172.0" prefWidth="223.0" styleClass="chargeCategoriesFlowPane" stylesheets="@RestartView.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.RestartController" >
+   <children>
+      <Label   styleClass="titleLabel" text="請選擇" />
+      <FlowPane styleClass="restartContentFlowPane">
+         <Button text="1 重啓" styleClass="button" fx:id="restartButton" onAction="#closeStage"></Button>
+         <Button text="2 關機" styleClass="button" fx:id="turnOffButton" onAction="#closeStage"></Button>
+         <Button text="3 退出" styleClass="button" fx:id="exitButton" onAction="#closeStage"></Button>
+      </FlowPane>
+      <FlowPane styleClass="buttomFlowPane">
+         <children>
+            <Button text="關閉" styleClass="closeButton" fx:id="closeButton" onAction="#closeStage"></Button>
+         </children>
+      </FlowPane>
+   </children>
+</FlowPane>

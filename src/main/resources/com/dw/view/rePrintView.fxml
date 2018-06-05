@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.dw.extended.DwButton?>
+<FlowPane stylesheets="@RePrintView.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.dw.controller.RePrintController" fx:id="printFolwPane">
+    <children>
+        <FlowPane styleClass="topFlowPane" fx:id="topFlowPane">
+
+        </FlowPane>
+        <TableView  fx:id="printsView">
+            <columns>
+
+            </columns>
+        </TableView>
+        <HBox styleClass="buttomFlowPane" fx:id="buttomHox">
+            <children>
+                <FlowPane fx:id="leftButtomPane"></FlowPane>
+                <FlowPane fx:id="centerButtomFlowPane"></FlowPane>
+                <FlowPane fx:id="rightButtomPane">
+                    <DwButton fx:id="reprint_Button"></DwButton>
+                    <DwButton fx:id="close_Button"></DwButton>
+                </FlowPane>
+            </children>
+        </HBox>
+    </children>
+</FlowPane>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.dw.extended.DwLabel?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@Main.css"
+            fx:controller="com.dw.controller.MainController" fx:id="mainPane"
+>
+    <top>
+        <FlowPane fx:id="topFlowPane">
+            <children>
+                <FlowPane fx:id="topLeftFlowPane">
+                    <children>
+                        <ImageView fx:id="headImageView"></ImageView>
+                        <DwLabel fx:id="headLabel"></DwLabel>
+                        <ImageView fx:id="numberImageView"></ImageView>
+                        <DwLabel fx:id="numberLabel"></DwLabel>
+                        <ImageView fx:id="storeImageView"></ImageView>
+                        <DwLabel fx:id="storeLabel"></DwLabel>
+                        <ImageView fx:id="timeImageView"></ImageView>
+                        <DwLabel fx:id="timeLabel"></DwLabel>
+                    </children>
+                </FlowPane>
+                <FlowPane fx:id="topRightFlowPane">
+                    <children>
+                        <FlowPane fx:id="areasFlowPane"></FlowPane>
+                        <FlowPane fx:id="areaPageFlowPane"></FlowPane>
+                    </children>
+                </FlowPane>
+            </children>
+        </FlowPane>
+    </top>
+    <center>
+        <VBox fx:id="centerVBox">
+            <AnchorPane fx:id="tablesAnchorPane">
+            </AnchorPane>
+
+        </VBox>
+    </center>
+
+
+</BorderPane>

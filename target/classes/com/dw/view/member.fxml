@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.dw.extended.DwLabel?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+
+<FlowPane fx:id="memberFlowPane" stylesheets="@member.css" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.MemberController">
+    <children>
+        <FlowPane fx:id="topFlowPane1" styleClass="topFlowPane">
+            <DwLabel fx:id="cardnoLabel" styleClass="topLabel" />
+            <DwLabel fx:id="cardnoValue" styleClass="topValue" />
+            <DwLabel fx:id="nameLabel" styleClass="topLabel" />
+            <DwLabel fx:id="nameValue" styleClass="topValue" />
+            <DwLabel fx:id="telLabel" styleClass="topLabel" />
+            <DwLabel fx:id="telValue" styleClass="topValue" />
+            <DwLabel fx:id="birthLabel" styleClass="topLabel" />
+            <DwLabel fx:id="birthValue" styleClass="topValue" />
+            <!--<Button fx:id="closeBut" mnemonicParsing="false" text="Button" />-->
+        </FlowPane>
+        <FlowPane fx:id="topFlowPane2" styleClass="topFlowPane">
+            <DwLabel fx:id="amtLabel" styleClass="topLabel" />
+            <DwLabel fx:id="amtValue" styleClass="topValue" />
+            <DwLabel fx:id="gitAmtLabel" styleClass="topLabel" />
+            <DwLabel fx:id="gitAmtValue" styleClass="topValue" />
+            <DwLabel fx:id="integralLabel" styleClass="topLabel" />
+            <DwLabel fx:id="integralValue" styleClass="topValue" />
+            <DwLabel fx:id="expireDateLabel" styleClass="topLabel" />
+            <DwLabel fx:id="expireDateValue" styleClass="topValue" />
+        </FlowPane>
+        <TableView fx:id="memberTableView">
+            <columns>
+
+            </columns>
+        </TableView>
+        <HBox fx:id="buttomFlowPane" styleClass="buttomFlowPane">
+         <children>
+            <FlowPane fx:id="buttomFlowPane_left" styleClass="buttomFlowPane_left">
+
+            </FlowPane>
+            <FlowPane fx:id="buttomFlowPane_center" styleClass="buttomFlowPane_center">
+
+            </FlowPane>
+            <FlowPane fx:id="buttomFlowPane_right" styleClass="buttomFlowPane_right">
+
+            </FlowPane>
+         </children>
+        </HBox>
+    </children>
+</FlowPane>

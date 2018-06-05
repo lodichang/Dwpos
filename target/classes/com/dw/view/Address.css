@@ -1,0 +1,64 @@
+.addressParentFlowPane {
+    -fx-background-color: #34495e;
+}
+.leftFlowPane{
+
+}
+.rightFlowPane{
+
+}
+.areaFlowPane {
+    -fx-border-width: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-background-color: #686868;
+    -fx-alignment: top-left;
+}
+.streetFlowPane {
+    -fx-border-width: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-background-color: #686868;
+    -fx-alignment: top-left;
+}
+.addressFlowPane {
+     -fx-border-width: 1px;
+     -fx-border-color: #FFFFFF;
+     -fx-background-color: #686868;
+    -fx-alignment: top-left;
+ }
+.msgFlowPane {
+    -fx-border-width: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-background-color: #686868;
+    -fx-alignment: center;
+}
+.keyboardFlowPane {
+    -fx-border-width: 1px;
+    -fx-border-color: #FFFFFF;
+    -fx-background-color: #686868;
+}
+.text-label{
+    -fx-alignment: center-right;
+    -fx-text-fill: #FFFFFF;
+}
+.text-color {
+    -fx-text-fill: #FFFFFF;
+}
+.text-field {
+    -fx-font-size: 20px;
+}
+
+.areaFlowPane{
+    -fx-alignment: top-left;
+}
+.streetFlowPane{
+    -fx-alignment: top-left;
+}
+.addressFlowPane{
+    -fx-alignment: top-left;
+}
+.pageLabel{
+    -fx-alignment: center;
+}
+
+
+

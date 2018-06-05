@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import com.dw.extended.*?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox stylesheets="@functions.css" styleClass="functionsPane" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.FunctionsController" fx:id="root">
+   <children>
+       <FlowPane fx:id="functionsFlowPane">
+       <DwButton text="1.資料設定" fx:id="dataButton" styleClass="functionButton" onAction="#showDatas"></DwButton>
+       <DwButton text="2.會員功能" fx:id="memberButton" styleClass="functionButton" onAction="#showMemberFunction"></DwButton>
+       <DwButton text="3.員工設定" fx:id="workerButton" styleClass="functionButton" onAction="#WorkersSet"></DwButton>
+       <DwButton text="4.備用金表" fx:id="spareWatchButton" styleClass="functionButton" onAction="#showStandbyMoney"></DwButton>
+       <DwButton text="5.開機重啓" fx:id="restartButton" styleClass="functionButton" onAction="#showRestartView"></DwButton>
+       <DwButton text="6.重印廚飛" fx:id="rePrintButton" styleClass="functionButton" onAction="#showRePrintView"></DwButton>
+       <DwButton text="7.移除桌鎖" fx:id="removeLockButton" styleClass="functionButton"></DwButton>
+       <DwButton text="8.系統設定" fx:id="systemSettingButton" styleClass="functionButton"></DwButton>
+       <DwButton text="/其他雜項" fx:id="otherMiscellaneousButton" styleClass="functionButton" onAction="#showOtherView" ></DwButton>
+       </FlowPane>
+       <FlowPane fx:id="functionDetailFlowPane">
+
+       </FlowPane>
+       <FlowPane fx:id="buttomFlowPane">
+           <DwButton text="關閉" fx:id="closeButton" styleClass="closeButton"  onAction="#closeStage"></DwButton>
+       </FlowPane>
+   </children>
+</VBox>

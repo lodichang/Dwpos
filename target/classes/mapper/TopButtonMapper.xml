@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.TopButtonMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+
+    <resultMap id="topButtonListResultMap" type="com.dw.dto.TopButtonDto">
+        <result property="deschk" column="DESCHK"/>
+        <result property="desccn" column="DESCCN"/>
+        <result property="descen" column="DESCEN"/>
+        <result property="descot" column="DESCOT"/>
+        <result property="buttonImg" column="BUTTON_IMG"/>
+        <result property="activePeriod" column="ACTIVE_PERIOD"/>
+
+
+        <collection property="posItemDtoList" column="ID" ofType="com.dw.dto.PosItemDto">
+            <result property="itemCode" column="ITEM_CODE"></result>
+            <result property="desc1" column="DESC1"/>
+            <result property="desc2" column="DESC2"/>
+            <result property="desc3" column="DESC3"/>
+            <result property="desc4" column="DESC4"/>
+            <result property="price" column="PRICE1"/>
+            <result property="orgPrice" column="ORG_PRICE"/>
+            <result property="combId" column="COMB_ID"/>
+            <result property="itemImg" column="ITEM_IMG"/>
+            <result property="service" column="SERVICE"/>
+            <result property="prn" column="PRN"/>
+            <result property="discont" column="DISCONT"/>
+            <result property="attMax" column="ATT_MAX"/>
+            <result property="attMin" column="ATT_MIN"/>
+            <result property="catt" column="CATT"/>
+            <result property="iopen" column="IOPEN"/>
+        </collection>
+    </resultMap>
+
+    <select id="getTopButtonList" resultMap="topButtonListResultMap" useCache="false">
+        select a.DESCHK,a.DESCCN,a.DESCEN,a.DESCOT,a.BUTTON_IMG,a.ACTIVE_PERIOD,d.ITEM_CODE,d.DESC1,d.DESC2,d.DESC3,d.DESC4,ifnull(e.PRICE${priceCode},d.price${priceCode}) as PRICE1,
+          ifnull(f.ORG_PRICE, ifnull(e.PRICE${priceCode},d.price${priceCode})) ORG_PRICE,d.ITEM_IMG,d.SERVICE,d.PRN,d.DISCONT,d.COMB_ID,d.CATT,d.ATT_MAX,d.ATT_MIN,d.IOPEN
+        from tb_pos_topbutton a
+          left join tb_pos_page b
+        on a.id=b.TB_ID
+          left join tb_pos_pagecont c
+        on b.id=c.PAGE_INDEX
+          left join
+          (
+            select * FROM tb_pos_item
+            where 1=1 and discont!='2'
+              and (
+                    (include = 'FALSE' and item_code in (select item_code from tb_pos_items where outlet =#{outlet} ))
+                    or (include = 'TRUE' and item_code not in (select item_code from tb_pos_items where outlet =#{outlet} ))
+              )
+          ) d
+        on c.ITEM_CODE=d.ITEM_CODE
+          left join tb_pos_price e
+        on d.item_code=e.item_code
+        left join (
+            select a.item_code,ifnull(b.price${priceCode},a.price${priceCode}) as org_price
+            from tb_pos_item a
+            left join (select * from tb_pos_price where outlet=#{outlet} and iopen='FALSE') b
+            on a.item_code=b.item_code
+        ) f
+        on ifnull(d.remarks,'')=f.item_code
+        where CURRENT_DATE() between DATE_FORMAT(a.STARTDATE,'%Y-%m-%d') and DATE_FORMAT(a.ENDDATE,'%Y-%m-%d')
+          and a.display='1' and a.day${dayWeek}='1'
+        order by cast(a.disseq as signed),c.ITEM_CODE;
+    </select>
+    <select id="getTopButtonListNoCache" resultMap="topButtonListResultMap" useCache="false">
+         select a.DESCHK,a.DESCCN,a.DESCEN,a.DESCOT,a.BUTTON_IMG,a.ACTIVE_PERIOD,d.ITEM_CODE,d.DESC1,d.DESC2,d.DESC3,d.DESC4,ifnull(e.PRICE${priceCode},d.price${priceCode}) as PRICE1,
+          ifnull(f.ORG_PRICE, ifnull(e.PRICE${priceCode},d.price${priceCode})) ORG_PRICE,d.ITEM_IMG,d.SERVICE,d.PRN,d.DISCONT,d.COMB_ID,d.CATT,d.ATT_MAX,d.ATT_MIN,d.IOPEN
+        from tb_pos_topbutton a
+          left join tb_pos_page b
+        on a.id=b.TB_ID
+          left join tb_pos_pagecont c
+        on b.id=c.PAGE_INDEX
+          left join
+          (
+            select * FROM tb_pos_item
+            where 1=1 and discont!='2'
+              and (
+                    (include = 'FALSE' and item_code in (select item_code from tb_pos_items where outlet =#{outlet} ))
+                    or (include = 'TRUE' and item_code not in (select item_code from tb_pos_items where outlet =#{outlet} ))
+              )
+          ) d
+        on c.ITEM_CODE=d.ITEM_CODE
+          left join tb_pos_price e
+        on d.item_code=e.item_code
+        left join (
+            select a.item_code,ifnull(b.price${priceCode},a.price${priceCode}) as org_price
+            from tb_pos_item a
+            left join (select * from tb_pos_price where outlet=#{outlet} and iopen='FALSE') b
+            on a.item_code=b.item_code
+        ) f
+        on ifnull(d.remarks,'')=f.item_code
+        order by cast(a.disseq as signed),c.ITEM_CODE;
+    </select>
+
+
+</mapper>

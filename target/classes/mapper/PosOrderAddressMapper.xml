@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dw.mapper.PosOrderAddressMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="PosOrderAddressResultMap" type="com.dw.entity.PosOrderAddress">
+        <id column="ID" property="id" /><!--  -->
+        <result column="VERSION" property="version" /><!--  -->
+        <result column="ADDRESS_ID" property="addressId" /><!-- 地址ID -->
+        <result column="TELEPHONE" property="telephone" /><!-- 電話號碼 -->
+        <result column="ADDRESS" property="address" /><!-- 詳細地址 -->
+        <result column="LINK_MAN" property="linkMan" /><!-- 聯絡人 -->
+        <result column="PHASE" property="phase" /><!-- 第幾期 -->
+        <result column="TOWER" property="tower" /><!-- 第幾座 -->
+        <result column="FLOOR" property="floor" /><!-- 第幾層 -->
+        <result column="ROOM" property="room" /><!-- 第幾室 -->
+        <result column="REMARK" property="remark" /><!-- 備註 -->
+        <result column="REF_NUM" property="refNum" /><!-- 單號 -->
+        <result column="SUB_REF" property="subRef" /><!-- 副單號 -->
+        <result column="IN_DATE" property="inDate" /><!-- 开台时间 -->
+        <result column="OUTLET" property="outlet" /><!-- 开台时间 -->
+        <result column="LAST_UPDATE_NAME_ID" property="lastUpdateNameId" /><!--  -->
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" /><!--  -->
+    </resultMap>
+
+</mapper>

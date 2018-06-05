@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox stylesheets="@left.css" BorderPane.alignment="CENTER" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.AnnouncementController">
+   <children>
+      <AnchorPane>
+      <TableView fx:id="tgoodsTab" style="-fx-fill: white">
+         <columns>
+            <TableColumn fx:id="itemCodeNameCol" style="-fx-font-size: 30; -fx-font-weight: bold" text="公告" />
+         </columns>
+      </TableView>
+      </AnchorPane>
+      <FlowPane>
+      <Button fx:id="upButton" style="-fx-background-image: url('/image/up.png'); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-size: 80%;-fx-background-color: #FFFFFF;-fx-border-width: 1; -fx-border-color: #1d1d1d"></Button>
+      <Button  fx:id="downButton" style="-fx-background-image: url('/image/down.png');-fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-size: 80%;-fx-background-color: #FFFFFF;-fx-border-width: 1; -fx-border-color: #1d1d1d"></Button>
+      </FlowPane>
+   </children>
+</VBox>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosLogMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <resultMap id="PosLogMapper" type="com.dw.entity.PosLog"></resultMap>
+    <select id="getCouponData" resultType="com.dw.dto.CouponDto" useCache="false">
+        <choose>
+        <when test="discType == 'FUCD'">
+        SELECT ID id,T_TIME useTime,LOG_TYPE couponType,REMARK1 couponCode,AMT3 disAmt,
+        case
+        WHEN REMARK2 = 'DISCOUNT' THEN '折扣券'
+        WHEN REMARK2 = 'GIFT' THEN '禮品券'
+        WHEN REMARK2 = 'CASH' THEN '現金券'
+        ELSE '其他券'
+        END couponName
+        from tb_pos_log where LOG_TYPE = 'UCOP' AND TYPE = 'N'
+        and outlet = #{outlet} and REF_NUM = #{refNum} AND SUB_REF = #{subRef} AND TABLE1 = #{tableNo}
+        UNION ALL
+        SELECT ID id,T_TIME useTime,LOG_TYPE couponType,REMARK1 couponCode,AMT3 disAmt,REMARK3 couponName
+        from tb_pos_log where LOG_TYPE = 'FUCD' AND TYPE = 'N'
+        and outlet = #{outlet} and REF_NUM = #{refNum} AND SUB_REF = #{subRef} AND TABLE1 = #{tableNo}
+        order by useTime desc
+        </when>
+        <otherwise>
+            SELECT ID id,T_TIME useTime,LOG_TYPE couponType,REMARK1 couponCode,AMT3 disAmt,REMARK3 couponName
+            from tb_pos_log where LOG_TYPE = 'SICD' AND TYPE = 'N'
+            and outlet = #{outlet} and REF_NUM = #{refNum} AND SUB_REF = #{subRef} AND TABLE1 = #{tableNo} AND REMARK4 = #{cardId}
+            order by useTime desc
+        </otherwise>
+        </choose>
+    </select>
+
+    <delete id="deleteByRefNum">
+        DELETE FROM tb_pos_log where outlet = #{outlet} and REF_NUM = #{refNum} AND SUB_REF = #{subRef} AND TABLE1 = #{tableNo}
+    </delete>
+
+    <select id="getPosLogList" resultType="com.dw.dto.PosLogDto">
+        select * from tb_pos_log_his where outlet=#{outlet} and sub_ref=#{subRef} and ref_num=#{refNum} and type=#{tranType} and log_type in ('FUCD','SICD','UCOP','TDIS') order by t_time
+    </select>
+
+</mapper>

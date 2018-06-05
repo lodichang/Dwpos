@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<FlowPane stylesheets="@KeySettings.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.KeySettingsController" styleClass="keySettingFlowPane">
+         <children>
+          <FlowPane styleClass="leftFlowPane">
+            <children>
+             <FlowPane styleClass="leftContentFlowPane" fx:id="leftContentFlowPane">
+             <TableView fx:id="goodsTableView" styleClass="table-view">
+              <columns>
+                <TableColumn fx:id="numberColum" styleClass="tableColumn" text="數" />
+                <TableColumn fx:id="goodNameColum" styleClass="tableColumn" text="名稱" />
+                <TableColumn fx:id="priceColum" styleClass="tableColumn" text="價格" />
+              </columns>
+             </TableView>
+              </FlowPane>
+                <FlowPane styleClass="leftButtomFlowPane">
+                <Button styleClass="button" fx:id="foodButton" text="食品"></Button>
+                <Button styleClass="button" fx:id="colorButton" text="顏色" onAction="#showColors"></Button>
+                <Button styleClass="button" fx:id="classificationButton" text="分類" onAction="#showClassification"></Button>
+                <Button styleClass="button" fx:id="formatButton" text="格式" onAction="#showFormats"></Button>
+                <Button styleClass="button" fx:id="notListedButton" text="未列"></Button>
+                <Button styleClass="button" fx:id="closeButton" text="關閉"></Button>
+             </FlowPane>
+             </children>
+          </FlowPane>
+
+          <FlowPane styleClass="centerFlowPane">
+                    <children>
+                       <FlowPane styleClass="contentFlowPane">
+
+                       </FlowPane>
+                        <FlowPane styleClass="centerButtomFlowPane">
+                            <Button styleClass="button" fx:id="descriptionButton" text="描述"></Button>
+                            <Button styleClass="button" fx:id="deleteButton" text="刪除"></Button>
+                            <Button styleClass="button" fx:id="deletePageButton" text="刪頁"></Button>
+                            <Button styleClass="button" fx:id="addPageButton" text="加頁"></Button>
+                            <Label fx:id="pagesLabel"  styleClass="pagesLabel" text="1/2"></Label>
+                            <Button styleClass="button" fx:id="searchButton" text="查找"></Button>
+                            <Button styleClass="button" fx:id="settingButton" text="設置"></Button>
+                            <Button styleClass="button" fx:id="backButton" text="返回"></Button>
+                            <Button fx:id="previousPageButton" styleClass="button" style="-fx-background-image: url('/image/up.png'); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-size: 80%"></Button>
+                            <Button fx:id="nextPageButton" styleClass="button" style="-fx-background-image: url('/image/down.png');-fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-size: 80%"></Button>
+                        </FlowPane>
+                        <Button fx:id="clearButton" mnemonicParsing="false" styleClass="button" text="清除" />
+                    </children>
+         </FlowPane>
+
+         <FlowPane styleClass="rightFlowPane">
+           <children>
+            <FlowPane styleClass="categorysFlowPane">
+              <children>
+
+               </children>
+            </FlowPane>
+            <FlowPane styleClass="rightButtomFlowPane">
+               <children>
+                  <Button fx:id="previousCategoryButton"  mnemonicParsing="false"   style="-fx-background-image: url('/image/up.png'); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-size: 80%"/>
+                  <Button fx:id="nextCategoryButton" mnemonicParsing="false" style="-fx-background-image: url('/image/down.png'); -fx-background-position: center; -fx-background-repeat: no-repeat; -fx-background-size: 80%" />
+               </children>
+            </FlowPane>
+          </children>
+         </FlowPane>
+   </children>
+</FlowPane>

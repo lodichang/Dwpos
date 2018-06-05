@@ -1,0 +1,63 @@
+1.關於參數命名 : 該項目沒有entity 統一實在DTO裡面建立數據庫的實體映射,命名規則統一XXXDto結尾,所有變量命名必須使用駝峰寫法
+2.關於系統公共參數 : 該項目統一使用數據庫配置,簡單說,項目配置只需在mybatis-config.xml配置一個數據庫的鏈接信息即可,系統配置表在pos_setting
+  ,並且項目初始化會將所有配置加載到posSetting全局ObservableMap裡面.調用方式為 posSetting.get(PosSettingEnum.key) 注意這裡MAP的VALUE存儲的是一個String,該參數已經用ObservableMap包裝
+  在數據庫添加參數后,請在PosSettingEnum 這裡相應添加枚舉,不允許直接在
+3.關於系統文字內容 : 該項目所有內容為不允許直接在界面或則在界面上寫入,統一存放在數據表:language_config ,並且項目初始化會將所有語言加載到languageMap全局ObservableMap裡面
+  ,調用方式為languageMap.get("languageKey"),注意這裡MAP的VALUE存儲的是一個String,該參數已經用ObservableMap包裝
+4.關於更新系統參數及語言:調用loadSystemConfig();
+5.類方法盡量簡潔，盡量把方法內的邏輯拆分成單獨的私有方法，防止方法邏輯過長及複雜；
+6.盡量少嵌套循環邏輯
+7.代碼轉場規範：
+  7.1.(棄用)下面公共方法適用於綁定了FXML的Controller,此方法返回的是一個Controller的泛型.如需傳遞參數可用billStage.show()之前接收此方法來傳遞
+  調用示例代碼：
+           Stage billStage = new Stage();
+           StageUtil.replaceSceneContent("controller/view/Bills.fxml" , billStage);
+           billStage.show();
+  7.2.(棄用)並且每個頁面是用獨立的stage
+  具體示例代碼請參考：MainController與LoginController除外的其他Controller應該有獨立的stage，如已經做好的頁面，也請統一按照這個格式來修改 。
+  7.3.如獨立的Controller,需要依附在主stage上面,則通過下面代碼獲取:
+                Platform.runLater(() -> {
+                            //獲取第一個,即為上一個頁面的stage
+                            ObservableList<Stage> stages = FXRobotHelper.getStages();
+                            Stage stage = new Stage();
+                            stage.setScene(new Scene(parentFlowPane));
+                            stage.setIconified(false);
+                            stage.setX(primaryScreenBounds.getMinX());
+                            stage.setY(primaryScreenBounds.getMinY());
+                            stage.initModality(Modality.NONE);
+                            stage.initStyle(StageStyle.TRANSPARENT);
+                            stage.initOwner(stages.get(0));
+                            stage.show();
+                        });
+
+8.關於異步調用數據庫查詢:
+
+
+    import javafx.concurrent.Task;
+
+    Task task = new Task<Void>() {
+        @Override public Void call() {
+        //這裡是後台操作方法
+            static final int max = 1000000;
+            for (int i=1; i<=max; i++) {
+                if (isCancelled()) {
+                   break;
+                }
+                updateProgress(i, max);
+            }
+            return null;
+        }
+    };
+    ProgressBar bar = new ProgressBar();
+    bar.progressProperty().bind(task.progressProperty());
+    new Thread(task).start();
+
+9.項目數據庫緩存使用：
+    [1]、在對應的mybatis映射文件，如PosAttMapper.xml頭部加入緩存標籤：
+         <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />或<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+         前者會打印緩存獲取日誌，後者不打印
+    [2]、如果某一條查詢語句不需要緩存，則需要在該select標籤添加useCache="false"，如<select id="selectListForMap" resultMap="PosAttMap" useCache="false">
+    [3]、如果某一條語句需要強制刷新緩存，則使用flushCache="true"，如<select id="queryByGroupAndAttCode" resultType="com.dw.entity.PosAtt" flushCache="true">
+         使用該設置本空間下所有二級緩存將被清空。
+    注意：[1] 需要緩存的對象，一定要序列化，即 implements Serializable
+          [2] 所有需要使用緩存的查詢語句，只能寫在mapper對應的xml文件中，不能使用註解方式，否則緩存無效

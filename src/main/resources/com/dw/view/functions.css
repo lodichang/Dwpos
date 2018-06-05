@@ -1,0 +1,18 @@
+.functionButton{
+    -fx-background-color: #27728A;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bolder;
+}
+.closeButton{
+    -fx-background-color: #AA5B5B;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+    -fx-font-weight: bolder
+}
+
+
+.functionsPane {
+    -fx-background-color: #34495e;
+}
+

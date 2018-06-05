@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.dw.extended.DwButton?>
+<?import com.dw.extended.DwLabel?>
+<FlowPane stylesheets="@UpdateItemName.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity"
+          xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.dw.controller.UpdateItemNameController" fx:id="updateNameflowPane">
+    <DwLabel fx:id="desc1Label"></DwLabel>
+    <TextField fx:id="desc1TextField"></TextField>
+    <DwLabel fx:id="desc2Label"></DwLabel>
+    <TextField fx:id="desc2TextField"></TextField>
+    <DwLabel fx:id="desc3Label"></DwLabel>
+    <TextField fx:id="desc3TextField"></TextField>
+    <DwLabel fx:id="desc4Label"></DwLabel>
+    <TextField fx:id="desc4TextField"></TextField>
+    <FlowPane fx:id="buttomFlowPane">
+        <DwButton fx:id="updateButton"></DwButton>
+        <DwButton fx:id="cancleButton"></DwButton>
+    </FlowPane>
+</FlowPane>

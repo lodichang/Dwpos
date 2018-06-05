@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.dw.extended.DwButton?>
+<?import com.dw.extended.DwLabel?>
+<VBox stylesheets="@SearchKeyBoard.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.dw.controller.SearchKeyBoardController" fx:id="searchKeyBoradPane">
+
+     <FlowPane fx:id="topFlowPane">
+         <DwLabel fx:id="titleLabel"></DwLabel>
+         <FlowPane fx:id="textFieldFlowPane">
+             <TextField fx:id="qtyTextField"></TextField>
+             <DwLabel fx:id="xLabel" text="X"></DwLabel>
+             <TextField fx:id="itemCodeTextField"></TextField>
+         </FlowPane>
+     </FlowPane>
+    <HBox fx:id="centerPane">
+       <FlowPane fx:id="numberPane"></FlowPane>
+
+       <VBox fx:id="rightFeaturePane">
+           <DwButton fx:id="updateButton" ></DwButton>
+           <DwButton fx:id="cancleButton"></DwButton>
+           <DwButton fx:id="handWriteButton"></DwButton>
+           <DwButton fx:id="inputButton" ></DwButton>
+       </VBox>
+    </HBox>
+    <FlowPane fx:id="letterPane">
+    </FlowPane>
+</VBox>

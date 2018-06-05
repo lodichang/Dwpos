@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dw.mapper.PosTableMapper">
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <!-- 通用查询映射结果 -->
+    <resultMap id="PosTableDtoResultMap" type="com.dw.dto.PosTableDto">
+        <id column="ID" property="id" /><!--  -->
+        <result column="VERSION" property="version" /><!--  -->
+        <result column="OUTLET" property="outlet" /><!-- 分店编号 -->
+        <result column="ROOM_NUM" property="roomNum" /><!-- 桌号 -->
+        <result column="ROOM_TYPE" property="roomType" /><!-- 桌台类型 -->
+        <result column="DESC1" property="desc1" /><!-- 名称 -->
+        <result column="DESC2" property="desc2" /><!-- 名称 -->
+		<result column="DESC3" property="desc3" /><!-- 名称 -->
+		<result column="PRINT_DESC" property="printDesc" /><!-- 名称 -->
+        <result column="PRICE_1" property="price1" /><!--  -->
+        <result column="PRICE_2" property="price2" /><!--  -->
+        <result column="PRICE_3" property="price3" /><!--  -->
+        <result column="SIZE" property="size" /><!-- 桌台大小 -->
+        <result column="COLOR" property="color" /><!-- 桌台颜色 -->
+        <result column="X_RATIO" property="xRatio" /><!-- 占屏幕X坐标的比例 -->
+        <result column="Y_RATIO" property="yRatio" /><!-- 占屏幕Y坐标的比例 -->
+        <result column="PAGE_NUMBER" property="pageNumber" /><!--  -->
+        <result column="SERVICE" property="service" /><!--  -->
+        <result column="FLOOR" property="floor" /><!-- 区域 -->
+        <result column="REMARKS" property="remarks" /><!--  -->
+        <result column="TIME_SPAN" property="timeSpan" /><!-- 翻台时长，设置开台到结账时间 -->
+        <result column="UPDATED_BY" property="updatedBy" /><!-- 修改人员工编号      -->
+        <result column="REMARK1" property="remark1" /><!-- 备注1               -->
+        <result column="REMARK2" property="remark2" /><!-- 备注2               -->
+        <result column="REMARK3" property="remark3" /><!-- 备注3               -->
+        <result column="LAST_UPDATE_NAME_ID" property="lastUpdateNameId" /><!--  -->
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" /><!--  -->
+        <result column="IS_ONLINE" property="isOnline" /><!-- 是否網上訂座:1開放,0不開放 -->
+        <result column="MINPERSON" property="minperson" /><!-- 最小人數 -->
+        <result column="MAXPERSON" property="maxperson" /><!-- 最大人數 -->
+
+		<result column="TABLE_STATE" property="tableState" /><!-- 桌臺狀態 -->
+		<result column="CURRENT_PERSION" property="currentPerson" /><!-- 當前人數 -->
+		<result column="IN_TIME" property="inTime" /><!-- 開臺時間 -->
+		<result column="parentTableNum" property = "parentTableNum" />
+    </resultMap>
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="PosTableResultMap" type="com.dw.entity.PosTable">
+		<id column="ID" property="id" /><!--  -->
+		<result column="VERSION" property="version" /><!--  -->
+		<result column="OUTLET" property="outlet" /><!-- 分店编号 -->
+		<result column="ROOM_NUM" property="roomNum" /><!-- 桌号 -->
+		<result column="ROOM_TYPE" property="roomType" /><!-- 桌台类型 -->
+		<result column="DESC1" property="desc1" /><!-- 名称 -->
+		<result column="DESC2" property="desc2" /><!-- 名称 -->
+		<result column="DESC3" property="desc3" /><!--  -->
+		<result column="DESC4" property="desc4" /><!--  -->
+		<result column="PRINT_DESC" property="printDesc" /><!--  -->
+		<result column="PRICE_1" property="price1" /><!--  -->
+		<result column="PRICE_2" property="price2" /><!--  -->
+		<result column="PRICE_3" property="price3" /><!--  -->
+		<result column="SIZE" property="size" /><!-- 桌台大小 -->
+		<result column="COLOR" property="color" /><!-- 桌台颜色 -->
+		<result column="X_RATIO" property="xRatio" /><!-- 占屏幕X坐标的比例 -->
+		<result column="Y_RATIO" property="yRatio" /><!-- 占屏幕Y坐标的比例 -->
+		<result column="PAGE_NUMBER" property="pageNumber" /><!--  -->
+		<result column="SERVICE" property="service" /><!--  -->
+		<result column="FLOOR" property="floor" /><!-- 区域 -->
+		<result column="REMARKS" property="remarks" /><!--  -->
+		<result column="TIME_SPAN" property="timeSpan" /><!-- 翻台时长，设置开台到结账时间 -->
+		<result column="UPDATED_BY" property="updatedBy" /><!-- 修改人员工编号      -->
+		<result column="REMARK1" property="remark1" /><!-- 备注1               -->
+		<result column="REMARK2" property="remark2" /><!-- 备注2               -->
+		<result column="REMARK3" property="remark3" /><!-- 备注3               -->
+		<result column="LAST_UPDATE_NAME_ID" property="lastUpdateNameId" /><!--  -->
+		<result column="LAST_UPDATE_TIME" property="lastUpdateTime" /><!--  -->
+		<result column="IS_ONLINE" property="isOnline" /><!-- 是否網上訂座:1開放,0不開放 -->
+		<result column="MINPERSON" property="minperson" /><!-- 最小人數 -->
+		<result column="MAXPERSON" property="maxperson" /><!-- 最大人數 -->
+		<result column="OUTLINE" property="outline" /><!--  -->
+	</resultMap>
+
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="PosHoldOnTableResultMap" type="com.dw.vo.PosHoldOnTableVo">
+		<result column="tableNum" property="tableNum"/><!--  -->
+		<result column="minTime" property="minTime"/><!--  -->
+	</resultMap>
+
+
+
+    <insert id="addTable">
+        INSERT INTO `tb_pos_table` (
+	`ID`,
+	`VERSION`,
+	`OUTLET`,
+	`ROOM_NUM`,
+	`ROOM_TYPE`,
+	`DESC1`,
+	`DESC2`,
+	`DESC3`,
+	`PRINT_DESC`,
+	`PRICE_1`,
+	`PRICE_2`,
+	`PRICE_3`,
+	`SIZE`,
+	`COLOR`,
+	`X_RATIO`,
+	`Y_RATIO`,
+	`PAGE_NUMBER`,
+	`SERVICE`,
+	`FLOOR`,
+	`REMARKS`,
+	`TIME_SPAN`,
+	`UPDATED_BY`,
+	`REMARK1`,
+	`REMARK2`,
+	`REMARK3`,
+	`LAST_UPDATE_NAME_ID`,
+	`LAST_UPDATE_TIME`,
+	`IS_ONLINE`,
+	`MINPERSON`,
+	`MAXPERSON`
+)
+VALUES
+	(
+		#{posTableDto.id},
+		#{posTableDto.version},
+		#{posTableDto.outlet},
+		#{posTableDto.roomNum},
+		#{posTableDto.roomType},
+		#{posTableDto.desc1},
+		#{posTableDto.desc2},
+		#{posTableDto.desc3},
+		#{posTableDto.printDesc},
+		#{posTableDto.price1},
+		#{posTableDto.price2},
+		#{posTableDto.price3},
+		#{posTableDto.size},
+		#{posTableDto.color},
+		#{posTableDto.xRatio},
+		#{posTableDto.yRatio},
+		#{posTableDto.pageNumber},
+		#{posTableDto.service},
+		#{posTableDto.floor},
+		#{posTableDto.remarks},
+		#{posTableDto.timeSpan},
+		#{posTableDto.updatedBy},
+		#{posTableDto.remark1},
+		#{posTableDto.remark2},
+		#{posTableDto.remark3},
+		#{posTableDto.lastUpdateNameId},
+		#{posTableDto.lastUpdateTime},
+		#{posTableDto.isOnline},
+        #{posTableDto.minperson},
+		#{posTableDto.maxperson}
+	);
+    </insert>
+
+	<select id="getTablesByFloor" resultMap="PosTableDtoResultMap" useCache="false">
+	select tt.*,s.table_type as TABLE_STATE,IFNULL(s.PERSON,0) as CURRENT_PERSION ,s.IN_TIME,case LOCATE('-',tt.ROOM_NUM) when 0 then tt.ROOM_NUM else left(tt.ROOM_NUM,LOCATE('-',tt.ROOM_NUM)-1) end parentTableNUm
+	from tb_pos_table tt
+		left join
+	(
+		SELECT distinct t.*, 'B'  AS table_type,r.PERSON ,r.IN_TIME
+		FROM tb_pos_table t
+		INNER JOIN tb_pos_tran r
+		ON t.ROOM_NUM = r.TABLE_NUM AND r.TRAN_TYPE = 'N' and (r.SETTLED is null or r.SETTLED = '')
+		AND r.REF_NUM NOT IN (
+			SELECT distinct o.REF_NUM FROM tb_pos_order o
+			WHERE o.REF_NUM = r.REF_NUM AND o.SUB_REF = r.SUB_REF AND o.TYPE = 'N' and (o.qty+o.cancel)>0
+		)
+		UNION
+		SELECT distinct  t.*,'C' AS table_type,r.PERSON ,r.IN_TIME
+		FROM tb_pos_table t
+		INNER JOIN tb_pos_tran r ON t.ROOM_NUM = r.TABLE_NUM
+		AND r.TRAN_TYPE = 'N' and (r.SETTLED is null or r.SETTLED = '')
+		AND r.REF_NUM IN (
+			SELECT distinct o.REF_NUM FROM tb_pos_order o
+			WHERE o.REF_NUM = r.REF_NUM AND o.SUB_REF = r.SUB_REF AND o.TYPE = 'N' and (o.qty+o.cancel)>0
+		)
+		union
+		SELECT
+			distinct t.*, 'D' AS table_type,r.PERSON ,r.IN_TIME
+		FROM
+			tb_pos_table t
+		INNER JOIN tb_pos_tran r ON t.ROOM_NUM = r.TABLE_NUM
+		AND r.TRAN_TYPE = 'N' and r.SETTLED  = 'FALSE'
+		<if test="checkLeaveSeat">
+		union
+		SELECT
+		distinct t.*, 'E' AS table_type,h.PERSON ,h.IN_TIME
+		FROM
+		tb_pos_table t
+		INNER JOIN  tb_pos_tran_his h  ON t.ROOM_NUM = h.TABLE_NUM
+		AND h.TRAN_TYPE = 'N' and h.LEAVE_DATE is null and h.SETTLED = 'TRUE'
+		</if>
+
+	) as s
+	on s.ROOM_NUM  = tt.ROOM_NUM
+	where 1 = 1 and (tt.remark1='1' or tt.remarks='0')
+	<if test="page != null and  page != '' ">
+		and tt.PAGE_NUMBER = #{page}
+	</if>
+	<if test="floor != null and  floor != '' ">
+		and tt.FLOOR = #{floor}
+	</if>
+	<if test="tableNum != null and  tableNum != '' ">
+		and tt.ROOM_NUM = #{tableNum}
+	</if>
+		order  by f_get_Room(parentTableNUm),tt.ROOM_NUM
+
+	</select>
+
+  <update id="updatePosTableXY">
+
+       update tb_pos_table set X_RATIO = #{xRatio},Y_RATIO = #{yRatio} where ROOM_NUM = #{roomNum}
+
+  </update>
+
+	<select id="getSamePosTable" resultMap="PosTableDtoResultMap" useCache="false">
+		select * from tb_pos_table where X_RATIO = #{xRatio} and Y_RATIO = #{yRatio} and ROOM_NUM != #{roomNum}
+	</select>
+
+	<select id="getsetUpTableByTableNum" resultMap="PosTableResultMap" useCache="false">
+		select * from tb_pos_table where  ROOM_NUM LIKE CONCAT('${tableNum}','-','%') AND REMARKS='1' and remark1=#{disPlayType} ORDER BY ROOM_NUM;
+	</select>
+
+	<select id="getDisplayTableByTableNum" resultMap="PosTableDtoResultMap" useCache="false">
+		select tt.*,s.table_type as TABLE_STATE,s.PERSON as CURRENT_PERSION ,s.IN_TIME,case LOCATE('-',tt.ROOM_NUM) when 0 then tt.ROOM_NUM else left(tt.ROOM_NUM,LOCATE('-',tt.ROOM_NUM)-1) end parentTableNUm
+		from tb_pos_table tt
+		left join
+		(
+			SELECT distinct t.*, 'B'  AS table_type,r.PERSON ,r.IN_TIME
+			FROM tb_pos_table t
+			INNER JOIN tb_pos_tran r
+			ON t.ROOM_NUM = r.TABLE_NUM AND r.TRAN_TYPE = 'N' and (r.SETTLED is null or r.SETTLED = '')
+			AND r.REF_NUM NOT IN (
+				SELECT o.REF_NUM FROM tb_pos_order o
+				WHERE o.REF_NUM = r.REF_NUM AND o.SUB_REF = r.SUB_REF AND o.TYPE = 'N' and (o.qty+o.cancel)>0
+			)
+			UNION
+			SELECT distinct  t.*,'C' AS table_type,r.PERSON ,r.IN_TIME
+			FROM tb_pos_table t
+			INNER JOIN tb_pos_tran r ON t.ROOM_NUM = r.TABLE_NUM
+			AND r.TRAN_TYPE = 'N' and (r.SETTLED is null or r.SETTLED = '')
+			AND r.REF_NUM IN (
+				SELECT o.REF_NUM FROM tb_pos_order o
+				WHERE o.REF_NUM = r.REF_NUM AND o.SUB_REF = r.SUB_REF AND o.TYPE = 'N' and (o.qty+o.cancel)>0
+			)
+			union
+			SELECT
+			distinct t.*, 'D' AS table_type,r.PERSON ,r.IN_TIME
+			FROM
+			tb_pos_table t
+			INNER JOIN tb_pos_tran r ON t.ROOM_NUM = r.TABLE_NUM
+			AND r.TRAN_TYPE = 'N' and r.SETTLED  = 'FALSE'
+			<if test="checkLeaveSeat">
+			union
+			SELECT
+			distinct t.*, 'E' AS table_type,h.PERSON ,h.IN_TIME
+			FROM tb_pos_table t
+			INNER JOIN  tb_pos_tran_his h  ON t.ROOM_NUM = h.TABLE_NUM
+			AND h.TRAN_TYPE = 'N' and h.LEAVE_DATE is null and h.SETTLED = 'TRUE'
+			</if>
+		) as s
+		on s.ROOM_NUM  = tt.ROOM_NUM
+		where 1 = 1 and (tt.remark1='1' or tt.remarks='0') and tt.ROOM_NUM in (
+			select ROOM_NUM from tb_pos_table where (ROOM_NUM LIKE CONCAT('${tableNum}','-','%') and remark1='1') or ROOM_NUM=#{tableNum}
+		)
+		order by room_num;
+	</select>
+
+	<select id="getTableByNum" resultMap="PosTableResultMap">
+		SELECT * FROM tb_pos_table where ROOM_NUM=#{tableNum}
+	</select>
+
+	<select id="getHoldOnTables" resultMap="PosHoldOnTableResultMap">
+		SELECT
+		TABLE_NUM as tableNum,
+		min(
+		DATE_FORMAT(
+		concat(t_date, ' ', T_TIME),
+		'%Y-%m-%d %H:%i:%s'
+		)
+		) as minTime
+		FROM
+		tb_pos_order
+		WHERE
+		KIC_MESS = '1'
+		AND TYPE = 'N'
+		AND QTY + CANCEL > 0
+		GROUP BY
+		TABLE_NUM
+		HAVING
+		TABLE_NUM = #{tableNum}
+	</select>
+
+	<select id="getTableTypeByTableNum" resultType="java.lang.String">
+		select ROOM_TYPE from tb_pos_table where ROOM_NUM = #{tableNum}
+	</select>
+
+</mapper>

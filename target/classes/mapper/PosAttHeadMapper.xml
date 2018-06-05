@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosAttHeadMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <resultMap id="posAttheadResultMao" type="com.dw.entity.PosAttHead">
+        <result property = "id" column = "ID"/>
+        <result property = "code" column = "CODE"/>
+        <result property = "outline" column = "OUTLINE"/>
+        <result property = "desc1" column = "DESC1"/>
+        <result property = "desc2" column = "DESC2"/>
+        <result property = "desc3" column = "DESC3"/>
+        <result property = "desc4" column = "DESC4"/>
+        <result property = "printDesc" column = "PRINT_DESC"/>
+        <result property = "type" column = "TYPE"/>
+        <result property = "remarks" column = "REMARKS"/>
+        <result property = "canChange" column = "CAN_CHANGE"/>
+        <result property = "remark1" column = "REMARK1"/>
+        <result property = "remark2" column = "REMARK2"/>
+        <result property = "remark3" column = "REMARK3"/>
+
+
+
+        <collection property="posAttList" column="CODE" ofType="com.dw.entity.PosAtt">
+            <result property = "id"         column = "ATTID" />
+            <result property = "aGroup"     column = "A_GROUP" />
+            <result property = "outline"    column = "ATTOUTLINE" />
+            <result property = "code"       column = "ATTCODE" />
+            <result property = "desc1"      column = "ATTDESC1" />
+            <result property = "desc2"      column = "ATTDESC2" />
+            <result property = "desc3"      column = "ATTDESC3" />
+            <result property = "desc4"      column = "ATTDESC4" />
+            <result property = "printDesc"  column = "ATTPRINTDESC" />
+            <result property = "billPrint"  column = "BILL_RINT" />
+            <result property = "calType"    column = "CAL_TYPE" />
+            <result property = "amtPro"     column = "AMT_PRO" />
+            <result property = "calAmount"  column = "CAL_AMOUNT" />
+            <result property = "calQty"     column = "CAL_QTY" />
+            <result property = "stkType"    column = "STK_TYPE" />
+            <result property = "ingType"    column = "ING_TYPE" />
+            <result property = "canChange"  column = "ATTCANCHANGE" />
+            <result property = "remark1"    column = "ATTREMARK1" />
+            <result property = "remark2"    column = "ATTREMARK2" />
+            <result property = "remark3"    column = "ATTREMARK3" />
+        </collection>
+
+    </resultMap>
+    
+    <resultMap id="PosAttHeadResult" type="com.dw.entity.PosAttHead">
+        <id property = "id"  column = "ID" />
+        <result property = "version"  column = "VERSION" />
+        <result property = "code" column = "CODE"/>
+        <result property = "outline" column = "OUTLINE"/>
+        <result property = "desc1" column = "DESC1"/>
+        <result property = "desc2" column = "DESC2"/>
+        <result property = "desc3" column = "DESC3"/>
+        <result property = "desc4" column = "DESC4"/>
+        <result property = "printDesc" column = "PRINT_DESC"/>
+        <result property = "type" column = "TYPE"/>
+        <result property = "remarks" column = "REMARKS"/>
+        <result property = "canChange" column = "CAN_CHANGE"/>
+        <result property = "remark1" column = "REMARK1"/>
+        <result property = "remark2" column = "REMARK2"/>
+        <result property = "remark3" column = "REMARK3"/>
+        <result property = "display" column = "DISPLAY"/>
+        <result property = "sort" column = "SORT"/>
+    </resultMap>
+
+    <resultMap id="PosAttHeadInnerListResult" extends="PosAttHeadResult" type="com.dw.entity.PosAttHead">
+        <association property="posAttList" column="CODE" select="com.dw.mapper.PosAttMapper.queryListByHeadCode"></association>
+    </resultMap>
+
+    
+    <select id="getAttHeadListByItemCode" resultMap="posAttheadResultMao">
+        select b.*,a.ID ATTID,a.VERSION ATTVERSION,a.A_GROUP,a.OUTLINE ATTOUTLINE,a.CODE ATTCODE,a.DESC1 ATTDESC1,a.DESC2 ATTDESC2,a.DESC3 ATTDESC3,a.DESC4 ATTDESC4,a.PRINT_DESC ATTPRINTDISC,
+            a.BILL_PRINT,a.CAL_TYPE,a.AMT_PRO,a.CAL_AMOUNT,a.CAL_QTY,a.STK_TYPE,a.ING_TYPE,a.CAN_CHANGE ATTCANCHANGE,a.REMARK1 ATTREMARK1,a.REMARK2 ATTREMARK2,a.REMARK3 ATTREMARK3
+        from tb_pos_att a inner join tb_pos_atthead b on (case when a.A_GROUP=#{itemCode} then 'ZZ' else '' end)=b.code
+        where a.a_group=#{itemCode} and b.code='ZZ'
+        order by a.code;
+    </select>
+    
+    <select id="queryItemHead" resultMap="PosAttHeadResult">
+        SELECT * FROM tb_pos_atthead WHERE CODE = '00'
+    </select>
+
+    <select id="queryList" resultMap="PosAttHeadInnerListResult">
+        SELECT * FROM tb_pos_atthead WHERE CODE != '00' and display = 1 ORDER BY sort
+    </select>
+</mapper>

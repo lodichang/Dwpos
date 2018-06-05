@@ -1,0 +1,83 @@
+@font-face {
+    font-family: "Noto Sans CJK TC Light";
+}
+
+.loginPane {
+    text-align: center;
+    -fx-background-color: #34495e;
+}
+
+.bodyFlowPane {
+    -fx-background-color: #34495e;
+    -fx-border-width: 3px;
+    -fx-border-color: white;
+    -fx-alignment: center;
+}
+
+.titleFlowPane {
+    -fx-background-color: #34495e;
+}
+
+.titleLabel {
+    -fx-background-color: #34495e;
+    -fx-alignment: center;
+    -fx-font-size: 25px;
+    -fx-text-fill: white;
+}
+
+.textFlowPane {
+    -fx-background-color: #34495e;
+}
+
+.accountTextField {
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-font-size: 38px;
+}
+
+.passwordTextField {
+    -fx-font-size: 38px;
+}
+
+.buttonFlowPane {
+    -fx-background-color: #34495e;
+    -fx-font-size: 30px;
+}
+
+.leftFlowPane {
+    -fx-background-color: #34495e;
+    -fx-font-size: 30px;
+}
+
+.rightFlowPane {
+    -fx-background-color: #34495e;
+}
+
+.vbox {
+    background-color: #34495e;
+    border-color: white;
+    border-width: 5px;
+}
+
+.label {
+    background-color: #34495e;
+    text-align: center;
+    font-size: 50%;
+}
+
+.textField {
+    text-align: left;
+}
+
+.numbtn {
+    -fx-font-size: 30px;
+    -fx-background-color: #deb189;
+    -fx-text-fill: white
+}
+
+.zeronumbtn {
+    -fx-font-size: 30px;
+    -fx-background-color: #e86238;
+    -fx-text-fill: white
+}
+
+

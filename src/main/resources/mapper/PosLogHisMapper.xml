@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosLogHisMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <resultMap id="PosLogHisMapper" type="com.dw.entity.PosLogHis"></resultMap>
+    <update id="insertPosLogHis" >
+        insert into tb_pos_log_his select * from tb_pos_log where member=#{dayCount}
+    </update>
+
+    <update id="updateLogHis" >
+        update tb_pos_log_his set REF_NUM = concat(#{cleanDate},REF_NUM) where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount});
+    </update>
+
+    <insert id="insertLogClean">
+        insert into tb_pos_log_clean select * from tb_pos_log_his where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount});
+    </insert>
+
+    <delete id="deleteLogHis" >
+        delete from tb_pos_log_his where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount});
+    </delete>
+
+
+    <select id="getCouponData" resultType="com.dw.dto.CouponDto" useCache="false">
+        <choose>
+            <when test="discType == 'FUCD'">
+                SELECT ID id,T_TIME useTime,LOG_TYPE couponType,REMARK1 couponCode,AMT3 disAmt,
+                case
+                WHEN REMARK2 = 'DISCOUNT' THEN '折扣券'
+                WHEN REMARK2 = 'GIFT' THEN '禮品券'
+                WHEN REMARK2 = 'CASH' THEN '現金券'
+                ELSE '其他券'
+                END couponName
+                from tb_pos_log_his where LOG_TYPE = 'UCOP' AND TYPE = 'N'
+                and outlet = #{outlet} and REF_NUM = #{refNum} AND SUB_REF = #{subRef} AND TABLE1 = #{tableNo}
+                UNION ALL
+                SELECT ID id,T_TIME useTime,LOG_TYPE couponType,REMARK1 couponCode,AMT3 disAmt,REMARK3 couponName
+                from tb_pos_log_his where LOG_TYPE = 'FUCD' AND TYPE = 'N'
+                and outlet = #{outlet} and REF_NUM = #{refNum} AND SUB_REF = #{subRef} AND TABLE1 = #{tableNo}
+                order by useTime desc
+            </when>
+            <otherwise>
+                SELECT ID id,T_TIME useTime,LOG_TYPE couponType,REMARK1 couponCode,AMT3 disAmt,REMARK3 couponName
+                from tb_pos_log_his where LOG_TYPE = 'SICD' AND TYPE = 'N'
+                and outlet = #{outlet} and REF_NUM = #{refNum} AND SUB_REF = #{subRef} AND TABLE1 = #{tableNo} AND REMARK4 = #{cardId}
+                order by useTime desc
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
+
+
+
+
+

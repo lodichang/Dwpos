@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosPayMentMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <select id="getPayMentList" resultType="com.dw.dto.PosPayMentDto">
+    select CODE,DESC1,DESC2, DESC3, DESC4,NON_SALES,PIC,OVER_TYPE  from tb_pos_payment where CAN_SELECT ='TRUE' and current_timestamp BETWEEN concat(START_DATE, ' ', STARTTIME) and  concat(END_DATE, ' ', ENDTIME)
+      AND  (include = 'FALSE' and CODE in (select PAYTYPE from tb_pos_pays where outlet = #{outlet} ))
+      OR (include = 'TRUE' and CODE not in (select PAYTYPE from tb_pos_pays where outlet = #{outlet} )) ORDER BY  SEQ;
+  </select>
+
+    <select id="getPosPayList" resultType="com.dw.dto.PosPayDto" useCache="false">
+        select tp.*,IFNULL(pt.DESC1, '')PAY_DISC, NAME1 PAY_STAFF from tb_pos_pay tp left join tb_pos_staff s on tp.STAFF = s.CODE
+    LEFT JOIN tb_pos_payment pt on tp.PAY_TYPE = pt.CODE where REF_NUM = #{refNum} and SUB_REF = #{subRef} and TRAN_TYPE = #{tranType} and OUTLET = #{outlet};
+</select>
+
+</mapper>

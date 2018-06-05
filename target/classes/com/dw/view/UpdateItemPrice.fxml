@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import com.dw.extended.DwButton?>
+<?import com.dw.extended.DwLabel?>
+<FlowPane stylesheets="@UpdateItemPrice.css" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+          minWidth="-Infinity"
+          xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.dw.controller.UpdateItemPriceController" fx:id="updatePriceflowPane">
+    <DwLabel fx:id="price1Label"></DwLabel>
+    <TextField fx:id="price1TextField"></TextField>
+    <DwLabel fx:id="price2Label"></DwLabel>
+    <TextField fx:id="price2TextField"></TextField>
+    <DwLabel fx:id="price3Label"></DwLabel>
+    <TextField fx:id="price3TextField"></TextField>
+    <DwLabel fx:id="price4Label"></DwLabel>
+    <TextField fx:id="price4TextField"></TextField>
+    <DwLabel fx:id="price5Label"></DwLabel>
+    <TextField fx:id="price5TextField"></TextField>
+    <DwLabel fx:id="price6Label"></DwLabel>
+    <TextField fx:id="price6TextField"></TextField>
+    <DwLabel fx:id="price7Label"></DwLabel>
+    <TextField fx:id="price7TextField"></TextField>
+    <DwLabel fx:id="price8Label"></DwLabel>
+    <TextField fx:id="price8TextField"></TextField>
+    <DwLabel fx:id="price9Label"></DwLabel>
+    <TextField fx:id="price9TextField"></TextField>
+    <FlowPane fx:id="buttomFlowPane">
+        <DwButton fx:id="updateButton"></DwButton>
+        <DwButton fx:id="cancleButton"></DwButton>
+    </FlowPane>
+</FlowPane>

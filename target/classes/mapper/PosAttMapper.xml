@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosAttMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+
+    <resultMap id="PosAttMap" type="com.dw.entity.PosAtt">
+    </resultMap>
+    <resultMap id="MustPosAttMap" type="com.dw.dto.PosItemMustAttDto">
+    </resultMap>
+
+    <select id="selectListForMap" resultMap="PosAttMap">
+        SELECT ID,A_GROUP,OUTLINE,CODE,DESC1,DESC2,DESC3,DESC4,PRINT_DESC,
+            BILL_PRINT,CAL_TYPE,AMT_PRO,CAL_AMOUNT,CAL_QTY,STK_TYPE,ING_TYPE, CAN_CHANGE,
+            REMARK1, REMARK2, REMARK3 FROM tb_pos_att ORDER BY A_GROUP,CODE
+    </select>
+
+    <select id="queryList" resultMap="PosAttMap">
+        SELECT * FROM tb_pos_att ORDER BY A_GROUP,CODE
+    </select>
+
+    <select id="queryListByHeadCode" resultMap="PosAttMap">
+        SELECT * FROM tb_pos_att WHERE A_GROUP=#{headCode} ORDER BY A_GROUP,CODE
+    </select>
+
+    <select id="queryByGroupAndAttCode" resultType="com.dw.entity.PosAtt" useCache="false">
+        SELECT * FROM tb_pos_att WHERE A_GROUP=#{aGroup} AND CODE=#{attCode} ORDER BY CODE
+    </select>
+
+    <select id="queryMustAttByItemCode" resultMap="MustPosAttMap">
+        <![CDATA[
+        SELECT t.CAL_QTY AS attCalQty, t.CODE AS attCode, t.DESC1 AS attDesc1, t.DESC2 AS attDesc2, t.DESC3 AS attDesc3, t.DESC4 as attDesc4, t.PRINT_DESC AS attPrintDesc,
+        t.BILL_PRINT AS attBillPrint, t.CAL_TYPE AS attCalType, t.AMT_PRO AS attAmtPro, t.CAL_AMOUNT AS attCalAmount, t.STK_TYPE AS attStkType,
+        t.ING_TYPE AS attIngType, t.CAN_CHANGE AS attCanChange, t.REMARK1 AS attRemark1, t.REMARK2 AS attRemark2,t.REMARK3 AS attRemark3,h.CODE AS groupCode,
+        h.DESC1 AS groupDesc1, h.DESC2 AS groupDesc2, h.DESC3 AS groupDesc3, h.DESC4 as groupDesc4, h.PRINT_DESC AS groupPrintDesc,h.TYPE AS groupType, h.DISPLAY AS groupDisplay,
+        h.SORT AS groupSort,h.REMARKS AS groupRemarks,h.CAN_CHANGE AS groupCanChange, h.REMARK1 AS groupRemark1, h.REMARK2 AS groupRemark2,h.REMARK3 AS groupRemark3
+        FROM tb_pos_att t
+        LEFT JOIN tb_pos_atthead h ON t.A_GROUP=h.CODE
+        WHERE t.A_GROUP IN (
+        SELECT SUBSTRING_INDEX(substring_index(b.CATT,',',ref.reference_id+1),',',-1) as a_groups FROM tb_pos_item b
+        LEFT JOIN tb_reference_table ref on ref.reference_id < (length(b.CATT) - length(replace(b.CATT,',',''))+1)
+        where ITEM_CODE=#{itemCode}
+        )
+        limit #{start},#{end}
+        ]]>
+    </select>
+
+    <select id="checkMustAttByItemCode" resultMap="MustPosAttMap">
+        <![CDATA[
+        SELECT t.CAL_QTY AS attCalQty, t.CODE AS attCode, t.DESC1 AS attDesc1, t.DESC2 AS attDesc2, t.DESC3 AS attDesc3, t.DESC4 as attDesc4, t.PRINT_DESC AS attPrintDesc,
+t.BILL_PRINT AS attBillPrint, t.CAL_TYPE AS attCalType, t.AMT_PRO AS attAmtPro, t.CAL_AMOUNT AS attCalAmount, t.STK_TYPE AS attStkType,
+t.ING_TYPE AS attIngType, t.CAN_CHANGE AS attCanChange, t.REMARK1 AS attRemark1, t.REMARK2 AS attRemark2,t.REMARK3 AS attRemark3,h.CODE AS groupCode,
+h.DESC1 AS groupDesc1, h.DESC2 AS groupDesc2, h.DESC3 AS groupDesc3, h.DESC4 as groupDesc4, h.PRINT_DESC AS groupPrintDesc,h.TYPE AS groupType, h.DISPLAY AS groupDisplay,
+h.SORT AS groupSort,h.REMARKS AS groupRemarks,h.CAN_CHANGE AS groupCanChange, h.REMARK1 AS groupRemark1, h.REMARK2 AS groupRemark2,h.REMARK3 AS groupRemark3
+FROM tb_pos_att t
+LEFT JOIN tb_pos_atthead h ON t.A_GROUP=h.CODE
+WHERE t.A_GROUP IN (
+SELECT SUBSTRING_INDEX(substring_index(b.CATT,',',ref.reference_id+1),',',-1) as a_groups FROM tb_pos_item b
+LEFT JOIN tb_reference_table ref on ref.reference_id < (length(b.CATT) - length(replace(b.CATT,',',''))+1)
+where ITEM_CODE=#{itemCode}
+) AND t.CODE IN (${selectedAttCodes})
+        ]]>
+    </select>
+
+    <select id="queryMustAttCountByItemCode" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COUNT(*)
+        FROM tb_pos_att t
+        LEFT JOIN tb_pos_atthead h ON t.A_GROUP=h.CODE
+        WHERE t.A_GROUP IN (
+        SELECT SUBSTRING_INDEX(substring_index(b.CATT,',',ref.reference_id+1),',',-1) as a_groups FROM tb_pos_item b
+        LEFT JOIN tb_reference_table ref on ref.reference_id < (length(b.CATT) - length(replace(b.CATT,',',''))+1)
+        where ITEM_CODE=#{itemCode}
+        )
+        ]]>
+    </select>
+</mapper>

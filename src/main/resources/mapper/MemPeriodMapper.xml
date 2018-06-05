@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.MemPeriodMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <resultMap id="LanguageConfigResultMap" type="com.dw.entity.MemPeriod">
+
+    </resultMap>
+
+    <!--TIME_FORMAT(CURRENT_TIME(),'%H:%i')-->
+    <select id="getServicePeriodList" resultType="com.dw.entity.MemPeriod">
+        select * from tb_mem_period where isserv='Y' and isvalid='Y' and ((STIME>ETIME and (STIME &lt;= #{inTime} or ETIME>#{inTime})) or (stime&lt;etime and stime &lt;=#{inTime} and ETIME > #{inTime}) )
+    </select>
+
+</mapper>

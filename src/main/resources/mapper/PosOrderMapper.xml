@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosOrderMapper">
+
+    <resultMap id="PosOrderMap" type="com.dw.entity.PosOrder">
+        <id column="ID" property="id"/><!--  -->
+        <result column="VERSION" property="version"/><!--  -->
+        <result column="OUTLET" property="outlet"/><!-- 分店编号 -->
+        <result column="OUTLINE" property="outline"/><!-- 分店编号 -->
+        <result column="CART_ID" property="cartId"/><!-- 主单号 -->
+        <result column="REF_NUM" property="refNum"/><!-- 主单号 -->
+        <result column="SUB_REF" property="subRef"/><!-- 副单号 -->
+        <result column="TYPE" property="type"/><!-- 账单类型 -->
+        <result column="TABLE_NUM" property="tableNum"/><!-- 桌号 -->
+        <result column="ITEM_CODE" property="itemCode"/><!-- 商品编号	 -->
+        <result column="ITEM_IDX" property="itemIdx"/><!-- 商品流水号 -->
+        <result column="SETMEAL" property="setmeal"/><!-- 是否套餐(0-单项食品，>0套餐主体，<0套餐明细 -->
+        <result column="SEAT" property="seat"/><!--  -->
+        <result column="SERVICE" property="service"/><!--  -->
+        <result column="T_DATE" property="tDate"/><!-- 入单日期 -->
+        <result column="T_TIME" property="tTime"/><!-- 入单时间	 -->
+        <result column="STAFF" property="staff"/><!-- 操作员	 -->
+        <result column="PRICE_TYPE" property="priceType"/><!--  -->
+        <result column="QTY" property="qty"/><!-- 数量 -->
+        <result column="AMT" property="amt"/><!-- 金额	 -->
+        <result column="CHG_AMT" property="chgAmt"/><!-- 付款折扣 -->
+        <result column="IDISC_TYPE" property="idiscType"/><!--  -->
+        <result column="IDISC_QTY" property="idiscQty"/><!--  -->
+        <result column="ITEM_DISC" property="itemDisc"/><!--  -->
+        <result column="CAT_DISC" property="catDisc"/><!--  -->
+        <result column="ORDER_DISC" property="orderDisc"/><!-- 所有折扣 -->
+        <result column="TAX" property="tax"/><!--  -->
+        <result column="CANCEL" property="cancel"/><!-- 取消数量 -->
+        <result column="FREE" property="free"/><!-- 免费数量 -->
+        <result column="COST" property="cost"/><!-- 成本 -->
+        <result column="KIC_MESS" property="kicMess"/><!-- 厨房讯息 -->
+        <result column="TA" property="ta"/><!--  -->
+        <result column="REASON" property="reason"/><!-- 原因编号 -->
+        <result column="SEP_CHAR" property="sepChar"/><!-- 套餐主体流水号 -->
+        <result column="PERIOD" property="period"/><!-- 更次 -->
+        <result column="PINDEX" property="pindex"/><!--  -->
+        <result column="OINDEX" property="oindex"/><!-- 打印编号 -->
+        <result column="KCONFIRM" property="kconfirm"/><!-- 原价字段	 -->
+        <result column="REMARKS" property="remarks"/><!--  -->
+        <result column="ITEM_INDEX" property="itemIndex"/><!--  -->
+        <result column="SETMEAL_CODE" property="setmealCode"/><!-- 套餐主体编号 -->
+        <result column="ITEM_IMG" property="itemImg"/><!-- 商品图片 -->
+        <result column="ATT_CODE" property="attCode"/><!-- 菜品口味 -->
+        <result column="CHANGE_AMT" property="changeAmt"/><!-- 口味加价 -->
+        <result column="BULK_PURCHASE" property="bulkPurchase"/><!-- 是否团购 -->
+        <result column="ACCOUNT_AMT" property="accountAmt"/><!-- 挂账金额 -->
+        <result column="ACCOUNT_PAYTYPE" property="accountPaytype"/><!-- 挂账付款方式 -->
+        <result column="PURCHASE_TYPE" property="purchaseType"/><!-- 团购券类型（口碑、美团等） -->
+        <result column="APP_AUTHTOKEN" property="appAuthToken"/><!-- 认领门店返回的token -->
+        <result column="EID" property="eId"/><!-- 商家登录ERP帐号ID -->
+        <result column="ENAME" property="eName"/><!-- 商家登录ERP帐号名称 -->
+        <result column="LAST_UPDATE_NAME_ID" property="lastUpdateNameId"/><!--  -->
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime"/><!--  -->
+        <result column="PRINT_STATE" property="printState"/><!--  -->
+        <result column="SERV_COST" property="servCost"/><!--  -->
+        <result column="BATCH_NUMBER" property="batchNubmer"/>
+        <result column="UNIT_PRICE" property="unitPrice"/>
+    </resultMap>
+
+    <resultMap id="PosOrderPrinterMap" type="com.dw.dto.PosOrderPrinterDto">
+        <id column="ID" property="id"/><!--  -->
+        <result column="VERSION" property="version"/><!--  -->
+        <result column="OUTLET" property="outlet"/><!-- 分店编号 -->
+        <result column="OUTLINE" property="outline"/><!-- 分店编号 -->
+        <result column="CART_ID" property="cartId"/><!-- 主单号 -->
+        <result column="REF_NUM" property="refNum"/><!-- 主单号 -->
+        <result column="SUB_REF" property="subRef"/><!-- 副单号 -->
+        <result column="TYPE" property="type"/><!-- 账单类型 -->
+        <result column="TABLE_NUM" property="tableNum"/><!-- 桌号 -->
+        <result column="ITEM_CODE" property="itemCode"/><!-- 商品编号	 -->
+        <result column="ITEM_IDX" property="itemIdx"/><!-- 商品流水号 -->
+        <result column="SETMEAL" property="setmeal"/><!-- 是否套餐(0-单项食品，>0套餐主体，<0套餐明细 -->
+        <result column="SEAT" property="seat"/><!--  -->
+        <result column="SERVICE" property="service"/><!--  -->
+        <result column="T_DATE" property="tDate"/><!-- 入单日期 -->
+        <result column="T_TIME" property="tTime"/><!-- 入单时间	 -->
+        <result column="STAFF" property="staff"/><!-- 操作员	 -->
+        <result column="PRICE_TYPE" property="priceType"/><!--  -->
+        <result column="QTY" property="qty"/><!-- 数量 -->
+        <result column="AMT" property="amt"/><!-- 金额	 -->
+        <result column="CHG_AMT" property="chgAmt"/><!-- 付款折扣 -->
+        <result column="IDISC_TYPE" property="idiscType"/><!--  -->
+        <result column="IDISC_QTY" property="idiscQty"/><!--  -->
+        <result column="ITEM_DISC" property="itemDisc"/><!--  -->
+        <result column="CAT_DISC" property="catDisc"/><!--  -->
+        <result column="ORDER_DISC" property="orderDisc"/><!-- 所有折扣 -->
+        <result column="TAX" property="tax"/><!--  -->
+        <result column="CANCEL" property="cancel"/><!-- 取消数量 -->
+        <result column="FREE" property="free"/><!-- 免费数量 -->
+        <result column="COST" property="cost"/><!-- 成本 -->
+        <result column="KIC_MESS" property="kicMess"/><!-- 厨房讯息 -->
+        <result column="TA" property="ta"/><!--  -->
+        <result column="REASON" property="reason"/><!-- 原因编号 -->
+        <result column="SEP_CHAR" property="sepChar"/><!-- 套餐主体流水号 -->
+        <result column="PERIOD" property="period"/><!-- 更次 -->
+        <result column="PINDEX" property="pindex"/><!--  -->
+        <result column="OINDEX" property="oindex"/><!-- 打印编号 -->
+        <result column="KCONFIRM" property="kconfirm"/><!-- 原价字段	 -->
+        <result column="REMARKS" property="remarks"/><!--  -->
+        <result column="ITEM_INDEX" property="itemIndex"/><!--  -->
+        <result column="SETMEAL_CODE" property="setmealCode"/><!-- 套餐主体编号 -->
+        <result column="ITEM_IMG" property="itemImg"/><!-- 商品图片 -->
+        <result column="ATT_CODE" property="attCode"/><!-- 菜品口味 -->
+        <result column="CHANGE_AMT" property="changeAmt"/><!-- 口味加价 -->
+        <result column="BULK_PURCHASE" property="bulkPurchase"/><!-- 是否团购 -->
+        <result column="ACCOUNT_AMT" property="accountAmt"/><!-- 挂账金额 -->
+        <result column="ACCOUNT_PAYTYPE" property="accountPaytype"/><!-- 挂账付款方式 -->
+        <result column="PURCHASE_TYPE" property="purchaseType"/><!-- 团购券类型（口碑、美团等） -->
+        <result column="APP_AUTHTOKEN" property="appAuthToken"/><!-- 认领门店返回的token -->
+        <result column="EID" property="eId"/><!-- 商家登录ERP帐号ID -->
+        <result column="ENAME" property="eName"/><!-- 商家登录ERP帐号名称 -->
+        <result column="LAST_UPDATE_NAME_ID" property="lastUpdateNameId"/><!--  -->
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime"/><!--  -->
+        <result column="PRINT_STATE" property="printState"/><!--  -->
+        <result column="SERV_COST" property="servCost"/><!--  -->
+        <result column="BATCH_NUMBER" property="batchNubmer"/>
+        <result column="UNIT_PRICE" property="unitPrice"/>
+        <result column="PRINTER" property="printer"/>
+        <result column="PRINT_DESC" property="printDesc"/>
+    </resultMap>
+
+    <resultMap id="PosAvailableOrderResultMap" type="com.dw.dto.PosOrderDiscDto">
+        <id column="ID" property="id"/><!--  -->
+        <result column="VERSION" property="version"/><!--  -->
+        <result column="OUTLET" property="outlet"/><!-- 分店编号 -->
+        <result column="CART_ID" property="cartId"/><!-- 主单号 -->
+        <result column="REF_NUM" property="refNum"/><!-- 主单号 -->
+        <result column="SUB_REF" property="subRef"/><!-- 副单号 -->
+        <result column="TYPE" property="type"/><!-- 账单类型 -->
+        <result column="TABLE_NUM" property="tableNum"/><!-- 桌号 -->
+        <result column="ITEM_CODE" property="itemCode"/><!-- 商品编号	 -->
+        <result column="ITEM_IDX" property="itemIdx"/><!-- 商品流水号 -->
+        <result column="SETMEAL" property="setmeal"/><!-- 是否套餐(0-单项食品，>0套餐主体，<0套餐明细 -->
+        <result column="SEAT" property="seat"/><!--  -->
+        <result column="SERVICE" property="service"/><!--  -->
+        <result column="T_DATE" property="tDate"/><!-- 入单日期 -->
+        <result column="T_TIME" property="tTime"/><!-- 入单时间	 -->
+        <result column="STAFF" property="staff"/><!-- 操作员	 -->
+        <result column="PRICE_TYPE" property="priceType"/><!--  -->
+        <result column="QTY" property="qty"/><!-- 数量 -->
+        <result column="AMT" property="amt"/><!-- 金额	 -->
+        <result column="CHG_AMT" property="chgAmt"/><!-- 付款折扣 -->
+        <result column="IDISC_TYPE" property="idiscType"/><!--  -->
+        <result column="IDISC_QTY" property="idiscQty"/><!--  -->
+        <result column="ITEM_DISC" property="itemDisc"/><!--  -->
+        <result column="CAT_DISC" property="catDisc"/><!--  -->
+        <result column="ORDER_DISC" property="orderDisc"/><!-- 所有折扣 -->
+        <result column="TAX" property="tax"/><!--  -->
+        <result column="CANCEL" property="cancel"/><!-- 取消数量 -->
+        <result column="FREE" property="free"/><!-- 免费数量 -->
+        <result column="COST" property="cost"/><!-- 成本 -->
+        <result column="KIC_MESS" property="kicMess"/><!-- 厨房讯息 -->
+        <result column="TA" property="ta"/><!--  -->
+        <result column="REASON" property="reason"/><!-- 原因编号 -->
+        <result column="SEP_CHAR" property="sepChar"/><!-- 套餐主体流水号 -->
+        <result column="PERIOD" property="period"/><!-- 更次 -->
+        <result column="PINDEX" property="pindex"/><!--  -->
+        <result column="OINDEX" property="oindex"/><!-- 打印编号 -->
+        <result column="KCONFIRM" property="kconfirm"/><!-- 原价字段	 -->
+        <result column="REMARKS" property="remarks"/><!--  -->
+        <result column="ITEM_INDEX" property="itemIndex"/><!--  -->
+        <result column="SETMEAL_CODE" property="setmealCode"/><!-- 套餐主体编号 -->
+        <result column="ITEM_IMG" property="itemImg"/><!-- 商品图片 -->
+        <result column="ATT_CODE" property="attCode"/><!-- 菜品口味 -->
+        <result column="CHANGE_AMT" property="changeAmt"/><!-- 口味加价 -->
+        <result column="BULK_PURCHASE" property="bulkPurchase"/><!-- 是否团购 -->
+        <result column="ACCOUNT_AMT" property="accountAmt"/><!-- 挂账金额 -->
+        <result column="ACCOUNT_PAYTYPE" property="accountPaytype"/><!-- 挂账付款方式 -->
+        <result column="PURCHASE_TYPE" property="purchaseType"/><!-- 团购券类型（口碑、美团等） -->
+        <result column="APP_AUTHTOKEN" property="appAuthToken"/><!-- 认领门店返回的token -->
+        <result column="EID" property="eId"/><!-- 商家登录ERP帐号ID -->
+        <result column="ENAME" property="eName"/><!-- 商家登录ERP帐号名称 -->
+        <result column="LAST_UPDATE_NAME_ID" property="lastUpdateNameId"/><!--  -->
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime"/><!--  -->
+        <result column="CAT" property="cat"/>
+        <result column="SCAT" property="scat"/>
+        <result column="itemService" property="itemService"/>
+        <result column="billDisc" property="billDisc"/>
+        <result column="PSERVICE" property="PSERVICE"/>
+        <result column="pbillDisc" property="pbillDisc"/>
+    </resultMap>
+
+    <resultMap id="PosOrderAttMap" type="com.dw.dto.PosOrderAttDto"></resultMap>
+
+    <select id="existsEssentialCat" resultType="java.lang.Integer">
+        select case when QTY is null then 0 else QTY end QTY from (
+            select SUM(QTY) QTY from tb_pos_order
+            where OUTLET=#{outlet} AND REF_NUM=#{refNum} AND SUB_REF=#{subRef} AND TYPE=#{tranType}
+              and ITEM_CODE IN (select ITEM_CODE from tb_pos_item where cat=#{catCode})
+        ) a
+    </select>
+
+    <select id="getAmtByCategory" resultType="com.dw.entity.PosOrder">
+        select a.OUTLET,a.REF_NUM,a.SUB_REF,a.TYPE,a.TABLE_NUM,b.CAT,SUM(AMT-ifnull(ORDER_DISC,0.00)) AMT from tb_pos_order a left join tb_pos_item b
+        on a.ITEM_CODE=b.ITEM_CODE
+        where a.type=#{tranType} and a.TABLE_NUM=#{tableNum} AND a.REF_NUM=#{refNum} AND a.SUB_REF=#{subRef} AND a.OUTLET=#{outlet} AND b.CAT=#{category}
+        GROUP BY a.OUTLET,a.REF_NUM,a.SUB_REF,a.TYPE,a.TABLE_NUM,b.CAT;
+    </select>
+
+
+    <select id="getOrderAmt" resultType="com.dw.entity.PosOrder">
+        select ifnull(SUM(AMT-ifnull(ORDER_DISC,0.00)+ifnull(SERV_COST,0.00)),0.00) AMT
+        from tb_pos_order a
+        where a.TYPE=#{tranType} AND a.REF_NUM=#{refNum} AND a.SUB_REF=#{subRef} AND a.OUTLET=#{outlet}
+    </select>
+
+    <select id="getChgAmt" resultType="com.dw.entity.PosOrder">
+        select ifnull(SUM(ifnull(CHG_AMT,0.00)),0.00) CHG_AMT,ifnull(SUM(ifnull(AMT,0.00)),0.00) AMT
+        from tb_pos_order a
+        where a.TYPE=#{tranType} AND a.REF_NUM=#{refNum} AND a.SUB_REF=#{subRef} AND a.OUTLET=#{outlet}
+    </select>
+
+    <update id="updateChgAmt">
+        update tb_pos_order a, (select MAX(ITEM_IDX) ITEM_IDX from tb_pos_order where ref_num=#{refNum} AND sub_ref=#{subRef} and TYPE = #{tranType} and outlet=#{outlet} and qty+cancel+free>=0  and setmeal>=0 and AMT>0 ) b
+        set chg_amt = IFNULL(chg_amt,0.00)+ #{sub_roundc}
+        where a.ITEM_IDX=b.ITEM_IDX and ref_num=#{refNum} AND sub_ref=#{subRef} and TYPE = #{tranType} and outlet=#{outlet}
+    </update>
+
+    <select id="getAvailableOrderList" resultMap="PosAvailableOrderResultMap">
+        select t.*,t.AMT-(ifnull(t.CAT_DISC,0.00))-(ifnull(t.ITEM_DISC,0.00)) costAmt,
+        i.CAT,ca.SCAT,i.SERVICE as itemService ,i.BILL_DISC as billDisc,p.SERVICE as PSERVICE,p.BILL_DISC as pbillDisc,t.CART_ID from tb_pos_order t
+        LEFT JOIN tb_pos_item i on i.ITEM_CODE = t.ITEM_CODE
+        LEFT JOIN  tb_pos_category ca on  ca.CAT_CODE = i.CAT
+        LEFT JOIN tb_pos_price p on t.OUTLET = t.OUTLET and t.ITEM_CODE = p.ITEM_CODE
+        where t.REF_NUM = #{refNum} and t.SUB_REF = #{subRef} and t.T_DATE = #{inDate}
+        and t.type='N';
+    </select>
+
+    <select id="getOrderList" resultType="com.dw.dto.OrderListDto" useCache="false">
+        SELECT o.ID,o.REF_NUM, o.SUB_REF, o.TABLE_NUM, o.ITEM_CODE,  IFNULL(o.RECEIVE_ITEM_NAME,i.DESC1) as desc1, IFNULL(o.RECEIVE_ITEM_NAME,i.DESC2) as desc2, IFNULL(o.RECEIVE_ITEM_NAME,i.DESC3) as desc3, IFNULL(o.RECEIVE_ITEM_NAME,i.DESC4) as desc4, i.IPRINT as iPrint,at.attDesc1, at.attDesc2, at.attDesc3,IFNULL(o.ORDER_DISC,0.00) as orderDisc,o.SERV_COST as servCost,o.KIC_MESS kicMess,
+          DATE_FORMAT(concat(o.T_DATE, ' ', o.T_TIME),'%Y-%m-%d %H:%i:%s') as tDate,
+          at.attDesc4, o.QTY, o.CANCEL, o.FREE, o.STAFF, s.NAME1 AS staffDesc, o.T_TIME, o.AMT,o.ITEM_IDX, o.UNIT_PRICE, o.CHANGE_AMT,o.KCONFIRM, o.SERVICE, i.COMB_ID,
+          at.attCode,at.subtractQty,settingPrice,o.KIC_MESS,o.SETMEAL_CODE as setMealCode,o.SETMEAL setMeal,o.TA as sgroup,o.SEP_CHAR as sepChar,i.PRN as itemPrn,DATE_FORMAT(o.T_TIME,"%H:%i") as orderTime,s.NAME1 as staffName,
+          IFNULL(l.urgeCount, 0) urgeCount,o.CART_ID as cartId,o.CAT_DISC,o.ITEM_DISC
+        FROM tb_pos_order o LEFT JOIN tb_pos_item i
+        ON o.ITEM_CODE = i.ITEM_CODE  LEFT JOIN tb_pos_staff s ON o.STAFF = s.CODE
+        LEFT JOIN (
+              SELECT at.ITEM_IDX, GROUP_CONCAT(IFNULL(a.DESC1,''), t.DESC1  Separator '/') attDesc1,
+                GROUP_CONCAT(IFNULL(a.DESC2,''), t.DESC2  Separator '/')attDesc2,
+                GROUP_CONCAT(IFNULL(a.DESC3,''), t.DESC3  Separator '/')attDesc3,
+                GROUP_CONCAT(IFNULL(a.DESC4,''), t.DESC4  Separator '/')attDesc4,
+                GROUP_CONCAT(at.ATT_GROUP, ':', at.ATT_CODE, ':', ifnull(at.ACTION_CODE,'') Separator '@') attCode,
+                GROUP_CONCAT(t.CAL_QTY Separator '@') subtractQty,
+                GROUP_CONCAT((case when ifnull(s.CAL_AMOUNT,'') ='' then
+                                CASE when  t.CAL_TYPE = 'M' then (concat('*', t.CAL_AMOUNT))
+                                when  t.CAL_TYPE = 'S' and t.AMT_PRO = 'AMT' then (concat('-', t.CAL_AMOUNT))
+                                when  t.CAL_TYPE = 'S' and t.AMT_PRO = 'PRO' then (concat('/', t.CAL_AMOUNT))
+                                else concat('+', t.CAL_AMOUNT) end
+                            when ifnull(s.CAL_AMOUNT,0.00)>=0.00 then concat('+', s.CAL_AMOUNT)
+                            else concat('-', s.CAL_AMOUNT) END) Separator '@') settingPrice
+              FROM tb_pos_t_att at LEFT JOIN tb_pos_att t ON at.ATT_GROUP = t.A_GROUP AND at.ATT_CODE = t.CODE
+              LEFT JOIN tb_pos_attaction a on at.ACTION_CODE = a.ACTION_CODE
+              LEFT JOIN tb_pos_attsetting s on at.ATT_GROUP = s.A_GROUP and at.ATT_CODE=s.code and at.ACTION_CODe=s.ACTION_CODE
+              GROUP BY at.ITEM_IDX
+        ) at on at.ITEM_IDX = o.ITEM_IDX
+        LEFT JOIN  (SELECT T_INDEX,MAX(QTY1) AS urgeCount FROM tb_pos_log WHERE LOG_TYPE = 'URGE' AND  OUTLET = #{outlet} AND REF_NUM = #{refNum}  GROUP BY T_INDEX) l on o.ITEM_IDX = l.T_INDEX
+        WHERE o.OUTLET = #{outlet} AND o.REF_NUM = #{refNum} AND o.SUB_REF = #{subRef} and o.type = #{tranType}  and o.QTY+o.CANCEL > 0 order by o.ITEM_IDX;
+    </select>
+
+    <select id="queryAllByRefNum" resultMap="PosOrderPrinterMap">
+        SELECT
+        DISTINCT t.*
+        FROM
+        (
+        SELECT
+        a.*,b.PRINT_DESC,
+        SUBSTRING_INDEX( substring_index(
+        (CASE
+        WHEN a.PRICE_TYPE IS NULL THEN b.PRN
+        ELSE a.PRICE_TYPE
+        END)
+        , ',', ref.reference_id + 1 ), ',',- 1 ) AS PRINTER
+        FROM
+        tb_pos_order a
+        LEFT JOIN tb_pos_item b ON a.ITEM_CODE = b.ITEM_CODE
+        LEFT JOIN tb_reference_table ref ON ref.reference_id &lt; ( length( b.PRN ) - length( REPLACE ( b.PRN, ',', '' ) ) + 1 )
+        WHERE
+        a.REF_NUM = #{refNum}
+        AND a.SUB_REF = #{subRef}  AND  a.TYPE='N' and a.QTY+a.CANCEL > 0
+        <if test="itemIdxs != null and itemIdxs != ''">
+          and a.ITEM_IDX IN (${itemIdxs})
+        </if>
+        ) t
+        LEFT JOIN tb_pos_printer p ON t.printer=p.P_CODE
+        WHERE
+        t.printer IS NOT NULL
+        AND t.printer != ''
+        AND t.printer in (SELECT P_CODE FROM tb_pos_printer)
+    </select>
+
+    <select id="queryOrderAttByItemIdx" resultMap="PosOrderAttMap">
+        SELECT tat.ITEM_IDX AS itemIdx,tat.ATT_CODE as attCode,tat.ATT_GROUP as groupCode,tat.ACTION_CODE as actionCode,ao.PRINT_DESC as actionName,t.PRINT_DESC as attName,tat.CHANGE_AMT as changeAmt FROM tb_pos_t_att tat
+	LEFT JOIN tb_pos_att t ON tat.ATT_CODE = t.CODE AND tat.ATT_GROUP = t.A_GROUP
+	LEFT JOIN tb_pos_attaction ao ON tat.ACTION_CODE = ao.ACTION_CODE
+	 WHERE tat.ITEM_IDX IN (${itemIdxs})
+    </select>
+
+    <select id="queryOrderAttByRef" resultMap="PosOrderAttMap">
+        	SELECT tat.ITEM_IDX AS itemIdx,tat.ATT_CODE as attCode,tat.ATT_GROUP as groupCode,tat.ACTION_CODE as actionCode,ao.PRINT_DESC as actionName,t.PRINT_DESC as attName,tat.CHANGE_AMT as changeAmt
+            FROM tb_pos_t_att tat
+            LEFT JOIN tb_pos_att t ON tat.ATT_CODE = t.CODE AND tat.ATT_GROUP = t.A_GROUP
+            LEFT JOIN tb_pos_attaction ao ON tat.ACTION_CODE = ao.ACTION_CODE
+            LEFT JOIN tb_pos_order o ON o.ITEM_IDX = tat.ITEM_IDX
+            WHERE o.REF_NUM = #{refNum}
+            AND o.SUB_REF = #{subRef} AND o.TYPE='N' and o.QTY+o.CANCEL > 0
+    </select>
+
+    <delete id="deleteByRefNum">
+        DELETE FROM tb_pos_order where outlet = #{outlet} and REF_NUM = #{refNum} AND SUB_REF = #{subRef} AND TABLE_NUM = #{tableNo}
+    </delete>
+
+</mapper>

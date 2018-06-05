@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosDischdMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <resultMap id="PosDischdResultMap" type="com.dw.entity.PosDischd">
+        <id column="id" property="id"/><!--  -->
+        <result column="version" property="version"/><!--  -->
+        <result column="TYPE" property="type"/><!--  -->
+        <result column="CODE" property="code"/><!--  -->
+        <result column="OUTLINE" property="outline"/>
+        <result column="DESC1" property="desc1"/><!--  -->
+        <result column="DESC2" property="desc2"/><!--  -->
+        <result column="DESC3" property="desc3"/>
+        <result column="DESC4" property="desc4"/>
+        <result column="PRINT_DESC" property="printDesc"/>
+        <result column="GRADE" property="grade"/><!--  -->
+        <result column="SDATE" property="sdate"/><!--  -->
+        <result column="EDATE" property="edate"/><!--  -->
+        <result column="STIME" property="stime"/><!--  -->
+        <result column="ETIME" property="etime"/><!--  -->
+        <result column="WEEKDAY" property="weekday"/><!--  -->
+        <result column="D_INDEX" property="dIndex"/><!--  -->
+        <result column="INCLUDE" property="include"/><!--  -->
+        <result column="REMARKS" property="remarks"/><!--  -->
+        <result column="UPDATED_BY" property="updatedBy"/><!--  -->
+        <result column="REMARK1" property="remark1"/><!--  -->
+        <result column="REMARK2" property="remark2"/><!--  -->
+        <result column="REMARK3" property="remark3"/><!--  -->
+        <result column="LAST_UPDATE_NAME_ID" property="lastUpdateNameId"/><!--  -->
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime"/><!--  -->
+    </resultMap>
+
+    <select id="getPosDischds" resultMap="PosDischdResultMap" useCache="false">
+        SELECT * FROM tb_pos_dischd where
+        SDATE &lt;= #{indate} and EDATE >= #{indate}
+        and STIME &lt;= #{inTime} AND ETIME >= #{inTime}
+        and WEEKDAY like concat("%",#{week},"%")
+        and TYPE=#{type}
+        order by CODE
+    </select>
+
+    <select id="getPosDisDetail" resultType="com.dw.dto.PosDisDto" useCache="false">
+        select dis.CODE code,dis.DESC1 disName,dis.SDATE sdate,dis.edate EDATE,dis.ALL_USE allUse,det.TYPE type,det.DETAIL detail,det.D_VALUE dvalue
+        from tb_pos_dischd dis
+        left join tb_pos_discdet det on dis.CODE = det.CODE
+        where  dis.CODE = #{code} order by dis.code desc;
+    </select>
+
+
+
+</mapper>

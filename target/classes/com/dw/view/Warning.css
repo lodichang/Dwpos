@@ -1,0 +1,40 @@
+.flowPane{
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-background-color: #AA5B5B;
+    -fx-alignment: center;
+    -fx-border-width: 5px;
+    -fx-border-color: #d0d0d0;
+}
+.contentLabel{
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-background-color: #AA5B5B;
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+    -fx-font-size: 26px;
+    -fx-text-fill: #d0d0d0;
+}
+.titleLabel{
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-background-color: #AA5B5B;
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+    -fx-font-size: 36px;
+    -fx-text-fill:#d0d0d0;
+}
+.buttomFlowPane{
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-background-color: #AA5B5B;
+}
+.button{
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-background-color:#E39B46;
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+    -fx-font-size: 26px;
+    -fx-border-color: #d0d0d0;
+    -fx-border-width: 3px;
+    -fx-text-fill: white;
+}
+
+
+

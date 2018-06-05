@@ -1,0 +1,122 @@
+.topFlowPane{
+    -fx-background-color: #34495E;
+    -fx-alignment: center;
+}
+.topLabel{
+    -fx-font-weight: bolder;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 26px;
+    -fx-background-color: #34495E;
+    -fx-text-alignment: right;
+}
+
+.topValue{
+    -fx-font-weight: bolder;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 22px;
+    -fx-background-color: #34495E;
+    -fx-text-alignment: left;
+}
+.buttomFlowPane{
+    -fx-background-color: #34495E;
+}
+/*#buttomFlowPane_left{
+    -fx-background-color:  #E39B46;
+}
+#buttomFlowPane_center{
+    -fx-background-color: #5E9BB5;
+}
+#buttomFlowPane_right{
+    -fx-background-color:  #AA5B5B;
+}*/
+.button{
+    -fx-background-color: #5E9BB5;
+   -fx-text-fill: #d0d0d0;
+  -fx-font-size: 20px;
+  -fx-text-alignment: center;
+}
+
+.button:pressed{
+    -fx-background-color: #E39B46;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+
+.closeBut{
+    -fx-background-color: #AA5B5B;
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-text-alignment: center;
+}
+
+.table-view {
+    -fx-base: #34495E;
+    -fx-control-inner-background: #34495E;
+    -fx-background-color: #34495E;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+    -fx-wrap-text: true;
+    /*昌哥の黑粗长*/
+    -fx-font-size: 30pt;
+}
+
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+    -fx-font-size: 16pt;
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-text-fill: #d0d0d0;
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+    -fx-wrap-text: true;
+}
+
+
+.scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding:-7;
+}
+
+.table-view .scroll-bar {
+    -fx-background-color: #5E9BB5;
+
+}
+
+.table-row-cell .cell {
+    -fx-font-family: "Noto Sans CJK TC Ligh";
+    -fx-alignment: center;
+    -fx-text-fill: #d0d0d0;
+    -fx-cell-size: 50px;
+    -fx-font-size: 14pt;
+    -fx-background-insets: 0;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #5E9BB5;
+}
+
+.table-row-cell:cancel {
+    -fx-background-color: #8a2644;
+}
+
+
+.table-row-cell {
+    -fx-background-insets: 0;
+    -fx-cell-size: 50px;
+}
+
+.paymentbutton{
+    -fx-background-color: #E39B46;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+.centerBillFlowPane{
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+
+

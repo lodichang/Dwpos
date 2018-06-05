@@ -1,0 +1,65 @@
+.tableVboxButtom{
+    -fx-background-color:#34495E;
+}
+.tableViewFlowPane{
+    -fx-background-color:#34495E;
+}
+.tableLabel{
+    -fx-background-color:#34495E;
+    -fx-font-weight: bolder;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-text-alignment: left;
+}
+.table-view .column-header{
+    -fx-background-color: #34495E;
+}
+.table-view .label{
+    -fx-text-fill:  white;
+    -fx-font-size: 30px;
+    -fx-background-color: #34495E;
+}
+.tableColumn {
+    -fx-text-fill: #1d1d1d;
+    -fx-font-size: 30px;
+}
+.itemsFlowPane{
+    -fx-background-color: #34495E;
+}
+.button{
+    -fx-background-color:#5E9BB5;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: bolder;
+}
+.goodsFlowPane{
+    -fx-background-color:#34495E
+}
+.goodsButtomFlowPane{
+    -fx-background-color:#34495E
+}
+.categorysFlowPane{
+    -fx-background-color: #34495E;
+}
+.categoryButtomFlowPane{
+    -fx-background-color:#34495E
+}
+.table-view{
+    -fx-text-fill: white;
+}
+.tableButtonFlowPane{
+    -fx-alignment: center-right;
+    -fx-background-color: #34495E;
+}
+.categoryButton{
+    -fx-background-color: #5CAA88;
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-font-weight: bolder;
+}
+.categoryPageFlowPane{
+    -fx-background-color: #34495E;
+}
+
+
+

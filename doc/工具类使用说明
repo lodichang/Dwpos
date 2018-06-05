@@ -1,0 +1,2 @@
+1、获取图片，图片存放地址为项目根目录下的image文件夹,通过AppUtils公共方法获取，只需要传入图片文件名称即可
+   Image image = AppUtils.loadImage("send.png");   可以設定大小的方法 loadImage(String name, double requestedWidth, double requestedHeight)

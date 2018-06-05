@@ -1,0 +1,155 @@
+.button {
+    -fx-background-color: #5E9BB5;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+
+.button:pressed {
+    -fx-background-color: #E39B46;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+
+.closeButton {
+    -fx-background-color: #AA5B5B;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 22px;
+    -fx-text-alignment: center;
+}
+
+.topLeftflowPane {
+    -fx-background-color: #32485C;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 22px;
+    -fx-text-alignment: center;
+}
+
+.topRightflowPane {
+    -fx-background-color: #32485C;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 22px;
+    -fx-text-alignment: center;
+}
+
+.table-view {
+    -fx-base: #34495E;
+    -fx-control-inner-background: #34495E;
+    -fx-background-color: #34495E;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+    -fx-wrap-text: true;
+    /*昌哥の黑粗长*/
+    -fx-font-size: 30pt;
+}
+
+.label {
+    -fx-text-fill: #d0d0d0;
+    -fx-alignment: center;
+}
+
+.label2 {
+    -fx-alignment: center-right;
+}
+
+.payinfoLab {
+    -fx-background-color: #34495E, #5E9BB5, #34495E;
+    -fx-background-insets: 0 0 0 0, 0 0 0 0, 0 0 2 0;
+    -fx-background-radius: 0;
+    -fx-margin: 0;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+    -fx-font-size: 16pt;
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-text-fill: #d0d0d0;
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+    -fx-wrap-text: true;
+}
+
+.scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}
+
+.table-view .scroll-bar {
+    -fx-background-color: #5E9BB5;
+
+}
+
+.table-row-cell .cell {
+    -fx-font-family: "Noto Sans CJK TC Ligh";
+    -fx-alignment: center;
+    -fx-text-fill: #d0d0d0;
+    -fx-cell-size: 50px;
+    -fx-font-size: 14pt;
+    -fx-background-insets: 0;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #5E9BB5;
+}
+
+.table-row-cell {
+    -fx-background-insets: 0;
+    -fx-cell-size: 50px;
+}
+
+/*保持选中状态,即使失去焦点依然选中的样式*/
+.table-row-cell:focused {
+    -fx-background-color: #5E9BB5;
+    -fx-table-cell-border-color: #5E9BB5;
+}
+
+#payFlowPane {
+    -fx-background-color: #34495E;
+    -fx-alignment: center;
+    -fx-text-fill: #d0d0d0;
+}
+
+.topFlowPane {
+    -fx-background-color: #34495E;
+}
+
+.parentFlowPane {
+    -fx-background-color: #34495E;
+}
+
+.bottomPane {
+    -fx-alignment: center;
+    -fx-background-color: #707070;
+}
+
+/*.bottomLeftflowScrollPane{*/
+/*!*昌哥の黑粗长*!*/
+/*-fx-font-size: 60px;*/
+/*-fx-base: #5E9BB5;*/
+/*-fx-padding: 0;*/
+/*-fx-background-insets: 0;*/
+
+/*}*/
+
+/*!*.bottomLeftflowScrollPane .scroll-bar {*!*/
+/*!*-fx-background-color: #5E9BB5;*!*/
+
+/*!*}*!*/
+
+/*.bottomLeftflowPane{*/
+/*-fx-background-color: #34495E;*/
+/*}*/
+
+/*.text-field {*/
+/*-fx-background-color: #000000, white , white;*/
+/*-fx-background-insets: 0 0 -1 0, 0 0 0 0, 0 -1 3 -1;*/
+/*-fx-background-radius: 0;*/
+/*-fx-margin: 0;*/
+/*}*/
+
+/*.text-field:focused {*/
+/*-fx-background-color: #009688 , white , white;*/
+/*-fx-background-insets: 0 0 -2 0, 0 0 0 0, 0 -1 3 -1;*/
+/*}*/

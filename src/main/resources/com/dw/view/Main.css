@@ -1,0 +1,227 @@
+.root {
+    -fx-font-family: "Noto Sans CJK TC Ligh";
+    -fx-alignment: center;
+}
+
+.topFlowPane {
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+}
+.headImageView{
+    -fx-background-color: #34495e;
+}
+.label{
+    -fx-background-color: #34495e;
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+}
+
+
+
+.table-button {
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-background-color: #EDEDED;
+    -fx-border-width: 1px;
+    -fx-border-color: #1d1d1d
+}
+
+.menu-button {
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-background-color: #5E9BB5;
+}
+
+.page-button {
+
+    -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-background-color: #4faa8b;
+
+}
+
+.buttomBg {
+    -fx-background-color: #34495e;
+}
+
+.topLeftFlowPane{
+    -fx-background-color: #34495e;
+}
+.notSitDownColorLabel{
+    -fx-background-color:#EDEDED;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.sitDownColorLabel{
+    -fx-background-color: #4faa8b;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+}
+.hasInvoiceColorLabel{
+    -fx-background-color: #AA5B5B;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+}
+.topRightFlowPane{
+    -fx-background-color: #34495e;
+}
+.areabutton{
+    -fx-background-color:#5E9BB5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: #5E9BB5;
+    -fx-alignment: center;
+    -fx-border-width: 5px;
+}
+.selectedButton{
+    -fx-background-color:#5E9BB5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color:#AA5B5B;
+    -fx-alignment: center;
+    -fx-border-width: 5px;
+}
+.pageButton{
+    -fx-background-color:#EDEDED;
+    -fx-alignment: center;
+    -fx-border-color:#EDEDED;
+}
+.tableFlowPane{
+    -fx-background-color: #EDEDED;
+    -fx-border-color: #E1642D;
+    -fx-border-width: 1px;
+    -fx-alignment: center;
+}
+.tableNoLabel{
+    -fx-background-color: #EDEDED;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.stateLabel{
+    -fx-background-color:#EDEDED;
+    -fx-alignment: center-left;
+    -fx-text-fill: #1d1d1d
+}
+.numberLabel{
+    -fx-background-color: #EDEDED;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d
+}
+.timeLabel{
+    -fx-background-color:#EDEDED;
+    -fx-alignment: center-right;
+    -fx-text-fill: #1d1d1d
+}
+.notDrive{
+    -fx-background-color: #ADADAD;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #ADADAD;
+    -fx-border-width: 0px;
+}
+.offTheTable{
+    -fx-background-color: #4faa8b;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #4faa8b;
+    -fx-border-width: 0px;
+}
+.openTableOrder{
+    -fx-background-color: gold;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+
+.holdOnTable{
+    -fx-background-color: crimson;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.hasInvoiced{
+    -fx-background-color: #AA5B5B;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.hasPayed{
+    -fx-background-color:#E39B46;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.notDriveTableFlowPane{
+    -fx-background-color: #ADADAD;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.offTheTableFlowPane{
+    -fx-background-color: #4faa8b;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.openTableOrderFlowPane{
+    -fx-background-color: gold;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.hasInvoicedFlowPane{
+    -fx-background-color: #AA5B5B;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.hasPayedFlowPane{
+    -fx-background-color: #E39B46;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.yellow {
+    -fx-background-color: #E39B46;
+}
+
+.splitTable{
+    -fx-background-color:#5E9BB5;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.splitTableNo{
+    -fx-background-color:#5E9BB5;
+    -fx-alignment: center-right;
+    -fx-text-fill: #1d1d1d;
+}
+
+.splitTableFlowPane{
+    -fx-background-color: #5E9BB5;
+    -fx-alignment: center-right;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.holdOnTableFlowPane{
+    -fx-background-color: crimson;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.spiltHoldOnTableNo{
+    -fx-background-color: crimson;
+    -fx-alignment: center-right;
+    -fx-text-fill: #1d1d1d;
+}
+
+
+
+

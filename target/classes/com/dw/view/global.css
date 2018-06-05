@@ -1,0 +1,129 @@
+.root {
+    -fx-font-family: "Noto Sans CJK TC Ligh";
+    -fx-background-color: #34495E;
+    -fx-alignment: center;
+}
+
+.button {
+    -fx-background-color: #5E9BB5;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+
+.button:pressed {
+    -fx-background-color: #E39B46;
+}
+
+#infoLeftVBox, #topBillHbox {
+    -fx-alignment: center;
+}
+
+#topBillHbox .lab {
+    -fx-font-weight: bolder;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 20px;
+    -fx-text-alignment: right;
+}
+
+#topBillHbox .labVal {
+    -fx-font-weight: bolder;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 20px;
+    -fx-text-alignment: left;
+}
+
+#infoHBox .label {
+    -fx-font-weight: bolder;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 18px;
+    -fx-text-alignment: center;
+}
+
+#cancelItemPane .label {
+    -fx-font-weight: bolder;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 18px;
+    -fx-text-alignment: center;
+}
+
+.closeButton {
+    -fx-background-color: #AA5B5B;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+
+.table-view {
+    -fx-base: #34495E;
+    -fx-control-inner-background: #34495E;
+    -fx-background-color: #34495E;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+    -fx-wrap-text: true;
+    /*昌哥の黑粗长*/
+    -fx-font-size: 30pt;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+    -fx-font-size: 16pt;
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-text-fill: #d0d0d0;
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+    -fx-wrap-text: true;
+}
+
+.scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}
+
+.table-view .scroll-bar {
+    -fx-background-color: #5E9BB5;
+
+}
+
+.table-row-cell .cell {
+    -fx-font-family: "Noto Sans CJK TC Ligh";
+    -fx-alignment: center;
+    -fx-text-fill: #d0d0d0;
+    -fx-cell-size: 50px;
+    -fx-font-size: 14pt;
+    -fx-background-insets: 0;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #5E9BB5;
+}
+
+/*保持选中状态,即使失去焦点依然选中的样式*/
+.table-row-cell:focused {
+    -fx-background-color: #5E9BB5;
+    -fx-table-cell-border-color: #5E9BB5;
+}
+
+.table-row-cell {
+    -fx-background-insets: 0;
+    -fx-cell-size: 50px;
+}
+
+#infoHBox {
+    -fx-background-color: #4e6984;
+}
+
+.rightFunction {
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 1;
+    -fx-border-color: #5E9BB5;
+    -fx-padding: 0 0 0 2;
+}
+
+#attListGrid {
+    -fx-background-color: #e3b23f;
+    -fx-font-size: 14pt;
+    -fx-alignment: center;
+
+}

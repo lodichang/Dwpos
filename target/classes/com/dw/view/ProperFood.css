@@ -1,0 +1,40 @@
+.tableView .column-header .label {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-text-fill: #666666;
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+}
+.tableColum{
+   -fx-background-color: #EDEDED;
+   -fx-text-fill: #666666;
+    -fx-font-size: 15px;
+}
+.leftButtomFlowPane{
+    -fx-background-color: #34495E;
+}
+
+.leftButton{
+    -fx-background-color: #EDEDED;
+    -fx-text-fill: #1d1d1d;
+    -fx-font-size: 30px;
+}
+.centerButtomFlowPane{
+    -fx-background-color: #34495E;
+}
+.closeButton{
+    -fx-background-color:  #AA5B5B;
+    -fx-text-fill: white;
+    -fx-font-size: 30px;
+}
+.buttomFlowPane{
+    -fx-background-color: #34495E;
+}
+.rightButtomFlowPane{
+    -fx-background-color: #34495E;
+}
+
+
+
+
+

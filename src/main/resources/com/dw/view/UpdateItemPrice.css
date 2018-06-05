@@ -1,0 +1,63 @@
+
+#searchKeyBoradPane{
+    -fx-font-family: "Noto Sans CJK TC Light";
+}
+
+.letterButton, .numbutton {
+    -fx-background-color: #cba27e;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-alignment: center;
+}
+
+.button:pressed {
+    -fx-background-color: #e89052;
+}
+
+.label {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-text-fill: #0A65BF;
+}
+
+.titleLabel {
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
+.clearAllButton {
+    -fx-font-size: 16px;
+    -fx-font-weight: bolder;
+    -fx-background-color: #aa5b5b;
+    -fx-text-fill: white
+}
+
+.confirmButton {
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-font-weight: bolder;
+    -fx-background-color: #5caa88
+}
+
+.closeButton {
+    -fx-font-size: 16;
+    -fx-text-fill: white;
+    -fx-font-weight: bolder;
+    -fx-background-color: #aa5b5b;
+}
+
+.text-field {
+    -fx-font-size: 20px;
+    -fx-font-weight: bolder;
+    -fx-text-fill: #E1642D;
+}
+.title-tips {
+    -fx-text-fill: RED;
+}
+.buttomFlowPane{
+    -fx-alignment: center;
+}
+.topFlowPane{
+    -fx-alignment: center;
+}
+

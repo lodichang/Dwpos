@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.dw.extended.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane xmlns="http://javafx.com/javafx"
+          xmlns:fx="http://javafx.com/fxml" fx:id="tableSettingsFlowPane" stylesheets="@TableSettings.css"  fx:controller="com.dw.controller.TableSettingsController">
+             <top>
+                        <FlowPane fx:id="topFlowPane">
+                            <children>
+                                <FlowPane fx:id="areaFlowPane">
+
+                                </FlowPane>
+                                <FlowPane fx:id="pageFlowPane">
+                                    <DwButton fx:id="upAreaPageButton" ></DwButton>
+                                    <DwButton fx:id="downAreaPageButton"></DwButton>
+                                </FlowPane>
+                            </children>
+                        </FlowPane>
+              </top>
+             <center>
+                 <VBox fx:id="centerVBox">
+                       <AnchorPane fx:id="tablesAnchorPane">
+                           <children>
+
+                           </children>
+                       </AnchorPane>
+                       <FlowPane  fx:id="buttomFlowPane">
+                           <children>
+                                <DwButton  fx:id="addTableButton" userData="opentable" onAction="#addTable" ></DwButton>
+                                <DwButton  fx:id="deleteTableButton" userData="opentable"  onAction="#deleteTable"></DwButton>
+                                <DwButton  fx:id="moveTableButton"  userData="opentable" onAction="#moveTable"></DwButton>
+                                <DwButton fx:id="editTableButton"  userData="opentable" onAction="#editTable"></DwButton>
+                                <DwButton fx:id="confirmButton"  userData="opentable" onAction="#confirm"></DwButton>
+                                <DwButton  fx:id="cancleButton" userData="opentable" onAction="#cancle"></DwButton>
+                                <DwButton  fx:id="previousPageButton" userData="opentable" ></DwButton>
+                                <DwButton  fx:id="nextPageButton" userData="opentable" ></DwButton>
+                                <DwButton fx:id="exitButton" userData="opentable" onAction="#exit"></DwButton>
+                           </children>
+                       </FlowPane>
+                 </VBox>
+          </center>
+         </BorderPane>

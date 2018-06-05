@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.dw.controller.ViewBillController"
+      stylesheets="@global.css" fx:id="viewBillVBox">
+    <children>
+        <HBox styleClass="topFlowPane" fx:id="topBillHbox">
+            <children>
+                <Label fx:id="refNumLab"></Label>
+                <Label fx:id="refNum"></Label>
+                <Label fx:id="tableNumLab"></Label>
+                <Label fx:id="tableNum"></Label>
+                <Label fx:id="personLab"></Label>
+                <Label fx:id="person"></Label>
+                <Label fx:id="billAmtTopLab"></Label>
+                <Label fx:id="billAmtTop"></Label>
+            </children>
+        </HBox>
+        <TableView fx:id="orderListView">
+            <columns>
+
+            </columns>
+        </TableView>
+        <TableView fx:id="paylist">
+            <columns>
+
+            </columns>
+        </TableView>
+        <HBox fx:id="buttomFlowPane">
+            <children>
+                <!--<DwButton fx:id="paymentButton" styleClass="paymentbutton" text="" userData="bill.pay" />-->
+                <Button fx:id="reprintBtn">reprint</Button>
+                <HBox fx:id="infoHBox">
+                    <children>
+                        <VBox fx:id="infoLeftVBox">
+                            <children>
+                                <HBox>
+                                    <children>
+                                        <Label fx:id="itemDiscLab"></Label>
+                                        <Label fx:id="itemDisc"></Label>
+                                    </children>
+                                </HBox>
+                                <HBox>
+                                    <children>
+                                        <Label fx:id="catDiscLab"></Label>
+                                        <Label fx:id="catDisc"></Label>
+                                    </children>
+                                </HBox>
+                                <HBox>
+                                    <children>
+                                        <Label fx:id="orderDiscLab"></Label>
+                                        <Label fx:id="orderDisc"></Label>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                        <VBox fx:id="infoRightVBox">
+                            <children>
+                                <HBox>
+                                    <children>
+                                        <Label fx:id="serverLab"></Label>
+                                        <Label fx:id="server"></Label>
+                                    </children>
+                                </HBox>
+                                <HBox>
+                                    <children>
+                                        <Label fx:id="orderAmtLab"></Label>
+                                        <Label fx:id="orderAmt"></Label>
+                                    </children>
+                                </HBox>
+                                <HBox>
+                                    <children>
+                                        <Label fx:id="billAmtLab"></Label>
+                                        <Label fx:id="billAmt"></Label>
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <Button fx:id="closeButton">close</Button>
+            </children>
+        </HBox>
+    </children>
+</VBox>

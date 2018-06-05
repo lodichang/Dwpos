@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosTranHisMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+
+    <select id="queryListByTable" resultType="com.dw.entity.PosTranHis" useCache="false">
+        select * from tb_pos_tran_his
+        where table_num=#{tableNo} and tran_type=#{tranType}
+          and IFNULL(settled,'FALSE') ='TRUE' AND IFNULL(LEAVE_DATE,'')=''
+        order by REF_NUM DESC LIMIT 0,1;
+    </select>
+
+    <select id="getOnePosTranHis" resultType="com.dw.entity.PosTranHis" useCache="false">
+        select * from tb_pos_tran_his where REF_NUM = #{refNum} and SUB_REF = #{subRef} and OUTLET = #{outlet} and TRAN_TYPE = #{tranType}
+    </select>
+
+    <select id="checkPaymentRecords" resultType="com.dw.entity.PosTranHis" useCache="false">
+      select * from tb_pos_tran_his where concat(REF_NUM,'_',SUB_REF) not in ( select CONCAT(REF_NUM,'_',SUB_REF) from tb_pos_pay where TRAN_TYPE = 'N') and TRAN_TYPE = 'N' and BILL_AMT >0;
+    </select>
+
+
+    <update id="updateTranHis">
+        update tb_pos_tran_his set REF_NUM = concat(#{cleanDate},REF_NUM) where MEMBER=#{dayCount};
+    </update>
+
+    <insert id="insertTranClean">
+        insert into tb_pos_tran_clean select * from tb_pos_tran_his where MEMBER=#{dayCount};
+    </insert>
+
+    <delete id="deleteTranHis">
+        delete from tb_pos_tran_his where MEMBER=#{dayCount};
+    </delete>
+
+    <update id="updateTranHisPeriod">
+        update tb_pos_tran_his  set period = #{period} where ifnull(period,'0') = '0'
+    </update>
+</mapper>

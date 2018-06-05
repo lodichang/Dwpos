@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:id="reportParamPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@global.css,@ReportParamChoose.css" xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.ReportParamChooseController">
+   <top>
+      <FlowPane fx:id="topFlowPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </top>
+   <bottom>
+      <HBox fx:id="bottomHbox" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </bottom>
+   <left>
+      <VBox fx:id="leftVbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+        </VBox>
+   </left>
+   <right>
+      <VBox fx:id="rightVbox" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+        </VBox>
+   </right>
+</BorderPane>

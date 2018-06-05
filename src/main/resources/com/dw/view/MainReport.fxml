@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import com.dw.extended.*?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox stylesheets="@global.css,@MainReport.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.MainReportController" fx:id="root">
+   <children>
+      <FlowPane fx:id="reportsFlowPane">
+
+      </FlowPane>
+
+      <FlowPane fx:id="buttomFlowPane">
+
+      </FlowPane>
+   </children>
+</VBox>

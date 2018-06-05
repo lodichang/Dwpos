@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.*?>
+<?import com.dw.extended.DwButton?>
+<?import com.dw.extended.DwLabel?>
+<?import javafx.scene.control.Label?>
+<VBox fx:id="attModifyPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.91"
+      stylesheets="@TakeOrderIndex.css" fx:controller="com.dw.controller.AttModifyController">
+
+    <Label fx:id="checkAttPaneTitel"></Label>
+    <GridPane fx:id="attListGrid">
+        <columnConstraints>
+        </columnConstraints>
+        <rowConstraints>
+        </rowConstraints>
+    </GridPane>
+
+</VBox>

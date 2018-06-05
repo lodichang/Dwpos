@@ -1,0 +1,22 @@
+方法：ShowViewUtil的公共靜態方法showWarningView
+參數：
+String title ：標題內容
+String content： 顯示內容
+Stage parentStage：父窗口stage
+Map<String,String> map： 按鈕的map  key 每個按鈕的內容  value 每個按鈕點擊後返回的結果值（value值對應枚舉ResultEnumde value值）
+
+案例：
+                            Map<String,String> resultMap = new LinkedHashMap<String, String>();
+                            resultMap.put("是", ResultEnum.YES.getValue());
+                            resultMap.put("否",ResultEnum.NO.getValue());
+                            try {
+                               String result =  ShowViewUtil.showWarningView("提示","确定刷新吗",mainStage,resultMap);
+                               if(ResultEnum.YES.getValue().equals(result)){
+                                   System.out.println("YES");
+                               }
+                               else{
+                                   System.out.println("NO");
+                               }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }

@@ -1,0 +1,116 @@
+.root {
+    -fx-font-family: "Noto Sans CJK TC Ligh";
+    -fx-alignment: center;
+}
+
+
+.closeButton {
+    -fx-background-color: #AA5B5B;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+
+.table-view {
+    -fx-base: #34495E;
+    -fx-control-inner-background: #34495E;
+    -fx-background-color: #34495E;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+    -fx-wrap-text: true;
+    /*昌哥の黑粗长*/
+    -fx-font-size: 30pt;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+    -fx-font-size: 16pt;
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-text-fill: #d0d0d0;
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+    -fx-wrap-text: true;
+}
+
+.scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}
+
+.table-view .scroll-bar {
+    -fx-background-color: #5E9BB5;
+
+}
+
+.table-row-cell .cell {
+    -fx-font-family: "Noto Sans CJK TC Ligh";
+    -fx-alignment: center;
+    -fx-text-fill: #d0d0d0;
+    -fx-cell-size: 50px;
+    -fx-font-size: 14pt;
+    -fx-background-insets: 0;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: #5E9BB5;
+}
+
+/*保持选中状态,即使失去焦点依然选中的样式*/
+.table-row-cell:focused {
+    -fx-background-color: #5E9BB5;
+    -fx-table-cell-border-color: #5E9BB5;
+}
+
+.table-row-cell {
+    -fx-background-insets: 0;
+    -fx-cell-size: 50px;
+}
+
+
+
+.topButtonStyle {
+    -fx-wrap-text: true;
+    -fx-background-color: #67B393;
+    -fx-background-radius: 0;
+    -fx-text-fill: #FFFFFF;
+}
+
+.topButtonStyle:focused {
+    -fx-background-color: #E39B46;
+}
+
+.itemBorderStyle {
+    -fx-wrap-text: true;
+    -fx-border-color: #34b3b5;
+    -fx-border-width: 1;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}
+
+.itemBorderDiscontStyle {
+    -fx-wrap-text: true;
+    -fx-border-color: #34b3b5;
+    -fx-border-width: 1;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-background-color: #e880a4;
+}
+
+.itemBorderStyle:pressed {
+    -fx-background-color: #E39B46;
+}
+
+
+.featrurebtn{
+    -fx-background-color: #5E9BB5;
+    -fx-font-size: 20px;
+    -fx-text-fill: #FFFFFF;
+}
+
+.featrurebtn:selected{
+    -fx-background-color: #E39B46;
+    -fx-font-size: 20px;
+    -fx-text-fill: #FFFFFF;
+}
+

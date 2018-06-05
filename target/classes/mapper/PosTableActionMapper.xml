@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dw.mapper.PosTableActionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="PosTableActionResultMap" type="com.dw.entity.PosTableAction">
+        <id column="ID" property="id" /><!--  -->
+        <result column="TABLE_NUM" property="tableNum" /><!-- 台号 -->
+        <result column="OP_STAFF" property="opStaff" /><!-- 操作人编号 -->
+        <result column="OP_STAFF_NAME" property="opStaffName" /><!-- 操作人名称 -->
+        <result column="STATION_ID" property="stationId" /><!-- 机器Id -->
+        <result column="T_TIME" property="tTime" /><!-- 操作时间 -->
+        <result column="OPERATE_TYPE" property="operateType" /><!--  -->
+        <result column="REMARKS" property="remarks" /><!--  -->
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosTranMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <resultMap id="PosTranMap" type="com.dw.dto.PosTranDto">
+    </resultMap>
+
+    <resultMap id="posOrderAddressResultMap" type="com.dw.dto.PosOrderAddressDto">
+        <result column="ADDRESS" property="address"/><!--  -->
+        <result column="LINK_MAN" property="linkName"/>
+        <result column="TELEPHONE" property="telephone"/>
+        <result column="REMARK" property="remark"/>
+    </resultMap>
+
+    <select id="queryListByTable" resultType="com.dw.entity.PosTran" useCache="false">
+        SELECT * FROM tb_pos_tran WHERE TABLE_NUM=#{tableNo} AND TRAN_TYPE=#{tranType} ORDER BY VERSION DESC
+    </select>
+
+    <select id="getPosOrderAddress" resultMap="posOrderAddressResultMap" useCache="false">
+        select a.ADDRESS,a.LINK_MAN,a.TELEPHONE,a.REMARK from tb_pos_tran t  inner join tb_pos_order_address a on a.REF_NUM = t.REF_NUM and a.SUB_REF = t.SUB_REF
+        where t.REF_NUM = #{refNum} and t.SUB_REF = #{subRef} and t.TRAN_TYPE = 'N'
+    </select>
+
+    <select id="getPeriod" resultType="com.dw.entity.PosTran" useCache="false">
+        select distinct ifnull(period,0) period,concat('更次',ifnull(period,0)) remarks from (select * from tb_pos_tran_his union all select * from tb_pos_tran_clean) a
+        where outlet=#{outlet} and tran_type='N' and concat(in_date,' ',in_time)>concat(#{inDate},' ','04:00:00')
+          and concat(in_date,' ',in_time) &lt;=concat(DATE_ADD(#{inDate}, INTERVAL 1 DAY),' ','04:00:00')
+    </select>
+</mapper>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dw.mapper.PosAreaMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="PosAreaResultMap" type="com.dw.entity.PosArea">
+        <id column="ID" property="id" /><!--  -->
+        <result column="VERSION" property="version" /><!--  -->
+        <result column="ACTIVE" property="active" /><!-- 是否有效 -->
+        <result column="DESC1" property="desc1" /><!-- 名称1，繁体 -->
+        <result column="DESC2" property="desc2" /><!-- 名称2，中文简体 -->
+        <result column="DESC3" property="desc3" /><!-- 名称3，英文 -->
+        <result column="DESC4" property="desc4" /><!-- 名称4，其他语言 -->
+        <result column="REMARK" property="remark" /><!-- 备注1 -->
+        <result column="LAST_UPDATE_NAME_ID" property="lastUpdateNameId" /><!--  -->
+        <result column="LAST_UPDATE_TIME" property="lastUpdateTime" /><!--  -->
+    </resultMap>
+
+</mapper>

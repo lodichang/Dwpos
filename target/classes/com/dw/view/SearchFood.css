@@ -1,0 +1,35 @@
+.titleLabel{
+    -fx-text-fill: white;
+    -fx-font-weight: bolder;
+    -fx-font-size: 30px;
+    -fx-background-color: #34495E;
+    -fx-alignment: left;
+}
+.textField{
+    -fx-text-fill: white;
+    -fx-font-weight: bolder;
+    -fx-alignment: center-right;
+    -fx-font-size: 30px;
+    -fx-background-color: #34495E;
+}
+.readOnlyButton{
+    -fx-background-color: #ADADAD;
+    -fx-text-fill: #6E6E6E;
+    -fx-font-size: 30px;
+    -fx-alignment: center;
+}
+.textButton{
+    -fx-background-color: #5E9BB5;
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+.numberButton{
+    -fx-background-color: #E86238;
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+}
+.searchFoodFlowPane{
+    -fx-background-color: #34495E;
+}

@@ -1,0 +1,180 @@
+.root {
+    -fx-font-family: "Noto Sans CJK TC Ligh";
+}
+
+.leftFlowPane {
+    -fx-border-color: #FFF;
+    -fx-border-width: 1;
+}
+
+.noheader .column-header-background {
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+}
+
+.leftTableView {
+
+    /*昌哥の黑粗长*/
+    -fx-font-size: 20pt;
+}
+
+.leftTableView .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-padding: -7;
+}
+
+.tableColumn {
+    -fx-text-fill: #1d1d1d;
+    -fx-font-size: 30px;
+}
+
+.leftMiddlePane {
+    -fx-background-color: #34495E;
+}
+
+.midLeft {
+    -fx-border-color: #FFFFFF;
+    -fx-border-width: 0px;
+}
+
+.midLeftTop {
+    -fx-border-color: green;
+    -fx-border-width: 0px;
+}
+
+.sendOrder {
+    -fx-background-color: #E1642D;
+}
+
+.rightFunction {
+    -fx-background-color: #FFFFFF;
+    -fx-border-width: 1;
+    -fx-border-color: #5E9BB5;
+    -fx-padding: 0 0 0 2;
+}
+
+.topButtonStyle {
+    -fx-wrap-text: true;
+    -fx-background-color: #67B393;
+    -fx-background-radius: 0;
+    -fx-text-fill: #FFFFFF;
+}
+
+.topButtonStyle:focused {
+    -fx-background-color: #E39B46;
+}
+
+.itemBorderStyle {
+    -fx-wrap-text: true;
+    -fx-border-color: #34b3b5;
+    -fx-border-width: 1;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+}
+
+.itemBorderDiscontStyle {
+    -fx-wrap-text: true;
+    -fx-border-color: #34b3b5;
+    -fx-border-width: 1;
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-background-image: "image/X.png";
+    -fx-background-color: #e880a4;
+}
+
+.itemBorderStyle:pressed {
+    -fx-background-color: #E39B46;
+}
+
+.orderCount {
+    -fx-background-color: #E86238;
+}
+
+.itemInfo {
+    -fx-background-color: #67B393;
+    -fx-background-radius: 0;
+    /*字體超長的時候的顯示 [ center-ellipsis | center-word-ellipsis | clip | ellipsis | leading-ellipsis | leading-word-ellipsis | word-ellipsis ] 還有一個顯示超長時候的顯示內容:-fx-ellipsis-string*/
+    -fx-text-overrun: word-ellipsis;
+    -fx-wrap-text: true;
+}
+
+.itemInfo:focused {
+    -fx-background-color: #E39B46;
+}
+
+.keyboard {
+    -fx-background-color: #5E9BB5;
+}
+
+.whiteText {
+    -fx-text-fill: #ffffff;
+}
+
+.middleFunctionBtn {
+    -fx-background-color: #5E9BB5;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-text-overrun: word-ellipsis;
+    -fx-wrap-text: true;
+}
+
+.middleFunctionSettledBtn {
+    -fx-background-color: #E6A54F;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 12px;
+    -fx-text-overrun: word-ellipsis;
+    -fx-wrap-text: true;
+}
+
+.redText {
+    -fx-text-fill: red;
+}
+
+.showBorder {
+    -fx-border-width: 4px;
+    -fx-border-color: red;
+    -fx-font-size: 26px;
+}
+
+.hiddenBorder {
+    -fx-border-width: 0px;
+    -fx-font-size: 20px;
+}
+
+.border-red {
+    -fx-border-width: 4px;
+    -fx-border-color: red;
+}
+
+.checkAttPaneTitel {
+    -fx-alignment: center;
+    -fx-background-color: #E1642D;
+    -fx-font-size: 20px;
+    -fx-text-fill: #d0d0d0;
+
+}
+
+.delbtn {
+    -fx-background-color: #5E9BB5;
+    -fx-wrap-text: true;
+    -fx-background-radius: 0;
+    -fx-text-fill: #FFFFFF;
+}
+
+.delbtn:pressed {
+    -fx-background-color: #E39B46;
+}
+
+.addressInfo {
+    -fx-background-color: #34495E;
+}
+
+.addressInfoLab {
+    -fx-wrap-text: true;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 16px;
+    -fx-text-alignment: left;
+    -fx-text-overrun: word-ellipsis;
+}
+

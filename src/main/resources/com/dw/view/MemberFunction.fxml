@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.FlowPane?>
+<FlowPane stylesheets="@MemberFunction.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.MemberFunctionController">
+   <children>
+       <FlowPane styleClass="topFlowPane" >
+           <Label fx:id="cardNoLabel" styleClass="topLabel" >卡號：</Label>
+           <Label fx:id="nameLabel"  styleClass="topLabel">姓名：</Label>
+           <Label fx:id="telephoneLabel"  styleClass="topLabel">電話：</Label>
+           <Label fx:id="birthdayLabel" styleClass="topLabel">生日：</Label>
+       </FlowPane>
+       <FlowPane styleClass="topFlowPane">
+           <Label fx:id="balanceLabel" styleClass="topLabel">餘額：</Label>
+           <Label fx:id="givingBalanceLabel" styleClass="topLabel">贈送餘額：</Label>
+           <Label fx:id="integralLabel" styleClass="topLabel">積分：</Label>
+           <Label fx:id="endDateLabel" styleClass="topLabel">有效期至：</Label>
+       </FlowPane>
+      <TableView styleClass="tableView"  fx:id="consumerTableView">
+        <columns>
+            <TableColumn  text="日期" styleClass="tableColum" fx:id="dateColum" />
+            <TableColumn  text="單號" styleClass="tableColum" fx:id="orderNoColum" />
+            <TableColumn  text="交易類型" styleClass="tableColum" fx:id="tranTypeColum" />
+            <TableColumn  text="分店" styleClass="tableColum" fx:id="branchColum" />
+            <TableColumn text="消費金額" styleClass="tableColum" fx:id="consumerAmountColum" />
+            <TableColumn  text="贈送金額" styleClass="tableColum" fx:id="givenAmountColum"  />
+            <TableColumn  text="贈送積分" styleClass="tableColum" fx:id="givenIntergalColum" />
+        </columns>
+      </TableView>
+      <FlowPane styleClass="buttomFlowPane">
+         <children>
+            <Button fx:id="searchButton"  styleClass="Abutton"  text="0 查詢" />
+            <Button fx:id="checkCouponButton"  styleClass="Bbutton" text="1 驗卷" />
+            <Button fx:id="exchangeIntegralButton"  styleClass="Abutton" text="2 積分兌換" />
+            <Button fx:id="sureExchangeButton"  styleClass="Bbutton" text="3 確認兌換" />
+            <Button fx:id="printButton"  styleClass="Bbutton" text="4 列印" />
+            <Button fx:id="otherButton"  styleClass="Cbutton" text="/ 其它" />
+            <Button style="-fx-background-image: url('/image/up.png')" styleClass="upButton" fx:id="upButton"></Button>
+            <Button style="-fx-background-image: url('/image/down.png')" styleClass="downButton" fx:id="downButton" />
+            <Button mnemonicParsing="false" text="關閉" styleClass="closeButton" fx:id="closeButton" />
+         </children>
+      </FlowPane>
+   </children>
+</FlowPane>

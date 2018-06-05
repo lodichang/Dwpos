@@ -1,0 +1,10 @@
+.label2 {
+    -fx-font-color: #ffffff;;
+    -fx-background-color: #323232;
+    -fx-border-color: #8c8c8c;
+    -fx-border-width: 2px;
+}
+
+.label {
+    -fx-text-fill: #ffffff;
+}

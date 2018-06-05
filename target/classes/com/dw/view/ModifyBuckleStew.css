@@ -1,0 +1,16 @@
+.titleLabel{
+    -fx-font-size: 30px;
+    -fx-font-weight: bolder;
+    -fx-background-color:#34495e;
+    -fx-text-fill: white;
+    -fx-alignment: center-right;
+}
+.searchPane{
+    text-align: center;
+    -fx-background-color: #34495e;
+    -fx-alignment: center;
+}
+.clearAllButton{
+     font-size: 50px;
+     font-weight: bolder;
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<FlowPane stylesheets="@Bills.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.dw.controller.BillsController" fx:id="billFlowPane">
+    <children>
+        <FlowPane styleClass="topFlowPane" fx:id="topBillFlowPane">
+            <!--<DwLabel fx:id="countLabel" styleClass="topLabel">0.00</DwLabel>-->
+            <!--<DwLabel fx:id="totalPriceLabel" styleClass="topLabel">總價5375.00/5375.00</DwLabel>-->
+            <!--<DwLabel fx:id="cashLabel" styleClass="topLabel">現金5041.00</DwLabel>-->
+            <!--<DwLabel fx:id="otherPaymentLabel" styleClass="topLabel">其他付款0.00</DwLabel>-->
+        </FlowPane>
+        <TableView  fx:id="billsView">
+            <columns>
+
+            </columns>
+        </TableView>
+        <FlowPane styleClass="buttomFlowPane" fx:id="buttomBillPane">
+            <children>
+                <FlowPane fx:id="leftButtomPane"></FlowPane>
+                <FlowPane fx:id="centerButtomFlowPane" styleClass="centerButtomFlowPane"></FlowPane>
+                <FlowPane fx:id="rightButtomPane"></FlowPane>
+                <!--<DwButton fx:id="paymentButton" styleClass="paymentbutton" text="" userData="bill.pay" />-->
+            </children>
+        </FlowPane>
+    </children>
+</FlowPane>

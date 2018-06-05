@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.dw.extended.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<FlowPane fx:id="tableEditFlowPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.91" stylesheets="@TableEdit.css" fx:controller="com.dw.controller.TableEditController" >
+   <children>
+       <DwLabel fx:id="tableEditTitleLabel"></DwLabel>
+
+       <FlowPane fx:id="tableNoFlowPane">
+           <children>
+           <DwLabel fx:id="tableNoLabel"></DwLabel>
+           <TextField fx:id="tableNoTextField"  onMouseClicked="#inputTableNo"></TextField>
+           </children>
+       </FlowPane>
+
+
+       <FlowPane fx:id="roomTypeFlowPane">
+           <children>
+               <DwLabel fx:id="roomTypeLabel"></DwLabel>
+               <ComboBox fx:id="roomTypeComboBox"></ComboBox>
+           </children>
+       </FlowPane>
+
+
+        <FlowPane fx:id="remarksFlowPane">
+         <children>
+            <DwLabel fx:id="remarksLabel"></DwLabel>
+            <RadioButton  fx:id="yesRemarkRadioButton"></RadioButton>
+            <RadioButton  fx:id="noRemarkRadioButton" ></RadioButton>
+         </children>
+       </FlowPane>
+
+
+       <FlowPane fx:id="isOnlineFlowPane">
+           <children>
+               <DwLabel fx:id="isOnlineLabel"></DwLabel>
+               <RadioButton  fx:id="canOnlineRadioButton" ></RadioButton>
+               <RadioButton  fx:id="notOnlineRadioButton"   ></RadioButton>
+           </children>
+       </FlowPane>
+
+       <!-- <FlowPane fx:id="colorFlowPane">
+            <children>
+                <DwLabel fx:id="colorLabel" ></DwLabel>
+                <DwLabel fx:id="colorValueLabel"></DwLabel>
+            </children>
+        </FlowPane>-->
+
+      <!-- <FlowPane fx:id="minConsumptionFlowPane">
+           <children>
+               <DwLabel text="最低消費" fx:id="minConsumptionLabel"></DwLabel>
+               <TextField fx:id="minConsumptionTextField"></TextField>
+           </children>
+       </FlowPane>-->
+
+       <FlowPane fx:id="maxPersonFlowPane">
+           <children>
+               <DwLabel text="座位數量" fx:id="maxPersonLabel"></DwLabel>
+               <TextField fx:id="maxPersonTextField" onMouseClicked="#inputPerson"></TextField>
+           </children>
+       </FlowPane>
+
+
+       <FlowPane fx:id="buttomFlowPane">
+           <DwButton  fx:id="confirmButton" userData="opentable-add"></DwButton>
+           <DwButton fx:id="cancleButton" userData="opentable-addCancle"></DwButton>
+       </FlowPane>
+   </children>
+</FlowPane>
+

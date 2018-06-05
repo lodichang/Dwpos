@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.BillMapper">
+
+    <select id="getBillData" resultType="com.dw.dto.BillDto">
+      select STATION_ID,PERIOD,CONCAT(right(tr.REF_NUM, 5), '_', tr.SUB_REF) refNumShow,tr.REF_NUM,tr.SUB_REF,TABLE_NUM,tr.TRAN_TYPE, IN_TIME, IN_DATE,tr.SETTLED,tr.INVOICE_NUMBER as invoiceNumber,
+        s.NAME1,tr.PERSON,IFNULL(tr.BILL_AMT, 0.00) BILL_AMT,IFNULL(tr.CASH_AMT, 0.00) CASH_AMT,IFNULL(tr.OTHER_AMT, 0.00) OTHER_AMT,IFNULL(tr.ROUNDING, 0.00) ROUNDING,
+        IFNULL(p.PAY_DESC, '') PAY_DESC,IFNULL(tr.ORDER_DISC,0.00) ORDER_DISC,IFNULL(tr.ORDER_AMT,0.00) ORDER_AMT, tr.ITEM_DISC, tr.CAT_DISC,0.00 OWED,IFNULL(tr.SERV_AMT,0.00) SERV_AMT
+      from tb_pos_tran_his tr left join tb_pos_staff s on tr.PAY_STAFF = s.CODE
+      LEFT JOIN (select REF_NUM,SUB_REF,TRAN_TYPE,GROUP_CONCAT(pt.DESC1) PAY_DESC from tb_pos_pay p LEFT JOIN tb_pos_payment pt on p.PAY_TYPE = pt.CODE
+            GROUP BY REF_NUM,SUB_REF, TRAN_TYPE) p on tr.REF_NUM = p.REF_NUM AND tr.SUB_REF = p.SUB_REF and tr.TRAN_TYPE = p.TRAN_TYPE  WHERE tr.OUTLET = #{outlet} order by tr.REF_NUM;
+  </select>
+
+    <select id="getOrderBillData" resultType="com.dw.dto.BillDto">
+      select ifnull(cast(sum((amt+ifnull(serv_cost,0.00)-ifnull(order_disc,0.00))/qty*(qty+cancel)) as decimal(18,2)),0.00) ORDER_AMT
+      from tb_pos_order a
+      where a.outlet=#{outlet} and type='N' and (qty+cancel)>0
+        and exists (select 1 from tb_pos_tran b where b.tran_type='N' and a.ref_num = b.ref_num and a.sub_ref = b.sub_ref and a.outlet =b. outlet and a.type = b.tran_type)
+
+    </select>
+
+</mapper>

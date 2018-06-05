@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.*?>
+<FlowPane stylesheets="@Pay.css" xmlns="http://javafx.com/javafx/8.0.72"
+          xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.dw.controller.PayController" fx:id="payFlowPane" styleClass="parentFlowPane">
+    <children>
+        <FlowPane fx:id="topflowPane" styleClass="topFlowPane">
+            <children>
+                <FlowPane fx:id="topLeftflowPane" styleClass="topLeftflowPane"></FlowPane>
+                <FlowPane fx:id="topRightflowPane">
+                    <children>
+                        <TableView fx:id="paylist" styleClass="topRightflowPane">
+                            <columns>
+
+                            </columns>
+                        </TableView>
+                    </children>
+                </FlowPane>
+            </children>
+        </FlowPane>
+        <HBox fx:id="bottomPane" styleClass="bottomPane">
+
+            <FlowPane fx:id="bottomLeftflowPane"></FlowPane>
+
+            <GridPane fx:id="bottomCenterPane"></GridPane>
+            <FlowPane fx:id="bottomRightflowPane"></FlowPane>
+        </HBox>
+    </children>
+
+</FlowPane>

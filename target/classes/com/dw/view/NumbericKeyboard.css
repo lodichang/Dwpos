@@ -1,0 +1,71 @@
+
+
+.label {
+    -fx-alignment: center;
+    -fx-text-fill: #F5F4F5;
+}
+.numberPane {
+    -fx-alignment: center;
+    -fx-background-color: #707070;
+}
+
+.numbericTextField {
+    -fx-font-weight: bolder;
+    -fx-font-size: 40px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color:  #707070;
+    -fx-background-radius: 0;
+}
+
+.numberBtnPane {
+    -fx-alignment: center;
+    -fx-background-color: #707070;
+}
+
+.numberBtn {
+    -fx-background-color: #e89052;
+    -fx-font-size: 30;
+    -fx-text-fill: #F5F4F5;
+}
+
+.button:pressed{
+    -fx-background-color: #e86f41;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 30;
+    -fx-text-alignment: center;
+}
+
+
+.cancelNumberBtn {
+    -fx-font-size: 30;
+    -fx-text-fill: #F5F4F5;
+    -fx-background-color: #e86f41;
+}
+
+.confirmNumberBtn {
+    -fx-font-size: 30;
+    -fx-text-fill: #F5F4F5;
+    -fx-background-color: #4faa8b;
+}
+
+/*.oneLine {*/
+    /*-fx-background-color: #AA5B5B;*/
+/*}*/
+
+
+
+.bottomPane {
+    -fx-alignment: center;
+    -fx-background-color: #707070;
+}
+
+.titlePane {
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+    -fx-background-color: #707070;
+}
+
+.numberPane {
+    -fx-background-color: #707070;
+    -fx-font-family: "Noto Sans CJK TC Light";
+}

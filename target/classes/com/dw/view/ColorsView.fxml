@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.dw.extended.DwButton?>
+<?import javafx.scene.layout.*?>
+<fx:root type="javafx.scene.layout.FlowPane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.91" stylesheets="@TableEdit.css">
+<FlowPane fx:id="colorsEditFlowPane" >
+   <children>
+    <FlowPane fx:id="colorsFlowPane">
+
+    </FlowPane>
+    <FlowPane fx:id="buttomColorsPane">
+      <DwButton fx:id="confirmButton"></DwButton>
+      <DwButton fx:id="cancleButton"></DwButton>
+    </FlowPane>
+   </children>
+</FlowPane>
+</fx:root>

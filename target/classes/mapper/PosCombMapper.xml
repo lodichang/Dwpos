@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosCombMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <select id="getPosCombList" resultType="com.dw.entity.PosComb">
+        select * from dwpos_branch.tb_pos_comb
+    </select>
+
+</mapper>

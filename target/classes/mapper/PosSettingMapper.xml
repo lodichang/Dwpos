@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosSettingMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <resultMap id="PosSettingResultMap" type="com.dw.dto.PosSettingDto">
+        <id column="ID" property="id"/><!--  -->
+        <result column="POS_KEY" property="posKey"/><!--  -->
+        <result column="POS_VALUE" property="posValue"/>
+        <result column="POS_DESCRIPT" property="posDescript"/>
+    </resultMap>
+
+    <select id="getPosSetting" resultMap="PosSettingResultMap" useCache="false">
+      select ID,POS_KEY,group_concat(POS_VALUE order by POS_VALUE) POS_VALUE,group_concat(POS_DESCRIPT order by POS_VALUE) POS_DESCRIPT from tb_pos_setting group by POS_KEY
+    </select>
+
+    <select id="queryTranOrderNo" resultMap="PosSettingResultMap" useCache="false">
+        SELECT * FROM tb_pos_setting WHERE POS_KEY='TRAN_INDEX' FOR UPDATE
+    </select>
+
+    <select id="queryOrderIndex" resultMap="PosSettingResultMap" useCache="false">
+        SELECT * FROM tb_pos_setting WHERE POS_KEY='ORDER_INDEX' FOR UPDATE
+    </select>
+
+    <select id="queryPrinterTaskNo" resultMap="PosSettingResultMap" useCache="false">
+        SELECT * FROM tb_pos_setting WHERE POS_KEY='PRINTER_TASK_INDEX' FOR UPDATE
+    </select>
+
+    <select id="queryInvoiceNumber" resultMap="PosSettingResultMap" useCache="false">
+        SELECT * FROM tb_pos_setting WHERE POS_KEY='INVOICE_NUMBER' FOR UPDATE
+    </select>
+
+
+    <select id="queryByKey" resultType="com.dw.dto.PosSettingDto">
+        SELECT * FROM tb_pos_setting WHERE POS_KEY=#{key} FOR UPDATE
+    </select>
+
+    <update id="updateSetting">
+        UPDATE tb_pos_setting SET POS_VALUE=#{keyValue} WHERE ID=#{id}
+    </update>
+
+    <select id="queryCleanSeq" resultMap="PosSettingResultMap" useCache="false">
+        select * from tb_pos_setting where POS_KEY='DAY_COUNT'
+    </select>
+
+    <select id="queryPeriodSeq" resultMap="PosSettingResultMap" useCache="false">
+        select * from tb_pos_setting where POS_KEY='PRD_COUNT'
+    </select>
+
+</mapper>

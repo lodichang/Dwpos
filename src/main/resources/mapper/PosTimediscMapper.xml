@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosTimediscMapper">
+
+    <select id="getDiscRulesList" resultType="com.dw.entity.PosTimedisc">
+      select * from tb_pos_timedisc
+      where outlet=#{outlet}
+        and advance_time in (select min(advance_time) from tb_pos_timedisc
+							where outlet=#{outlet}  and advance_time&gt;=TIME_FORMAT(CURRENT_TIME(),'%H:%i:%s')
+							  and TIME_FORMAT(CURRENT_TIME(),'%H:%i:%i')&gt;=start_time
+						  );
+    </select>
+
+</mapper>

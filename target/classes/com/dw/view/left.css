@@ -1,0 +1,23 @@
+.table-view {
+    -fx-base:  #34495e;
+    -fx-control-inner-background:  #34495e;
+    -fx-background-color: #34495e;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-wrap-text: true;
+}
+
+.ImageView_up{
+    -fx-background-color: #34495e;
+    -fx-image: url("/image/up.png");
+}
+
+.ImageView_down{
+    -fx-background-color: #34495e;
+    -fx-image: url("/image/down.png");
+}
+
+
+
+
+

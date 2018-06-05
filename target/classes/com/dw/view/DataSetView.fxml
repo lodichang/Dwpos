@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.FlowPane?>
+<FlowPane stylesheets="@DataSet.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.DataSetController" fx:id="root">
+   <children>
+       <FlowPane fx:id="dataSetFlowPane" styleClass="dataSetFlowPane">
+         <children>
+       <Button text="1.口味暫停" fx:id="stopTasteButton" styleClass="functionButton" onAction="#stopTastesView"></Button>
+       <Button text="2.食品暂停" fx:id="stopFoodButton" styleClass="functionButton"  onAction="#stopfoodsView"></Button>
+       <Button text="3.扣燉更改" fx:id="buckleChangeStewButton" styleClass="functionButton" onAction="#modifyBuckleStew"></Button>
+       <Button text="4.按鍵設計" fx:id="keyDesignButton" styleClass="functionButton" onAction="#showKeyDesign"></Button>
+       <Button text="5.桌臺設計" fx:id="deskDesignButton" styleClass="functionButton" onAction="#showTableSetting"></Button>
+       <Button text="6.收費類別" fx:id="chargeCategoriesButton" styleClass="functionButton" onAction="#chargeCategories"></Button>
+       <Button text="7.專有食品" fx:id="properFoodButton" styleClass="functionButton" onAction="#properFood"></Button>
+       <Button text="/其他設置" fx:id="otherSettingButton" styleClass="functionButton"></Button>
+         </children>
+       </FlowPane>
+       <FlowPane fx:id="buttomFlowPane" styleClass="buttomFlowPane">
+           <children>
+           <Button text="關閉" fx:id="closeButton" styleClass="closeButton" onAction="#closeStage"></Button>
+           </children>
+       </FlowPane>
+   </children>
+</FlowPane>

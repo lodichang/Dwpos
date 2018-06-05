@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.FlowPane?>
+
+<FlowPane fx:id="etFlowPane" stylesheets="@etview.css" xmlns="http://javafx.com/javafx/8.0.101"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.EtViewController">
+    <children>
+        <FlowPane fx:id="topFlowPane" styleClass="topFlowPane">
+
+        </FlowPane>
+        <FlowPane fx:id="middlePane" styleClass="topFlowPane">
+
+        </FlowPane>
+        <FlowPane fx:id="buttomPane" styleClass="topFlowPane">
+
+        </FlowPane>
+    </children>
+</FlowPane>

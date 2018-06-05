@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<FlowPane stylesheets="@OrderDetail.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.OrderDetailController">
+   <children>
+       <FlowPane styleClass="topFlowPane">
+           <Label fx:id="operatorLabel" styleClass="topLabel">Staff 1</Label>
+           <Label fx:id="tableNoLabel" styleClass="topLabel">桌號：C3</Label>
+           <Label fx:id="memberNumberLabel" styleClass="topLabel">人數：15</Label>
+           <Label fx:id="orderCountLabel" styleClass="topLabel">點菜數：10</Label>
+           <Label fx:id="totalPriceLabel" styleClass="topLabel">總價：0.00</Label>
+       </FlowPane>
+      <TableView styleClass="tableView"  fx:id="orderDetailView">
+        <columns>
+            <TableColumn  text="座" styleClass="seatColum" fx:id="seatColum" />
+            <TableColumn  text="編號" styleClass="serialNumberColum" fx:id="serialNumberColum" />
+            <TableColumn  text="菜名" styleClass="dishColum" fx:id="dishColum" />
+            <TableColumn  text="口味" styleClass="tasteColum" fx:id="tasteColum" />
+            <TableColumn text="數" styleClass="numberColum" fx:id="numberColum" />
+            <TableColumn  text="消" styleClass="eliminateColum" fx:id="eliminateColum"  />
+            <TableColumn  text="免" styleClass="freeColum" fx:id="freeColum" />
+            <TableColumn  text="職員" styleClass="stafferColum" fx:id="stafferColum" />
+            <TableColumn  text="時間" styleClass="timeColum" fx:id="timeColum" />
+            <TableColumn  text="價錢" styleClass="priceColum" fx:id="priceColum" />
+        </columns>
+      </TableView>
+      <FlowPane styleClass="buttomFlowPane">
+         <children>
+            <Button fx:id="orderButton"  styleClass="button"  text="入單" />
+             <Button fx:id="cancleButton"  styleClass="button"  text="取消" />
+             <FlowPane styleClass="centerFlowPane">
+                 <Button fx:id="memberButton"  styleClass="button" text="會員" />
+                 <Button fx:id="discountButton"  styleClass="button" text="折扣" />
+                 <Button fx:id="turnTableButton"  styleClass="button" text="轉桌" />
+                 <Button fx:id="copyButton"  styleClass="button" text="複製" />
+                 <Button fx:id="messageButton"  styleClass="button" text="訊息" />
+                 <Button fx:id="searchOrderButton"  styleClass="button" text="查單" />
+                 <Button fx:id="pullFlyButton"  styleClass="button" text="拉飛" />
+                 <Button fx:id="otherButton"  styleClass="button" text="其它" />
+             </FlowPane>
+             <Button fx:id="invoicingButton"  styleClass="invoicingButton" text="結賬" />
+             <Button mnemonicParsing="false" text="關閉" styleClass="closeButton" fx:id="closeButton" />
+             <FlowPane styleClass="buttomRightFlowPane">
+                 <Button style="-fx-background-image: url('/image/up.png');-fx-background-position: center; -fx-background-repeat: no-repeat" styleClass="upButton" fx:id="upButton"></Button>
+                 <Button style="-fx-background-image: url('/image/down.png');-fx-background-position: center; -fx-background-repeat: no-repeat" styleClass="downButton" fx:id="downButton" />
+             </FlowPane>
+         </children>
+      </FlowPane>
+   </children>
+</FlowPane>

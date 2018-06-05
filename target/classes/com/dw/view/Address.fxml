@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.FlowPane?>
+
+<?import com.dw.extended.DwLabel?>
+<?import javafx.scene.layout.GridPane?>
+<?import com.dw.extended.DwButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<FlowPane fx:id="addressParentFlowPane" styleClass="addressParentFlowPane" stylesheets="@Address.css"
+          xmlns="http://javafx.com/javafx/8.0.101" xmlns:fx="http://javafx.com/fxml/1"
+          fx:controller="com.dw.controller.AddressController">
+    <children>
+        <FlowPane fx:id="leftFlowPane" styleClass="leftFlowPane">
+            <children>
+                <FlowPane fx:id="areaFlowPane" styleClass="areaFlowPane">
+                </FlowPane>
+                <FlowPane fx:id="streetFlowPane" styleClass="streetFlowPane"></FlowPane>
+                <FlowPane fx:id="addressFlowPane" styleClass="addressFlowPane"></FlowPane>
+            </children>
+        </FlowPane>
+        <FlowPane fx:id="rightFlowPane" styleClass="rightFlowPane">
+            <children>
+                <FlowPane fx:id="msgFlowPane" styleClass="msgFlowPane">
+                    <children>
+                        <FlowPane fx:id="telephonePane">
+                            <DwLabel fx:id="phoneLabel"></DwLabel>
+                            <TextField fx:id="telephone"></TextField>
+                        </FlowPane>
+                        <FlowPane fx:id="addressPane">
+                            <DwLabel fx:id="addressLabel"></DwLabel>
+                            <TextField fx:id="address"></TextField>
+                        </FlowPane>
+                        <FlowPane fx:id="linkmanPane">
+                            <DwLabel fx:id="linkmanLabel"></DwLabel>
+                            <TextField fx:id="linkman"></TextField>
+                            <DwLabel fx:id="phaseLabel"></DwLabel>
+                            <TextField fx:id="phase"></TextField>
+                        </FlowPane>
+                        <FlowPane fx:id="floorPane">
+                            <DwLabel fx:id="towerLabel"></DwLabel>
+                            <TextField fx:id="tower"></TextField>
+                            <DwLabel fx:id="floorLabel"></DwLabel>
+                            <TextField fx:id="floor"></TextField>
+                            <DwLabel fx:id="roomLabel"></DwLabel>
+                            <TextField fx:id="room"></TextField>
+                        </FlowPane>
+                        <FlowPane fx:id="remarkPane">
+                            <DwLabel fx:id="remarkLabel"></DwLabel>
+                            <TextField fx:id="remark"></TextField>
+                        </FlowPane>
+                    </children>
+                </FlowPane>
+                <FlowPane fx:id="keyboardFlowPane" styleClass="keyboardFlowPane">
+                    <children>
+                        <HBox fx:id="numberFlowPane">
+                           <children>
+                               <FlowPane fx:id="numberLeftFlowPane"></FlowPane>
+                               <FlowPane fx:id="numberRightFlowPane">
+                                   <children>
+                                   <DwButton fx:id="updateButton" text="更正"></DwButton>
+                                   <DwButton fx:id="cancleButton" text="取消"></DwButton>
+                                   <DwButton fx:id="inputButton" text="輸入"></DwButton>
+                                   </children>
+                               </FlowPane>
+                           </children>
+                        </HBox>
+                        <FlowPane fx:id="letterFlowPane"></FlowPane>
+                    </children>
+                </FlowPane>
+            </children>
+        </FlowPane>
+    </children>
+</FlowPane>

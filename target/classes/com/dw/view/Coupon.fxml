@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import com.dw.extended.DwLabel?>
+<?import com.dw.extended.DwButton?>
+<VBox fx:id="couponMainPane" maxHeight="-Infinity"
+      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      styleClass="borderPaneCss" stylesheets="@couponView.css" xmlns="http://javafx.com/javafx/8.0.72"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.CouponController">
+    <HBox fx:id="couponTopPane">
+    <ListView fx:id="dischdListView"></ListView>
+    <VBox fx:id="couponPane">
+        <HBox fx:id="topPane">
+            <TextField fx:id="textField"></TextField>
+            <DwButton fx:id="keyboard"></DwButton>
+        </HBox>
+
+        <TableView fx:id="tableViewId" styleClass="tableViewCss">
+            <columns>
+                <TableColumn fx:id="colCouponType" text="類型"/>
+                <TableColumn fx:id="colCoupon" text="優惠券編號"/>
+                <TableColumn fx:id="colTime" text="使用時間"/>
+                <TableColumn fx:id="colDisAmt" text="折扣金额"/>
+            </columns>
+        </TableView>
+    </VBox>
+    </HBox>
+    <HBox fx:id="buttomPane">
+        <DwButton fx:id="cancelCouponButton"></DwButton>
+        <DwButton fx:id="prePage"></DwButton>
+        <DwButton fx:id="nextPage"></DwButton>
+        <DwButton fx:id="close_Button"></DwButton>
+    </HBox>
+</VBox>

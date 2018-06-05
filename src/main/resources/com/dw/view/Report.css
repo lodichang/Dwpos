@@ -1,0 +1,32 @@
+.label {
+    -fx-background-color: #5E9BB5;
+    -fx-text-fill: #d0d0d0;
+}
+.noheader .column-header-background {
+    -fx-max-height: 0;
+    -fx-pref-height: 0;
+    -fx-min-height: 0;
+}
+
+.scroll-pane {
+    /*-fx-base: #34495E;
+    -fx-control-inner-background: #34495E;
+    -fx-background-color: #34495E;
+    -fx-padding: 5;*/
+
+    -fx-control-inner-background: transparent;
+    -fx-background-color: transparent;
+    -fx-wrap-text: true;
+    /*昌哥の黑粗长*/
+    -fx-font-size: 30pt;
+}
+
+
+.table-row-cell .cell {
+    -fx-font-family: "Noto Sans CJK TC Ligh";
+    -fx-alignment: center;
+    -fx-text-fill: #d0d0d0;
+    -fx-cell-size: 50px;
+    -fx-font-size: 10pt;
+    -fx-background-insets: 0;
+}

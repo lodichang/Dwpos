@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosSetmealMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+
+    <resultMap id="setmealGroupListResultMap" type="com.dw.dto.PosSetmealGroupDto">
+        <result property="code" column="CODE"/>
+        <result property="sGroup" column="S_GROUP"/>
+        <result property="gpDesc1" column="GP_DESC1"/>
+        <result property="gpDesc2" column="GP_DESC2"/>
+        <result property="gpDesc3" column="GP_DESC3"/>
+        <result property="gpDesc4" column="GP_DESC4"/>
+        <result property="gpCount" column="GP_COUNT"/>
+        <result property="sCount" column="S_COUNT"/>
+        <result property="isHoldOn" column="IS_HOLDON"></result>
+
+        <collection property="setmealDetailList" ofType="com.dw.dto.PosSetmealDetailDto" >
+            <result property="itemCode" column="ITEM_CODE" ></result>
+            <result property="addPrice" column="ADD_PRICE" />
+            <result property="catPerc" column="CAT_PRICE" />
+            <result property="canChange" column="CAN_CHANGE" />
+            <result property="itemDesc1" column="DESC1" />
+            <result property="itemDesc2" column="DESC2" />
+            <result property="itemDesc3" column="DESC3" />
+            <result property="itemDesc4" column="DESC4" />
+            <result property="itemImg" column="ITEM_IMG" />
+            <result property="itemPrn" column="PRN" />
+            <result property="discont" column="DISCONT" />
+
+        </collection>
+    </resultMap>
+
+    <select id="getSetmealList" resultMap="setmealGroupListResultMap">
+        select a.*,b.ITEM_CODE,b.ADD_PRICE,b.CAT_PERC,b.CAN_CHANGE,b.DESC1,b.DESC2,b.DESC3,b.DESC4,b.ITEM_IMG,b.PRN,b.DISCONT
+        from (
+          SELECT
+            CODE,S_GROUP,GP_DESC1,GP_DESC2,GP_DESC3,GP_DESC4,count(*) GP_COUNT,S_COUNT,IS_HOLDON
+          FROM tb_pos_setmeal
+          GROUP BY code, s_group, S_COUNT,IS_HOLDON
+        ) a left join (
+          SELECT a.CODE,a.S_GROUP,a.ITEM_CODE,IFNULL(a.ADD_PRICE,0.00) as ADD_PRICE,a.CAT_PERC,a.CAN_CHANGE,b.DESC1,b.DESC2,b.DESC3,b.DESC4,b.ITEM_IMG,b.PRN,b.DISCONT
+          FROM tb_pos_setmeal AS a
+          left join tb_pos_item b
+          on a.ITEM_CODE=b.ITEM_CODE
+        ) b
+        on a.code = b.code and a.S_GROUP = b.S_GROUP
+        ORDER BY a.code,a.s_group, b.ITEM_CODE;
+    </select>
+
+
+
+</mapper>

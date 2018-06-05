@@ -1,0 +1,47 @@
+.topFlowPane{
+    -fx-background-color: #34495E;
+    -fx-alignment: center;
+}
+.topLabel{
+    -fx-font-weight: bolder;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 26px;
+    -fx-background-color: #34495E;
+    -fx-text-alignment: right;
+}
+
+.topValue{
+    -fx-font-weight: bolder;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 22px;
+    -fx-background-color: #34495E;
+    -fx-text-alignment: left;
+}
+.buttomFlowPane{
+    -fx-background-color: #34495E;
+}
+
+.button{
+    -fx-background-color: #5E9BB5;
+   -fx-text-fill: #d0d0d0;
+  -fx-font-size: 20px;
+  -fx-text-alignment: center;
+}
+
+.button:pressed{
+    -fx-background-color: #E39B46;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+
+.closeBut{
+    -fx-background-color: #AA5B5B;
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+    -fx-text-alignment: center;
+}
+
+
+
+

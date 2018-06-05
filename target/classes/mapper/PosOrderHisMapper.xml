@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosOrderHisMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <select id="viewOrder" resultType="com.dw.dto.ViewBillItemDto">
+SELECT o.REF_NUM, o.SUB_REF, o.TABLE_NUM, o.ITEM_CODE, i.DESC1, i.DESC2, i.DESC3, i.DESC4, at.attDesc1, at.attDesc2, at.attDesc3,
+  at.attDesc4, o.QTY, o.CANCEL, o.FREE, o.STAFF, s.NAME1 AS staffDesc, o.T_TIME, o.AMT FROM tb_pos_order_his o
+  LEFT JOIN tb_pos_item i ON o.ITEM_CODE = i.ITEM_CODE  LEFT JOIN tb_pos_staff s ON o.STAFF = s.CODE
+  LEFT JOIN (SELECT at.ITEM_IDX, GROUP_CONCAT(IFNULL(a.DESC1,''), t.DESC1)attDesc1, GROUP_CONCAT(IFNULL(a.DESC2,''), t.DESC2)attDesc2,
+               GROUP_CONCAT(IFNULL(a.DESC3,''), t.DESC3)attDesc3, GROUP_CONCAT(IFNULL(a.DESC4,''), t.DESC4)attDesc4
+             FROM tb_pos_t_att at LEFT JOIN tb_pos_att t ON at.ATT_GROUP = t.A_GROUP AND at.ATT_CODE = t.CODE
+               LEFT JOIN tb_pos_attaction a on at.ACTION_CODE = a.ACTION_CODE GROUP BY at.ITEM_IDX) at on at.ITEM_IDX = o.ITEM_IDX
+  WHERE o.OUTLET = #{outlet} AND o.REF_NUM = #{refNum} AND o.SUB_REF = #{subRef} and o.type = #{tranType};
+    </select>
+
+
+    <select id="getOrderHisList" resultType="com.dw.dto.OrderListDto" useCache="false">
+      SELECT o.ID,o.REF_NUM, o.SUB_REF, o.TABLE_NUM, o.ITEM_CODE, IFNULL(o.RECEIVE_ITEM_NAME,i.DESC1) as desc1, IFNULL(o.RECEIVE_ITEM_NAME,i.DESC2) as desc2, IFNULL(o.RECEIVE_ITEM_NAME,i.DESC3) as desc3, IFNULL(o.RECEIVE_ITEM_NAME,i.DESC4) as desc4, i.IPRINT as iPrint,at.attDesc1, at.attDesc2, at.attDesc3,IFNULL(o.ORDER_DISC,0.00) as orderDisc,o.SERV_COST as servCost,o.KIC_MESS kicMess,
+          at.attDesc4, o.QTY, o.CANCEL, o.FREE, o.STAFF, s.NAME1 AS staffDesc, o.T_TIME, o.AMT,o.ITEM_IDX, o.UNIT_PRICE, o.CHANGE_AMT,o.KCONFIRM, o.SERVICE, i.COMB_ID,
+          at.attCode,at.subtractQty,settingPrice,o.KIC_MESS,o.SETMEAL_CODE as setMealCode,o.SETMEAL setMeal,o.TA as sgroup,o.SEP_CHAR as sepChar,i.PRN as itemPrn,DATE_FORMAT(o.T_TIME,"%H:%i") as orderTime,s.NAME1 as staffName,
+          IFNULL(l.urgeCount, 0) urgeCount,o.CART_ID as cartId,o.CAT_DISC,o.ITEM_DISC,DATE_FORMAT(concat(o.T_DATE, ' ', o.T_TIME),'%Y-%m-%d %H:%i:%s') as tDate
+        FROM tb_pos_order_his o LEFT JOIN tb_pos_item i
+        ON o.ITEM_CODE = i.ITEM_CODE  LEFT JOIN tb_pos_staff s ON o.STAFF = s.CODE
+        LEFT JOIN (
+              SELECT at.ITEM_IDX, GROUP_CONCAT(IFNULL(a.DESC1,''), t.DESC1  Separator '/') attDesc1,
+                GROUP_CONCAT(IFNULL(a.DESC2,''), t.DESC2  Separator '/')attDesc2,
+                GROUP_CONCAT(IFNULL(a.DESC3,''), t.DESC3  Separator '/')attDesc3,
+                GROUP_CONCAT(IFNULL(a.DESC4,''), t.DESC4  Separator '/')attDesc4,
+                GROUP_CONCAT(at.ATT_GROUP, ':', at.ATT_CODE, ':', ifnull(at.ACTION_CODE,'') Separator '@') attCode,
+                GROUP_CONCAT(t.CAL_QTY Separator '@') subtractQty,
+                GROUP_CONCAT((case when ifnull(s.CAL_AMOUNT,'') ='' then
+                                CASE when  t.CAL_TYPE = 'M' then (concat('*', t.CAL_AMOUNT))
+                                when  t.CAL_TYPE = 'S' and t.AMT_PRO = 'AMT' then (concat('-', t.CAL_AMOUNT))
+                                when  t.CAL_TYPE = 'S' and t.AMT_PRO = 'PRO' then (concat('/', t.CAL_AMOUNT))
+                                else concat('+', t.CAL_AMOUNT) end
+                            when ifnull(s.CAL_AMOUNT,0.00)>=0.00 then concat('+', s.CAL_AMOUNT)
+                            else concat('-', s.CAL_AMOUNT) END) Separator '@') settingPrice
+              FROM tb_pos_t_att_his at LEFT JOIN tb_pos_att t ON at.ATT_GROUP = t.A_GROUP AND at.ATT_CODE = t.CODE
+              LEFT JOIN tb_pos_attaction a on at.ACTION_CODE = a.ACTION_CODE
+              LEFT JOIN tb_pos_attsetting s on at.ATT_GROUP = s.A_GROUP and at.ATT_CODE=s.code and at.ACTION_CODe=s.ACTION_CODE
+              GROUP BY at.ITEM_IDX
+        ) at on at.ITEM_IDX = o.ITEM_IDX
+        LEFT JOIN  (SELECT T_INDEX,MAX(QTY1) AS urgeCount FROM tb_pos_log_his WHERE LOG_TYPE = 'URGE' AND  OUTLET = #{outlet} AND REF_NUM = #{refNum}  GROUP BY T_INDEX) l on o.ITEM_IDX = l.T_INDEX
+        WHERE o.OUTLET = #{outlet} AND o.REF_NUM = #{refNum} AND o.SUB_REF = #{subRef} and o.type = #{tranType}  and o.QTY+o.CANCEL > 0 order by o.ITEM_IDX;
+    </select>
+
+    <select id="getOrderHisCancleList" resultType="com.dw.dto.PosOrderCancleDto" useCache="false">
+        select o.*,i.DESC1 as itemName,r.DESC1 as reasonContent from tb_pos_order_his o  left join tb_pos_reason  r on  r.`CODE` = o.REASON left join tb_pos_item i on i.ITEM_CODE = o.ITEM_CODE  where o.QTY &lt; 0 and o.REF_NUM = #{refNum}
+        and o.SUB_REF = #{subRef} and  o.TYPE = #{tranType} and o.OUTLET= #{outlet} and o.TABLE_NUM = #{tableNo} order by o.VERSION
+    </select>
+
+    <select id="getAmtByCategory" resultType="com.dw.entity.PosOrderHis">
+        select a.OUTLET,a.REF_NUM,a.SUB_REF,a.TYPE,a.TABLE_NUM,b.CAT,SUM(AMT-ifnull(ORDER_DISC,0.00)) AMT from tb_pos_order_his a left join tb_pos_item b
+        on a.ITEM_CODE=b.ITEM_CODE
+        where a.type=#{tranType} and a.TABLE_NUM=#{tableNum} AND a.REF_NUM=#{refNum} AND a.SUB_REF=#{subRef} AND a.OUTLET=#{outlet} AND b.CAT=#{category}
+        GROUP BY a.OUTLET,a.REF_NUM,a.SUB_REF,a.TYPE,a.TABLE_NUM,b.CAT;
+    </select>
+
+    <select id="getOrderAmt" resultType="com.dw.entity.PosOrderHis">
+        select ifnull(SUM(AMT-ifnull(ORDER_DISC,0.00)+ifnull(SERV_COST,0.00)),0.00) AMT
+        from tb_pos_order_his a
+        where a.TYPE=#{tranType} AND a.REF_NUM=#{refNum} AND a.SUB_REF=#{subRef} AND a.OUTLET=#{outlet}
+    </select>
+
+    <select id="getChgAmt" resultType="com.dw.entity.PosOrderHis">
+        select ifnull(SUM(ifnull(CHG_AMT,0.00)),0.00) CHG_AMT,ifnull(SUM(ifnull(AMT,0.00)),0.00) AMT
+        from tb_pos_order_his a
+        where a.TYPE=#{tranType} AND a.REF_NUM=#{refNum} AND a.SUB_REF=#{subRef} AND a.OUTLET=#{outlet}
+    </select>
+
+    <update id="updateChgAmt">
+        update tb_pos_order_his a, (select MAX(ITEM_IDX) ITEM_IDX from tb_pos_order_his where ref_num=#{refNum} AND sub_ref=#{subRef} and TYPE = #{tranType} and outlet=#{outlet} and qty+cancel+free>=0  and setmeal>=0 and AMT>0 ) b
+        set chg_amt = IFNULL(chg_amt,0.00)+ #{sub_roundc}
+        where a.ITEM_IDX=b.ITEM_IDX and ref_num=#{refNum} AND sub_ref=#{subRef} and TYPE = #{tranType} and outlet=#{outlet}
+    </update>
+
+
+    <update id="updateOrderHis">
+        update tb_pos_order_his set REF_NUM = concat(#{cleanDate},REF_NUM) where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount});
+    </update>
+
+    <insert id="insertOrderClean" >
+        insert into tb_pos_order_clean select * from tb_pos_order_his where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount});
+    </insert>
+
+    <delete id="deleteOrderHis" >
+        delete from tb_pos_order_his where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount});
+    </delete>
+
+    <update id="updateOrderHisPeriod">
+         update tb_pos_order_his set period = #{period} where concat(ref_num,sub_ref) in (select concat(ref_num,sub_ref) from tb_pos_tran_his where ifnull(period,'0')='0')
+    </update>
+
+
+
+    <select id="getPeriodReportRecords" resultType="com.dw.dto.PeriodReportDto" statementType="CALLABLE" useCache="false">
+         {call pro_periodreport(
+            #{outlet, mode=IN, jdbcType=VARCHAR},
+            #{startdate, mode=IN, jdbcType=VARCHAR},
+            #{enddate, mode=IN, jdbcType=VARCHAR},
+            #{stationid, mode=IN, jdbcType=VARCHAR}
+        )}
+    </select>
+
+    <select id="getFoodSellRecords" resultType="com.dw.dto.PeriodReportDto" statementType="CALLABLE" useCache="false">
+        {call pro_foodsell(
+        #{outlet, mode=IN, jdbcType=VARCHAR},
+        #{startdate, mode=IN, jdbcType=VARCHAR},
+        #{enddate, mode=IN, jdbcType=VARCHAR},
+        #{stationid, mode=IN, jdbcType=VARCHAR}
+        )}
+    </select>
+
+    <select id="getCleanOrTurnMoreRecords" resultType="com.dw.dto.CleanDto" statementType="CALLABLE" useCache="false">
+        {call pro_cleanorturnmore(
+        #{outlet, mode=IN, jdbcType=VARCHAR},
+        #{startdate, mode=IN, jdbcType=VARCHAR},
+        #{period, mode=IN, jdbcType=VARCHAR},
+        #{floor, mode=IN, jdbcType=VARCHAR}
+        )}
+    </select>
+
+
+</mapper>

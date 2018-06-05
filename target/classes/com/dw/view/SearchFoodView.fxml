@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<FlowPane maxHeight="-Infinity" styleClass="searchFoodFlowPane" maxWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@SearchFood.css" fx:controller="com.dw.controller.SearchFoodController">
+   <children>
+       <FlowPane onMouseClicked="#closeKeyWordView" >
+           <Label fx:id="tableNoLabel" styleClass="titleLabel" text="Label" />
+           <Label fx:id="totalNumberLabel" styleClass="titleLabel" text="Label"  />
+           <Label fx:id="totalPriceLabel" styleClass="titleLabel" text="Label"  />
+       </FlowPane>
+     <!-- <Label text="Label" styleClass="titleLabel" fx:id="titleLabel" onMouseClicked="#closeKeyWordView" />-->
+      <TextField styleClass="textField" fx:id="textField" />
+      <FlowPane  styleClass="keywordFlowPane" >
+         <children>
+            <FlowPane  styleClass="topKeywordFlowPane">
+                <Button text="數量" styleClass="readOnlyButton" fx:id="numberButton" onAction="#changNumber"></Button>
+                <Button text="改價" styleClass="readOnlyButton" fx:id="changPriceButton" onAction="#changPrice"></Button>
+                <Button text="口味" styleClass="textButton" fx:id="taseButton"></Button>
+                <Button text="+"  styleClass="textButton" fx:id="addButton" onAction="#addNumber"></Button>
+                <Button text="-"  styleClass="textButton" fx:id="subButton" onAction="#subNumber"></Button>
+                <Button text="7" styleClass="numberButton" fx:id="sevenButton" onMouseClicked="#inputSeven"></Button>
+                <Button text="8" styleClass="numberButton" fx:id="rightButton" onMouseClicked="#inputRight"></Button>
+                <Button text="9" styleClass="numberButton" fx:id="nineButton" onMouseClicked="#inputNine"></Button>
+                <Button text="A"  styleClass="textButton" fx:id="aButton" onMouseClicked="#inputA"></Button>
+                <Button text="查菜"  styleClass="textButton" fx:id="searchFoodButton"></Button>
+                <Button text="4" styleClass="numberButton" fx:id="fourButton" onMouseClicked="#inputFour"></Button>
+                <Button text="5" styleClass="numberButton" fx:id="fiveButton" onMouseClicked="#inputFive"></Button>
+                <Button text="6" styleClass="numberButton" fx:id="sixButton" onMouseClicked="#inputSix"></Button>
+                <Button text="B"  styleClass="textButton" fx:id="bButton" onMouseClicked="#inputB"></Button>
+                <Button text="刪除"  styleClass="textButton" fx:id="deleteButton" onMouseClicked="#delete"></Button>
+                <Button text="1" styleClass="numberButton" fx:id="oneButton" onMouseClicked="#inputOne"></Button>
+                <Button text="2" styleClass="numberButton" fx:id="twoButton" onMouseClicked="#inputTwo"></Button>
+                <Button text="3" styleClass="numberButton" fx:id="threeButton" onMouseClicked="#inputThree"></Button>
+                <Button text="C"  styleClass="textButton" fx:id="cButton" onMouseClicked="#inputC"></Button>
+                <Button text="重輸"  styleClass="textButton" fx:id="reInputButton" onMouseClicked="#reInput"></Button>
+            </FlowPane>
+            <FlowPane   styleClass="buttomKeywordFlowPane">
+                <Button text="0" styleClass="numberButton" fx:id="zeroButton" onMouseClicked="#inputZero"></Button>
+                <Button text="." styleClass="numberButton" fx:id="pointButton" onMouseClicked="#inputPoint"></Button>
+                <Button text="V"  styleClass="textButton" fx:id="vButton" onMouseClicked="#inputV"></Button>
+                <Button text="OK"  styleClass="textButton" fx:id="okButton" onAction="#searchFood" ></Button>
+            </FlowPane>
+         </children>
+      </FlowPane>
+   </children>
+</FlowPane>

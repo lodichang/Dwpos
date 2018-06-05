@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosTAttHisMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+
+
+    <insert id="insertAttClean">
+        insert into tb_pos_t_att_clean
+            select ID, VERSION, OUTLINE, OUTLET, b.REF_NUM, b.SUB_REF, b.TYPE, a.ITEM_IDX, ATT_IDX, ATT_GROUP, ATT_CODE, ACTION_CODE, CHANGE_AMT, LAST_UPDATE_NAME_ID, LAST_UPDATE_TIME
+            from tb_pos_t_att_his a
+            inner join (
+              select ITEM_IDX,REF_NUM,SUB_REF,TYPE from tb_pos_order_his
+              where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount})
+            ) b
+            on a.ITEM_IDX=b.ITEM_IDX;
+    </insert>
+
+    <delete id="deleteAttHis" >
+      delete from tb_pos_t_att_his where ITEM_IDX in (select ITEM_IDX from tb_pos_order_his where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount}));
+    </delete>
+
+</mapper>

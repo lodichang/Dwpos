@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosAttSettingMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+
+    <resultMap id="SettingMapper" type="com.dw.dto.PosAttSettingDto"></resultMap>
+
+    <resultMap id="SettingEntityMapper" type="com.dw.entity.PosAttSetting"></resultMap>
+
+    <resultMap id="AttSettingMapper" type="HashMap">
+        <result property="key" column="ACTION_CODE" />
+        <result property="value" column="ID" />
+    </resultMap>
+
+    <select id="queryListByAtt" resultMap="SettingMapper">
+        SELECT s.* FROM tb_pos_attsetting s
+        LEFT JOIN tb_pos_attaction a ON s.ACTION_CODE=a.ACTION_CODE
+        WHERE s.A_GROUP=#{headCode} AND s.CODE=#{attCode}
+        <if test="isMust != null and isMust !=''">
+        AND a.IS_MUST=#{isMust}
+        </if>
+    </select>
+
+    <select id="queryByHeadAttAndAction" resultMap="SettingEntityMapper">
+        SELECT * FROM tb_pos_attsetting WHERE A_GROUP=#{headCode} AND CODE=#{attCode} AND ACTION_CODE=#{actionCode}
+    </select>
+</mapper>

@@ -1,0 +1,80 @@
+.searchPane {
+    text-align: center;
+    -fx-background-color: #707070;
+    -fx-alignment: center;
+    -fx-font-family: "Noto Sans CJK TC Light";
+}
+
+.clearAllButton {
+    -fx-font-size: 30px;
+    -fx-font-weight: bolder;
+    -fx-background-color: #aa5b5b;
+    -fx-text-fill: white
+}
+
+.button:pressed {
+    -fx-background-color: #E39B46;
+    -fx-text-fill: #d0d0d0;
+    -fx-font-size: 30;
+    -fx-text-alignment: center;
+}
+
+.englishKeyPane {
+    -fx-background-color:  #707070;
+    -fx-alignment: center;
+}
+.keyPane{
+    -fx-background-color:  #707070;
+}
+
+.englishButton {
+    -fx-text-fill: #F5F4F5;
+    -fx-background-color: #e89052;
+    -fx-font-size: 30px;
+}
+
+.numberKeyPane {
+    -fx-background-color:  #707070;
+    -fx-alignment: top-center;
+}
+
+.numberButton {
+    -fx-background-color: #dc8d52;
+    -fx-font-size: 30;
+    -fx-text-fill: #F5F4F5;
+}
+
+.buttonFlowPane {
+    -fx-background-color:  #707070;
+    -fx-alignment: center;
+}
+
+.confirmButton {
+    -fx-font-size: 30;
+    -fx-text-fill: white;
+    -fx-font-weight: bolder;
+    -fx-background-color: #5caa88
+}
+
+.closeButton {
+    -fx-font-size: 30;
+    -fx-text-fill: white;
+    -fx-font-weight: bolder;
+    -fx-background-color: #aa5b5b
+}
+
+.deleteButton {
+    -fx-font-size: 30px;
+    -fx-font-weight: bolder;
+    -fx-background-color: #aa5b5b;
+    -fx-text-fill: white
+}
+
+.searchTextField {
+    -fx-font-weight: bolder;
+    -fx-font-size: 40px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color:  #707070;
+    -fx-background-radius: 0;
+}
+

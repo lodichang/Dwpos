@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.FlowPane?>
+<FlowPane stylesheets="@StandbyMoney.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.StandbyMoneyController">
+   <children>
+      <TableView styleClass="tableView"  fx:id="moneyTableView">
+        <columns>
+            <TableColumn  text="機號" styleClass="tableColum" fx:id="machineNoColum" />
+            <TableColumn  text="時間" styleClass="tableColum" fx:id="timeColum" />
+            <TableColumn  text="編號" styleClass="tableColum" fx:id="serialNumberColum" />
+            <TableColumn  text="理由" styleClass="tableColum" fx:id="reasonColum" />
+            <TableColumn text="銀頭" styleClass="tableColum" fx:id="silverHeadColum" />
+            <TableColumn  text="交收" styleClass="tableColum" fx:id="deliveryColum"  />
+        </columns>
+      </TableView>
+      <FlowPane styleClass="buttomFlowPane">
+         <children>
+            <Button fx:id="silverHeadButton"  styleClass="Abutton" onMouseClicked="#showSliverHeadView"  text="銀頭" />
+            <Button fx:id="deliveryButton"  styleClass="Abutton" onMouseClicked="#showSliverHeadView" text="交收" />
+            <FlowPane styleClass="centerFlowPane">
+               <Label fx:id="totalChargeLabel" styleClass="label">總收0.00</Label>
+                <Label fx:id="silverHeadLabel" styleClass="label" >銀頭0.00</Label>
+                <Label fx:id="deliveryLabel" styleClass="label">交收0.00</Label>
+            </FlowPane>
+            <Button mnemonicParsing="false" text="關閉" styleClass="closeButton" fx:id="closeButton" />
+             <FlowPane>
+            <Button style="-fx-background-image: url('/image/up.png')" styleClass="upButton" fx:id="upButton"></Button>
+            <Button style="-fx-background-image: url('/image/down.png')" styleClass="downButton" fx:id="downButton" />
+             </FlowPane>
+         </children>
+      </FlowPane>
+   </children>
+</FlowPane>

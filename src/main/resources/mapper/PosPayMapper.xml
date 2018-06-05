@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosPayMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+
+    <update id="updatePay" >
+      update tb_pos_pay set REF_NUM = concat(#{cleanDate},REF_NUM) where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount});
+    </update>
+
+    <insert id="insertPayClean" >
+      insert into tb_pos_pay_clean select * from tb_pos_pay where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount});
+    </insert>
+
+    <insert id="deletePay">
+      delete from tb_pos_pay where concat(REF_NUM,SUB_REF) IN (select concat(REF_NUM,SUB_REF) from tb_pos_tran_his where MEMBER=#{dayCount});
+    </insert>
+
+
+    <select id="cleanGetPayRecord" resultType="com.dw.dto.CleanDto" useCache="false">
+        select * from (
+            select '發票號碼 ' CODE,concat('由:',min(invoice_number),'至',max(invoice_number)) DESC1 ,concat('合計:',count(*),'發票') COU,'' AMT1,'' AMT2,'0.1' SEQ,'' TITLETYPE
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones})
+			UNION ALL
+            select '#SPLIT_SCREEN','','','','','0.2' SEQ,''
+			UNION ALL
+            select '#SPLIT_SCREEN','','','','','0.3' SEQ,''
+			union all
+            select '取消菜式' CODE,'' DESC1,'' COU,'' AMT1,'' AMT2,'0.4' SEQ,'TITLE' TITLETYPE
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','0.5' SEQ,''
+            UNION ALL
+            select '菜式名稱','數量','金額','取消員工','原因','0.6' SEQ,''
+            union ALL
+            select '#R|4|COMPART','','','','','0.7' SEQ,''
+            UNION ALL
+            select ifnull(a.RECEIVE_ITEM_NAME,c.desc1) ,a.QTY ,a.AMT,d.NAME1,CONCAT(e.DESC1,'/',T_DATE,'-',T_TIME) ,'1' SEQ,''
+            from tb_pos_order_his a
+            left join tb_pos_item c
+            on a.item_code=c.item_code
+            left join tb_pos_staff d
+            on a.STAFF=d.`CODE`
+            left join tb_pos_reason e
+            on a.REASON=e.`CODE`
+            where a.type='N' AND a.QTY &lt; 0 AND exists (
+              select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+              where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null
+              and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+              and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','1.1' SEQ,''
+            UNION ALL
+            select '付款分析','','','','','1.5' SEQ,'TITLE'
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','1.6' SEQ,''
+            UNION ALL
+            select '付款方式','次數' ,'小費','金額','','2' SEQ,''
+            UNION ALL
+            select '#R|4|COMPART','','','','','2.1' SEQ,''
+            UNION ALL
+            SELECT concat(a.PAY_TYPE,c.DESC1),CAST(count(*) AS CHAR) COU,CAST(sum(a.tips) AS CHAR) AMT1,CAST(sum(NET_AMOUNT-IFNULL(OVER_AMT,0.00)) AS CHAR) AMT2,'','3' SEQ,''
+            FROM tb_pos_pay a LEFT JOIN tb_pos_payment c
+            on a.PAY_TYPE=c.`CODE`
+            where exists (
+                select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+                where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null
+                and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+                and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TRAN_TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            group by a.PAY_TYPE,c.DESC1
+            union all
+            select '#R|4|COMPART','','','','','3.9' SEQ,''
+            union ALL
+            SELECT '合計($)',CAST(count(*) AS CHAR) COU,CAST(sum(a.tips) AS CHAR) AMT1,CAST(sum(NET_AMOUNT-IFNULL(OVER_AMT,0.00)) AS CHAR) AMT2,'','4' SEQ,''
+            FROM tb_pos_pay a LEFT JOIN tb_pos_payment c
+            on a.PAY_TYPE=c.`CODE`
+            where exists (
+                select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+                where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null
+                and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+                and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TRAN_TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','4.1' SEQ,''
+            UNION ALL
+            select '折扣分析','','','','','4.5' SEQ,'TITLE'
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','4.6' SEQ,''
+            UNION ALL
+            SELECT '折扣編號','折扣名稱','數量','金額','','5' SEQ,''
+            union ALL
+            select '#R|4|COMPART','','','','','5.1' SEQ,''
+            union all
+            select a.REMARK1,c.DESC1,cast(COUNT(*) as char) ,cast(SUM(AMT3) as char),'','6' SEQ,''
+            from tb_pos_log_his a left join tb_pos_dischd c
+            on a.remark1=c.`CODE`
+            where a.type='N' AND a.LOG_TYPE IN ('UCOP','TDIS','FUCD','SICD')
+            AND exists (
+                select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+                where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null
+                and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+                and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            GROUP BY a.REMARK1
+            union ALL
+            select '#R|4|COMPART','','','','','6.1' SEQ,''
+            union all
+            select '合計' CODE,'',cast(COUNT(*) as char) COU,cast(IFNULL(SUM(AMT3),0.00) as char) AMT2,'','7' SEQ,''
+            from tb_pos_log_his a left join tb_pos_dischd c
+            on a.remark1=c.`CODE`
+            where a.type='N' AND a.LOG_TYPE IN ('UCOP','TDIS','FUCD','SICD')
+            AND exists (
+                select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+                where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null
+                and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+                and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','7.1' SEQ,''
+            UNION ALL
+            select '部門分析','','','','','7.5' SEQ,'TITLE'
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','7.6' SEQ,''
+            UNION ALL
+            SELECT '部門','數量','部門分帳','服務費','不含服務費金額','8' SEQ,''
+            union all
+            select '#R|4|COMPART','','','','','8.1' SEQ,''
+            union ALL
+            select concat(e.code,'-',e.desc1) code ,cast(sum(a.qty) as char) desc1,
+                cast(sum(a.amt+ifnull(a.serv_cost,0.00)-ifnull(a.order_disc,0.00)) as char) cou,
+                cast(sum(ifnull(a.serv_cost,0.00)) as char) amt1,cast(sum(a.amt-ifnull(a.order_disc,0.00)) as char) amt2,'9' SEQ,''
+            from tb_pos_order_his a
+            left join tb_pos_item c
+            on a.item_code=c.item_code
+            left join tb_pos_category d
+            on c.cat=d.cat_code
+            left JOIN tb_pos_scat e
+            on d.scat=e.code
+            where a.type='N' AND exists (
+                select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+                where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null
+                and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+                and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            group by e.code,e.desc1
+            union all
+            select '#R|4|COMPART','','','','','9.1' SEQ,''
+            UNION ALL
+            select '合計' code ,cast(sum(a.qty) as char) desc1,
+            cast(sum(a.amt+ifnull(a.serv_cost,0.00)-ifnull(a.order_disc,0.00)) as char) cou,
+            cast(sum(ifnull(a.serv_cost,0.00)) as char) amt1,cast(sum(a.amt-ifnull(a.order_disc,0.00)) as char) amt2,'10' SEQ,''
+            from tb_pos_order_his a
+            where a.type='N' AND exists (
+                select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+                where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null
+                and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+                and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','10.1' SEQ,''
+            UNION ALL
+            select '區域分析','','','','','10.5' SEQ,'TITLE'
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','10.6' SEQ,''
+            UNION ALL
+            SELECT '區域','人數','金額','人均消費','','11' SEQ,''
+            union all
+            select '#R|4|COMPART','','','','','11.1' SEQ,''
+            union all
+            select concat(c.floor,c.room_type) desc1,cast(sum(a.person) as char) cou,
+            cast(sum(a.bill_amt) as char) amt1,
+            cast(sum(a.bill_amt)/sum(a.person) as decimal(18,2)) amt2,'','12' SEQ,''
+            from tb_pos_tran_his a
+            left join tb_pos_table c
+            on a.table_num=c.room_num
+            where TRAN_TYPE='N' AND IFNULL(a.SETTLED,'')='TRUE' and a.member is null and find_in_set(c.floor,#{zones})
+            group by c.floor,c.room_type
+            union all
+            select '#R|4|COMPART','','','','','12.1' SEQ,''
+            UNION ALL
+            select '合計' code,cast(sum(a.person) as char) cou,
+            cast(sum(a.bill_amt) as char) amt1,
+            cast(sum(a.bill_amt)/sum(a.person) as decimal(18,2)) amt2,'','13' SEQ,''
+            from tb_pos_tran_his a
+            left join tb_pos_table c
+            on a.table_num=c.room_num
+            where TRAN_TYPE='N' AND IFNULL(a.SETTLED,'')='TRUE' and a.member is null and find_in_set(c.floor,#{zones})
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','13.1' SEQ,''
+            UNION ALL
+            select '營業時段','','','','','13.5' SEQ,'TITLE'
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','13.6' SEQ,''
+            union all
+            SELECT '編號','名稱','人數','金額','','14' SEQ,''
+            union all
+            select '#R|4|COMPART','','','','','14.1' SEQ,''
+            UNION ALL
+            select a.code,a.name desc1,sum(b.person) cou,sum(b.bill_amt) amt1,''amt2,'15' SEQ,''
+            from tb_mem_period a,tb_pos_tran_his b
+            where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null
+            and ((a.stime>a.etime and (a.stime &lt;=DATE_FORMAT(b.in_time,'%H:%i') or a.etime>DATE_FORMAT(b.in_time,'%H:%i')))
+            or (a.stime &lt; a.etime and a.stime&lt;=DATE_FORMAT(b.in_time,'%H:%i') and a.etime>DATE_FORMAT(b.in_time,'%H:%i')))
+            and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+            group by a.code,a.name
+            union all
+            select '#R|4|COMPART','','','','','15.1' SEQ,''
+            UNION ALL
+            select '+原本金額' code,'' desc1 ,sum(ORDER_AMT-ifnull(ORDER_DISC,0.00)) cou,'' amt1,'' amt2,'16' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones})
+            union all
+            select '微調' code,'' desc1 ,sum(ifnull(rounding,0.00)) cou,'' amt1,'' amt2,'17' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones})
+            union all
+            select '#R|4|COMPART','','','','','17.1' SEQ,''
+            union all
+            select '+小計' code,'' desc1 ,sum(ORDER_AMT-ifnull(ORDER_DISC,0.00)+ifnull(rounding,0.00)) cou,'' amt1,'' amt2,'18' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones})
+            union all
+            select '+服務費' code,'' desc1 ,sum(SERV_AMT) cou,'' amt1,'' amt2,'19' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones})
+            union all
+            select '稅項' code,'' desc1 ,0.00 cou,'' amt1,'' amt2,'20' SEQ,''
+            union all
+            select '#R|4|COMPART','','','','','20.1' SEQ,''
+            union all
+            select '+合計' code,'' desc1 ,SUM(BILL_AMT) cou,'' amt1,'' amt2,'21' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones})
+            union all
+            select '小帳合計' code,'' desc1 ,0.00 cou,'' amt1,'' amt2,'22' SEQ,''
+            union all
+            select '支出金額' code,'' desc1 ,0.00 cou,'' amt1,'' amt2,'23' SEQ,''
+            union all
+            select '實收現金' code,'' desc1 ,SUM(NET_AMOUNT-IFNULL(OVER_AMT,0.00)) cou,'' amt1,'' amt2,'24' SEQ,'' from  tb_pos_pay a
+            where a.tran_type='N' and a.pay_type='CASH' and exists (
+                select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+                where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null
+                and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+                and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TRAN_TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            union all
+            select '#R|4|COMPART','','','','','24.1' SEQ,''
+            union all
+            select '發票張數' code,'' desc1 ,count(*) cou,'' amt1,'' amt2,'25' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones})
+            union all
+            select '顧客人數' code,'' desc1 ,sum(person) cou,'' amt1,'' amt2,'26' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones})
+            union all
+            select '人均消費' code,'' desc1 ,cast(SUM(BILL_AMT)/sum(person) as decimal(18,2)) cou,'' amt1,'' amt2,'27' SEQ ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones})
+            union all
+            select '平均每單消費' code,'' desc1 ,cast(SUM(BILL_AMT)/count(*) as decimal(18,2)) cou,'' amt1,'' amt2,'28' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones})
+            union all
+            select '#R|4|COMPART','','','','','28.1' SEQ,''
+        ) a
+        order by cast(seq as DECIMAL(18,2)) ,code
+    </select>
+
+
+    <select id="turnMoreGetPayRecord" resultType="com.dw.dto.CleanDto" useCache="false">
+        select * from (
+            select '發票號碼 ' CODE,concat('由:',min(invoice_number),'至',max(invoice_number)) DESC1 ,concat('合計:',count(*),'發票') COU,'' AMT1,'' AMT2,'0.1' SEQ,'' TITLETYPE
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and ifnull(a.PERIOD,0)=0 and member is null and find_in_set(b.floor,#{zones})
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','0.2' SEQ,''
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','0.3' SEQ,''
+            union all
+            select '取消菜式' CODE,'' DESC1,'' COU,'' AMT1,'' AMT2,'0.4' SEQ,'TITLE' TITLETYPE
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','0.5' SEQ,''
+            UNION ALL
+            select '菜式名稱','數量','金額','取消員工','原因','0.6' SEQ,''
+            union ALL
+            select '#R|4|COMPART','','','','','0.7' SEQ,''
+            UNION ALL
+            select ifnull(a.RECEIVE_ITEM_NAME,c.desc1) ,a.QTY ,a.AMT,d.NAME1,CONCAT(e.DESC1,'/',T_DATE,'-',T_TIME) ,'1' SEQ,''
+            from tb_pos_order_his a
+            left join tb_pos_item c
+            on a.item_code=c.item_code
+            left join tb_pos_staff d
+            on a.STAFF=d.`CODE`
+            left join tb_pos_reason e
+            on a.REASON=e.`CODE`
+            where a.type='N' AND a.QTY &lt; 0 AND exists (
+            select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+            where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null and ifnull(b.PERIOD,0)=0
+            and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+            and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','1.1' SEQ,''
+            UNION ALL
+            select '付款分析','','','','','1.5' SEQ,'TITLE'
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','1.6' SEQ,''
+            UNION ALL
+            select '付款方式','次數' ,'小費','金額','','2' SEQ,''
+            UNION ALL
+            select '#R|4|COMPART','','','','','2.1' SEQ,''
+            UNION ALL
+            SELECT concat(a.PAY_TYPE,c.DESC1),CAST(count(*) AS CHAR) COU,CAST(sum(a.tips) AS CHAR) AMT1,CAST(sum(NET_AMOUNT-IFNULL(OVER_AMT,0.00)) AS CHAR) AMT2,'','3' SEQ,''
+            FROM tb_pos_pay a LEFT JOIN tb_pos_payment c
+            on a.PAY_TYPE=c.`CODE`
+            where exists (
+            select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+            where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null  and ifnull(b.PERIOD,0)=0
+            and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+            and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TRAN_TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            group by a.PAY_TYPE,c.DESC1
+            union all
+            select '#R|4|COMPART','','','','','3.9' SEQ,''
+            union ALL
+            SELECT '合計($)',CAST(count(*) AS CHAR) COU,CAST(sum(a.tips) AS CHAR) AMT1,CAST(sum(NET_AMOUNT-IFNULL(OVER_AMT,0.00)) AS CHAR) AMT2,'','4' SEQ,''
+            FROM tb_pos_pay a LEFT JOIN tb_pos_payment c
+            on a.PAY_TYPE=c.`CODE`
+            where exists (
+            select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+            where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null and ifnull(b.PERIOD,0)=0
+            and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+            and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TRAN_TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','4.1' SEQ,''
+            UNION ALL
+            select '折扣分析','','','','','4.5' SEQ,'TITLE'
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','4.6' SEQ,''
+            UNION ALL
+            SELECT '折扣編號','折扣名稱','數量','金額','','5' SEQ,''
+            union ALL
+            select '#R|4|COMPART','','','','','5.1' SEQ,''
+            union all
+            select a.REMARK1,c.DESC1,cast(COUNT(*) as char) ,cast(SUM(AMT3) as char),'','6' SEQ,''
+            from tb_pos_log_his a left join tb_pos_dischd c
+            on a.remark1=c.`CODE`
+            where a.type='N' AND a.LOG_TYPE IN ('UCOP','TDIS','FUCD','SICD')
+            AND exists (
+            select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+            where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null and ifnull(b.PERIOD,0)=0
+            and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+            and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            GROUP BY a.REMARK1
+            union ALL
+            select '#R|4|COMPART','','','','','6.1' SEQ,''
+            union all
+            select '合計' CODE,'',cast(COUNT(*) as char) COU,cast(IFNULL(SUM(AMT3),0.00) as char) AMT2,'','7' SEQ,''
+            from tb_pos_log_his a left join tb_pos_dischd c
+            on a.remark1=c.`CODE`
+            where a.type='N' AND a.LOG_TYPE IN ('UCOP','TDIS','FUCD','SICD')
+            AND exists (
+            select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+            where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null and ifnull(b.PERIOD,0)=0
+            and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+            and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','7.1' SEQ,''
+            UNION ALL
+            select '部門分析','','','','','7.5' SEQ,'TITLE'
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','7.6' SEQ,''
+            UNION ALL
+            SELECT '部門','數量','部門分帳','服務費','不含服務費金額','8' SEQ,''
+            union all
+            select '#R|4|COMPART','','','','','8.1' SEQ,''
+            union ALL
+            select concat(e.code,'-',e.desc1) code ,cast(sum(a.qty) as char) desc1,
+            cast(sum(a.amt+ifnull(a.serv_cost,0.00)-ifnull(a.order_disc,0.00)) as char) cou,
+            cast(sum(ifnull(a.serv_cost,0.00)) as char) amt1,cast(sum(a.amt-ifnull(a.order_disc,0.00)) as char) amt2,'9' SEQ,''
+            from tb_pos_order_his a
+            left join tb_pos_item c
+            on a.item_code=c.item_code
+            left join tb_pos_category d
+            on c.cat=d.cat_code
+            left JOIN tb_pos_scat e
+            on d.scat=e.code
+            where a.type='N' AND exists (
+            select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+            where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null and ifnull(b.PERIOD,0)=0
+            and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+            and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            group by e.code,e.desc1
+            union all
+            select '#R|4|COMPART','','','','','9.1' SEQ,''
+            UNION ALL
+            select '合計' code ,cast(sum(a.qty) as char) desc1,
+            cast(sum(a.amt+ifnull(a.serv_cost,0.00)-ifnull(a.order_disc,0.00)) as char) cou,
+            cast(sum(ifnull(a.serv_cost,0.00)) as char) amt1,cast(sum(a.amt-ifnull(a.order_disc,0.00)) as char) amt2,'10' SEQ,''
+            from tb_pos_order_his a
+            where a.type='N' AND exists (
+            select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+            where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null and ifnull(b.PERIOD,0)=0
+            and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+            and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','10.1' SEQ,''
+            UNION ALL
+            select '區域分析','','','','','10.5' SEQ,'TITLE'
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','10.6' SEQ,''
+            UNION ALL
+            SELECT '區域','人數','金額','人均消費','','11' SEQ,''
+            union all
+            select '#R|4|COMPART','','','','','11.1' SEQ,''
+            union all
+            select concat(c.floor,c.room_type) desc1,cast(sum(a.person) as char) cou,
+            cast(sum(a.bill_amt) as char) amt1,
+            cast(sum(a.bill_amt)/sum(a.person) as decimal(18,2)) amt2,'','12' SEQ,''
+            from tb_pos_tran_his a
+            left join tb_pos_table c
+            on a.table_num=c.room_num
+            where TRAN_TYPE='N' AND IFNULL(a.SETTLED,'')='TRUE' and a.member is null and find_in_set(c.floor,#{zones})  and ifnull(a.PERIOD,0)=0
+            group by c.floor,c.room_type
+            union all
+            select '#R|4|COMPART','','','','','12.1' SEQ,''
+            UNION ALL
+            select '合計' code,cast(sum(a.person) as char) cou,
+            cast(sum(a.bill_amt) as char) amt1,
+            cast(sum(a.bill_amt)/sum(a.person) as decimal(18,2)) amt2,'','13' SEQ,''
+            from tb_pos_tran_his a
+            left join tb_pos_table c
+            on a.table_num=c.room_num
+            where TRAN_TYPE='N' AND IFNULL(a.SETTLED,'')='TRUE' and a.member is null and find_in_set(c.floor,#{zones}) and ifnull(a.PERIOD,0)=0
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','13.1' SEQ,''
+            UNION ALL
+            select '營業時段','','','','','13.5' SEQ,'TITLE'
+            UNION ALL
+            select '#SPLIT_SCREEN','','','','','13.6' SEQ,''
+            union all
+            SELECT '編號','名稱','人數','金額','','14' SEQ,''
+            union all
+            select '#R|4|COMPART','','','','','14.1' SEQ,''
+            UNION ALL
+            select a.code,a.name desc1,sum(b.person) cou,sum(b.bill_amt) amt1,''amt2,'15' SEQ,''
+            from tb_mem_period a,tb_pos_tran_his b
+            where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null and ifnull(b.PERIOD,0)=0
+            and ((a.stime>a.etime and (a.stime &lt;=DATE_FORMAT(b.in_time,'%H:%i') or a.etime>DATE_FORMAT(b.in_time,'%H:%i')))
+            or (a.stime &lt; a.etime and a.stime&lt;=DATE_FORMAT(b.in_time,'%H:%i') and a.etime>DATE_FORMAT(b.in_time,'%H:%i')))
+            and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+            group by a.code,a.name
+            union all
+            select '#R|4|COMPART','','','','','15.1' SEQ,''
+            UNION ALL
+            select '+原本金額' code,'' desc1 ,sum(ORDER_AMT-ifnull(ORDER_DISC,0.00)) cou,'' amt1,'' amt2,'16' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones}) and ifnull(a.PERIOD,0)=0
+            union all
+            select '微調' code,'' desc1 ,sum(ifnull(rounding,0.00)) cou,'' amt1,'' amt2,'17' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones}) and ifnull(a.PERIOD,0)=0
+            union all
+            select '#R|4|COMPART','','','','','17.1' SEQ,''
+            union all
+            select '+小計' code,'' desc1 ,sum(ORDER_AMT-ifnull(ORDER_DISC,0.00)+ifnull(rounding,0.00)) cou,'' amt1,'' amt2,'18' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones}) and ifnull(a.PERIOD,0)=0
+            union all
+            select '+服務費' code,'' desc1 ,sum(SERV_AMT) cou,'' amt1,'' amt2,'19' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones}) and ifnull(a.PERIOD,0)=0
+            union all
+            select '稅項' code,'' desc1 ,0.00 cou,'' amt1,'' amt2,'20' SEQ,''
+            union all
+            select '#R|4|COMPART','','','','','20.1' SEQ,''
+            union all
+            select '+合計' code,'' desc1 ,SUM(BILL_AMT) cou,'' amt1,'' amt2,'21' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones}) and ifnull(a.PERIOD,0)=0
+            union all
+            select '小帳合計' code,'' desc1 ,0.00 cou,'' amt1,'' amt2,'22' SEQ,''
+            union all
+            select '支出金額' code,'' desc1 ,0.00 cou,'' amt1,'' amt2,'23' SEQ,''
+            union all
+            select '實收現金' code,'' desc1 ,SUM(NET_AMOUNT-IFNULL(OVER_AMT,0.00)) cou,'' amt1,'' amt2,'24' SEQ,'' from  tb_pos_pay a
+            where a.tran_type='N' and a.pay_type='CASH' and exists (
+                select REF_NUM,SUB_REF,TRAN_TYPE,OUTLET from tb_pos_tran_his b
+                where b.TRAN_TYPE='N' AND IFNULL(b.SETTLED,'')='TRUE' and b.member is null and ifnull(b.PERIOD,0)=0
+                and exists(select 1 from tb_pos_table t where find_in_set(t.floor,#{zones}) and b.table_num = t.room_num)
+                and a.REF_NUM=b.REF_NUM AND a.SUB_REF=b.SUB_REF AND a.TRAN_TYPE=b.TRAN_TYPE AND a.OUTLET=b.OUTLET
+            )
+            union all
+            select '#R|4|COMPART','','','','','24.1' SEQ,''
+            union all
+            select '發票張數' code,'' desc1 ,count(*) cou,'' amt1,'' amt2,'25' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones}) and ifnull(a.PERIOD,0)=0
+            union all
+            select '顧客人數' code,'' desc1 ,sum(person) cou,'' amt1,'' amt2,'26' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones}) and ifnull(a.PERIOD,0)=0
+            union all
+            select '人均消費' code,'' desc1 ,cast(SUM(BILL_AMT)/sum(person) as decimal(18,2)) cou,'' amt1,'' amt2,'27' SEQ ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones}) and ifnull(a.PERIOD,0)=0
+            union all
+            select '平均每單消費' code,'' desc1 ,cast(SUM(BILL_AMT)/count(*) as decimal(18,2)) cou,'' amt1,'' amt2,'28' SEQ,''
+            from tb_pos_tran_his a
+            left join  tb_pos_table b
+            on a.table_num= b.room_num
+            where tran_type='N' AND IFNULL(SETTLED,'')='TRUE' and member is null and find_in_set(b.floor,#{zones}) and ifnull(a.PERIOD,0)=0
+            union all
+            select '#R|4|COMPART','','','','','28.1' SEQ,''
+        ) a
+        order by cast(seq as DECIMAL(18,2)) ,code
+    </select>
+
+</mapper>

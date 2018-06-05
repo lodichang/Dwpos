@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            stylesheets="@global.css"
+            fx:controller="com.dw.controller.TranFunctionController" fx:id="tranFunctionBorderPane"
+            >
+    <top>
+        <FlowPane fx:id="topFlowPane"></FlowPane>
+    </top>
+    <center>
+        <VBox fx:id="centerVBox"></VBox>
+    </center>
+
+
+</BorderPane>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosAttActionMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <resultMap id="PosAttActionMapper" type="com.dw.dto.PosAttActionDto"></resultMap>
+    <select id="queryList" resultMap="PosAttActionMapper">
+        SELECT * FROM tb_pos_attaction WHERE IS_SHOW=#{isShow}
+    </select>
+
+    <select id="queryByCode" resultType="com.dw.entity.PosAttAction">
+        SELECT * FROM tb_pos_attaction WHERE ACTION_CODE=#{code}
+    </select>
+</mapper>

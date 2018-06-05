@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosItemMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
+    <select id="selectByCode" resultType="com.dw.entity.PosItem">
+        SELECT * FROM tb_pos_item WHERE ITEM_CODE=#{itemCode}
+    </select>
+
+
+    <select id="getItems" resultType="com.dw.dto.PosItemDto" >
+        select d.desc1,d.desc2,d.desc3,d.desc4,d.item_code,ifnull(e.PRICE${priceCode},d.price${priceCode}) as price,ifnull(f.ORG_PRICE,ifnull(e.PRICE${priceCode},d.price${priceCode})) ORG_PRICE,d.item_img,d.comb_id,d.service,d.prn,d.discont,
+          d.bill_disc,e.service price_service,e.bill_disc price_bill_disc,d.cat,c.desc1 cat_name,c.scat,s.desc1 scat_name, d.ATT_MIN AS attMin,d.ATT_MAX AS attMax
+        from tb_pos_item d
+        left join tb_pos_price e
+        on d.item_code=e.item_code
+        left join (
+            select a.item_code,ifnull(b.price${priceCode},a.price${priceCode}) as org_price
+            from tb_pos_item a
+            left join (
+              select item_code,price1,price2,price3,price4,price5,price6,price7,price8,price9
+              from tb_pos_price where outlet=#{outlet} and iopen='FALSE'
+            ) b
+            on a.item_code=b.item_code
+        ) f
+        on ifnull(d.remarks,'')=f.item_code
+        left join tb_pos_category c
+        on d.cat = c.cat_code
+        left join tb_pos_scat s
+        on c.scat = s.code
+        where d.discont!='2' and (
+                    (d.include = 'FALSE' and d.item_code in (select item_code from tb_pos_items where outlet =#{outlet} ))
+                    or (d.include = 'TRUE' and d.item_code not in (select item_code from tb_pos_items where outlet =#{outlet} ))
+              )
+        order by d.ITEM_CODE
+    </select>
+    <select id="searchItem" resultType="com.dw.dto.PosItemDto">
+         select d.desc1,d.desc2,d.desc3,d.desc4,d.item_code,ifnull(e.PRICE${priceCode},d.price${priceCode}) as price,ifnull(f.ORG_PRICE,ifnull(e.PRICE${priceCode},d.price${priceCode})) ORG_PRICE,d.item_img,d.comb_id,d.service,d.prn,d.discont,
+          d.bill_disc,e.service price_service,e.bill_disc price_bill_disc,d.cat,c.desc1 cat_name,c.scat,s.desc1 scat_name, d.ATT_MIN AS attMin,d.ATT_MAX AS attMax
+        from tb_pos_item d
+        left join tb_pos_price e
+        on d.item_code=e.item_code
+        left join (
+            select a.item_code,ifnull(b.price${priceCode},a.price${priceCode}) as org_price
+            from tb_pos_item a
+            left join (
+              select item_code,price1,price2,price3,price4,price5,price6,price7,price8,price9
+              from tb_pos_price where outlet=#{outlet} and iopen='FALSE'
+            ) b
+            on a.item_code=b.item_code
+        ) f
+        on ifnull(d.remarks,'')=f.item_code
+        left join tb_pos_category c
+        on d.cat = c.cat_code
+        left join tb_pos_scat s
+        on c.scat = s.code
+        where d.discont!='2' and (
+                    (d.include = 'FALSE' and d.item_code in (select item_code from tb_pos_items where outlet =#{outlet} ))
+                    or (d.include = 'TRUE' and d.item_code not in (select item_code from tb_pos_items where outlet =#{outlet} ))
+              ) and d.ITEM_CODE =#{itemCode}
+        order by d.ITEM_CODE
+    </select>
+</mapper>

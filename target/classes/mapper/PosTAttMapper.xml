@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.dw.mapper.PosTAttMapper">
+    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+    <resultMap id="PosAttMap" type="com.dw.entity.PosTAtt">
+    </resultMap>
+
+    <select id="selectListByItemIdx" resultMap="PosAttMap" useCache="false">
+        SELECT * FROM tb_pos_t_att WHERE ITEM_IDX=#{itemIdx}
+    </select>
+
+    <delete id="deleteByOrderRefNum">
+      delete from tb_pos_t_att
+      where outlet=#{outlet} and item_idx in (select item_idx from tb_pos_order where outlet = #{outlet} and REF_NUM = #{refNum} AND SUB_REF = #{subRef} AND TABLE_NUM = #{tableNo})
+    </delete>
+</mapper>

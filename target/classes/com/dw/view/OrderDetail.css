@@ -1,0 +1,54 @@
+.topFlowPane{
+    -fx-background-color: #34495E;
+    -fx-alignment: center;
+}
+.topLabel{
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-background-color: #34495E;
+    -fx-text-alignment: center;
+}
+.buttomFlowPane{
+    -fx-background-color: #34495E;
+}
+.button{
+    -fx-background-color:#5E9BB5;
+   -fx-text-fill: white;
+  -fx-font-size: 20px;
+  -fx-text-alignment: center;
+}
+
+.closeButton{
+    -fx-background-color: #AA5B5B;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+.tableView .column-header .label {
+    -fx-font-size: 25pt;
+    -fx-font-family: "Noto Sans CJK TC Light";
+    -fx-text-fill: #666666;
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+}
+.centerFlowPane{
+    -fx-background-color: white;
+}
+.buttomRightFlowPane{
+    -fx-background-color: white;
+    -fx-alignment: center;
+}
+.invoicingButton{
+    -fx-background-color:#E39B46;
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-text-alignment: center;
+}
+.centerFlowPane{
+    -fx-background-color: #34495E;
+}
+.buttomRightFlowPane{
+    -fx-background-color: #34495E;
+}
+
+

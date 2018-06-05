@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.dw.controller.CancelItemController" stylesheets="@global.css" fx:id="cancelItemPane">
+    <HBox fx:id="cancelNumPane">
+        <Label fx:id="itemInfo">cancelNum:</Label>
+        <Label fx:id="cancelNumLable">cancelNum:</Label>
+        <Label fx:id="cancelNum">0</Label>
+        <Button fx:id="closeButton" onAction="#close"></Button>
+    </HBox>
+    <Label fx:id="cancelReasonPrompt">Please select a reason:</Label>
+    <FlowPane fx:id="cancelReasonPane">
+
+    </FlowPane>
+
+
+</VBox>

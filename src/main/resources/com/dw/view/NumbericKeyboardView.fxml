@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.*?>
+<FlowPane fx:id="numberPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@NumbericKeyboard.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <FlowPane styleClass="titlePane">
+
+      </FlowPane>
+      <FlowPane styleClass="numberPane">
+         <children>
+            <TextField styleClass="numberTextField" />
+          <!--  <Button mnemonicParsing="false" text="←" />-->
+         </children>
+      </FlowPane>
+      <FlowPane styleClass="numberBtnPane">
+         <children>
+            <GridPane>
+            </GridPane>
+         </children>
+      </FlowPane>
+      <FlowPane styleClass="bottomPane"></FlowPane>
+   </children>
+</FlowPane>

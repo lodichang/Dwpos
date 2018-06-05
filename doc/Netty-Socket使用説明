@@ -1,0 +1,175 @@
+Netty-Socket説明：
+    對應的jar包為com.ablegenius.netty-1.0.0-SNAPSHOT.jar包，此組件通過引用的方式使用，不允許修改源代碼。
+    組件實現了客戶端心跳上報、消息重發機制、客戶端-服務器端雙向消息發送、消息緩存等功能。依賴包如下：
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.5</version>
+    </dependency>
+    <dependency>
+        <groupId>io.netty</groupId>
+        <artifactId>netty-all</artifactId>
+        <version>4.1.19.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>2.6.3</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>2.6.3</version>
+    </dependency>
+    <dependency>
+        <groupId>com.google.protobuf</groupId>
+        <artifactId>protobuf-java</artifactId>
+        <version>2.6.1</version>
+    </dependency>
+    <dependency>
+        <groupId>io.protostuff</groupId>
+        <artifactId>protostuff-core</artifactId>
+        <version>1.3.5</version>
+    </dependency>
+    <dependency>
+        <groupId>io.protostuff</groupId>
+        <artifactId>protostuff-runtime</artifactId>
+        <version>1.3.5</version>
+    </dependency>
+    <dependency>
+        <groupId>org.objenesis</groupId>
+        <artifactId>objenesis</artifactId>
+        <version>2.1</version>
+    </dependency>
+    <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>1.0.13</version>
+    </dependency>
+
+    使用方法：
+    一、服務端使用：
+        1、服務端如無特殊要求，請使用DefaultCommonServerAcceptor類，如需要自行實現，請繼承DefaultServerAcceptor類再自行實現具體邏輯及業務；
+        2、自定義服務端端口，服務端需要自行實現ServerMessageHandler類的receive方法，此方法將會接收客戶端發送的Message類型數據；
+           請自行在此receive方法中進行業務處理，業務數據包含在Message類型參數的data屬性中，請將data數據自行根據實際業務完成處理。
+           注意：服務端監聽請使用綫程啓動，否則系統主綫程將會被阻塞。
+        3、服務端消息處理完畢后將會回寫Acknowledge類型的應答給客戶端，如果客戶端配置了消息重發機制，則客戶端在未收到服務端Acknowledge
+           應答前，將會每隔10秒持續向服務器發送消息；請自行根據業務需求實現防止消息重發導致的數據重複等問題；
+        4、服務端如需發送消息給客戶端，請通過客戶端連接時的clientId在NettyChannelMap中獲取客戶端的channel進行消息發送；服務端發送消息
+           給客戶端需要設置sign（REQUEST）；
+        5、具體例子請參考ServerAcceptorStartupTest。
+    二、客戶端使用：
+        1、客戶端如無特殊要求，請使用DefaultCommonServerAcceptor類，如需要自行實現，請繼承NettyClientConnector類再自行實現具體邏輯及業務；
+        2、服務端IP地址及端口請使用約定，客戶端需要自行實現ClientMessageHandler類的receive方法，此方法將會接收服務端發送的Message類型數據；
+           請自行在此receive方法中進行業務處理，業務數據包含在Message類型參數的data屬性中，請將data數據自行根據實際業務完成處理。
+        3、客戶端消息處理完畢后將會回寫Acknowledge類型的應答給服務端，如果服務端配置了消息重發機制，則服務端在未收到客戶端Acknowledge
+           應答前，將會每隔10秒持續向客戶端發送消息；請自行根據業務需求實現防止消息重發導致的數據重複等問題；
+        4、客戶端發送消息給服務端需要設置自己的clientId及sign（REQUEST）；
+        5、具體例子請參考ClientConnectorStartup。
+
+    例子：
+    1、ServerAcceptorStartupTest：
+
+       public class ServerAcceptorStartupTest {
+       	private static final Logger logger = LoggerFactory.getLogger(ServerAcceptorStartupTest.class);
+       	public static void main(String[] args) throws InterruptedException {
+       	    // 設置端口
+       		DefaultCommonServerAcceptor defaultCommonSrvAcceptor = new DefaultCommonServerAcceptor(20011, null, new BussinessHandler());
+       		// 綫程啓動，防止主綫程阻塞
+       		new Thread(() -> {
+       			try {
+       				defaultCommonSrvAcceptor.start();
+       			} catch (InterruptedException e) {
+       				e.printStackTrace();
+       			}
+       		}).start();
+       		for (int k = 0; k < 2; k++) {
+       			TimeUnit.MINUTES.sleep(3);
+       			logger.info("服務器端開始發送消息給客戶端");
+       			Message message = new Message();
+       			message.sign(REQUEST); // 設置sign
+       			message.data("服務端發送過來的消息");
+       			// 获取到channel，发送双方规定的message格式的信息
+       			NettyChannelMap.get("ablegenius-001").writeAndFlush(message).addListener((ChannelFutureListener) future -> {
+       				if (!future.isSuccess()) {
+       					logger.info("send fail,reason is {}", future.cause().getMessage());
+       				} else {
+       					logger.info("send success");
+       				}
+       			});
+       			// 設置重發，防止对象处理发生异常的情况
+       			MessageNonAck msgNonAck = new MessageNonAck(message, NettyChannelMap.get("ablegenius-001"));
+       			defaultCommonSrvAcceptor.addNeedAckMessageInfo(msgNonAck);
+       		}
+       	}
+
+        // ServerMessageHandler子類，抽象方法receive自定義實現，實現具體業務邏輯
+       	static class BussinessHandler extends ServerMessageHandler {
+       		@Override
+       		public void receive(Message message) {
+       			System.out.println("-------ServerBussinessHandler-------" + message.toString());
+       		}
+       	}
+
+       }
+
+    2、ClientConnectorStartupTest：
+
+       public class ClientConnectorStartupTest {
+
+       	private static final Logger logger = LoggerFactory.getLogger(DefaultCommonServerAcceptor.class);
+
+       	public static void main(String[] args) throws InterruptedException {
+       		// 客戶端，需要預先設定clientId
+       		DefaultCommonClientConnector clientConnector = new DefaultCommonClientConnector(new BussinessHandler("ablegenius-001"));
+       		Channel channel = clientConnector.connect(20011, "127.0.0.1");
+       		Message message = new Message();
+       		message.setMsgType(NettyEventType.LOGIN); // 登陸服務器
+       		message.sign(REQUEST);
+       		message.setClientId("ablegenius-001"); // 標識clientId
+       		message.data("登錄");
+       		// 获取到channel,发送双方规定的message格式的信息
+       		channel.writeAndFlush(message).addListener((ChannelFutureListener) future -> {
+                    if(!future.isSuccess()) {
+                           logger.info("send fail,reason is {}",future.cause().getMessage());
+                    }  else {
+                        logger.info("send success");
+                    }
+               });
+       		// 設置重發，防止对象处理发生异常的情况進行消息重發
+       		MessageNonAck msgNonAck = new MessageNonAck(message, channel);
+       		clientConnector.addNeedAckMessageInfo(msgNonAck);
+
+       		TimeUnit.MINUTES.sleep(2); // 休眠2分鐘后進行第二次消息發送
+       		message = new Message();
+       		message.sign(REQUEST);
+       		message.setClientId("ablegenius-001");
+       		message.data("客戶端發送的消息");
+       		// 获取到channel，发送双方规定的message格式的信息
+       		channel.writeAndFlush(message).addListener((ChannelFutureListener) future -> {
+                   if(!future.isSuccess()) {
+                       logger.info("send fail,reason is {}",future.cause().getMessage());
+                   }  else {
+                       logger.info("send success");
+                   }
+               });
+       		// 設置重發，防止对象处理发生异常的情况
+       		msgNonAck = new MessageNonAck(message, channel);
+       		clientConnector.addNeedAckMessageInfo(msgNonAck);
+
+
+       	}
+
+        // 抽象方法receive自定義實現，實現具體業務邏輯
+       	static class BussinessHandler extends ClientMessageHandler {
+            // 設置客戶端ID
+       		public BussinessHandler(String clientId) {
+       			super(clientId);
+       		}
+
+       		@Override
+       		public void receive(Message message) {
+       			System.out.println("-------ClientBussinessHandler-------" + message.toString());
+       		}
+       	}
+       }

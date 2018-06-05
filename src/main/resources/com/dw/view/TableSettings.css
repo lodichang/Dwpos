@@ -1,0 +1,130 @@
+.areaFlowPane{
+    -fx-background-color: #34495E;
+}
+.pageFlowPane{
+    -fx-background-color: #34495E;
+}
+.buttomFlowPane{
+    -fx-background-color: #34495E;
+}
+.button{
+    -fx-background-color:#5E9BB5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: #5E9BB5;
+    -fx-alignment: center;
+    -fx-border-width: 5px;
+}
+.tablesFlowPane{
+    -fx-background-color: #D0F4F7;
+}
+.tableFlowPane{
+    -fx-background-color: #EDEDED;
+    -fx-border-color: #E1642D;
+    -fx-border-width: 1px;
+    -fx-alignment: center;
+}
+.tableNoLabel{
+    -fx-background-color: #EDEDED;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.stateLabel{
+    -fx-background-color:#EDEDED;
+    -fx-alignment: center-left;
+    -fx-text-fill: #1d1d1d
+}
+.numberLabel{
+    -fx-background-color: #EDEDED;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d
+}
+.timeLabel{
+    -fx-background-color:#EDEDED;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d
+}
+.areabutton{
+    -fx-background-color:#5E9BB5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: #5E9BB5;
+    -fx-alignment: center;
+    -fx-border-width: 5px;
+}
+.selectedButton{
+    -fx-background-color:#5E9BB5;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color:#AA5B5B;
+    -fx-alignment: center;
+    -fx-border-width: 5px;
+}
+.notDrive{
+    -fx-background-color: #ADADAD;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.offTheTable{
+    -fx-background-color: #4faa8b;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.openTableOrder{
+    -fx-background-color: gold;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.hasInvoiced{
+    -fx-background-color: #AA5B5B;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.hasPayed{
+    -fx-background-color:#E39B46;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+}
+.notDriveTableFlowPane{
+    -fx-background-color: #ADADAD;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.offTheTableFlowPane{
+    -fx-background-color: #4faa8b;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.openTableOrderFlowPane{
+    -fx-background-color: gold;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.hasInvoicedFlowPane{
+    -fx-background-color: #AA5B5B;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.hasPayedFlowPane{
+    -fx-background-color: #E39B46;
+    -fx-alignment: center;
+    -fx-text-fill: #1d1d1d;
+    -fx-border-color: #1d1d1d;
+    -fx-border-width: 1px;
+}
+.pageButton{
+    -fx-background-color:#EDEDED;
+    -fx-alignment: center;
+    -fx-border-width: 5px;
+    -fx-border-color:#EDEDED;
+}
+
+

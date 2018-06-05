@@ -1,0 +1,37 @@
+.chargeCategoriesFlowPane{
+   -fx-border-width: 3px;
+    -fx-border-color: #BBBBBB;
+}
+.titleLabel{
+    -fx-background-color: #34495E;
+    -fx-alignment: center;
+    -fx-font-weight: bolder;
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+}
+.chargeCategorieContentFlowPane{
+       -fx-background-color: #EBEBEB;
+}
+.buttomFlowPane{
+    -fx-background-color: #34495E;
+    -fx-alignment: center;
+}
+.nextPageButton{
+    -fx-background-color: #5CAA88;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-font-size: 30px;
+}
+.searchTextField{
+    -fx-background-color: #34495E;
+}
+.closeButton{
+    -fx-background-color: #AA5B5B;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-font-size: 30px;
+}
+
+
+
+

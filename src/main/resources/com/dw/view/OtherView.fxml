@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.FlowPane?>
+<FlowPane stylesheets="@OtherView.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.OtherController">
+   <children>
+       <FlowPane styleClass="buttonsFlowPane">
+         <children>
+       <Button text="1 列印測試" fx:id="printTestButton" styleClass="functionButton" onAction="#printTestView"></Button>
+       <Button text="2 類比下載" fx:id="analogyToDownload" styleClass="functionButton"  onAction="#analogyToDownloadView"></Button>
+         </children>
+       </FlowPane>
+       <FlowPane>
+           <children>
+           <Button text="關閉" fx:id="closeButton" styleClass="closeButton"></Button>
+           </children>
+       </FlowPane>
+   </children>
+</FlowPane>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<VBox xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.CenterController">
+   <children>
+     <FlowPane styleClass="topFlowPane" style="-fx-padding: 10px; -fx-background-color: #EDEDED">
+        <children>
+           <Circle fill="#75ff1f" radius="15.0" stroke="BLACK" strokeType="INSIDE"  />
+           <Label alignment="CENTER" text="空閒(10)" styleClass="label" style="-fx-font-size: 20px; -fx-font-weight: bold" />
+           <Label style="-fx-pref-width: 20px"></Label>
+           <Circle fill="#ff1f1f" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
+           <Label alignment="CENTER"  text="用餐中(2)" styleClass="label" style="-fx-font-size: 20px; -fx-font-weight: bold"  />
+           <Label style="-fx-pref-width: 20px"></Label>
+           <Circle fill="DODGERBLUE" radius="15.0" stroke="BLACK" strokeType="INSIDE" />
+           <Label alignment="CENTER"  text="預定(5)" style="-fx-font-size: 20px; -fx-font-weight: bold" />
+        </children>
+     </FlowPane>
+      <FlowPane styleClass="centerFlowPane">
+
+      </FlowPane>
+       <FlowPane styleClass="buttonFlowPane" style=" -fx-text-alignment: center">
+
+       </FlowPane>
+   </children>
+</VBox>

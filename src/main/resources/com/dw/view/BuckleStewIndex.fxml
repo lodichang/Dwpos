@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<HBox stylesheets="@BuckleStewIndex.css" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dw.controller.BuckleStewIndexController">
+         <children>
+          <FlowPane>
+            <children>
+             <TableView fx:id="foodTableView" styleClass="table-view">
+              <columns>
+                <TableColumn fx:id="numberColum" styleClass="tableColumn" text="數" />
+                <TableColumn fx:id="goodNameColum" styleClass="tableColumn" text="菜名+口味" />
+                <TableColumn fx:id="priceColum" styleClass="tableColumn" text="價格" />
+                <TableColumn fx:id="messageColum" styleClass="tableColumn" text="訊" />
+              </columns>
+             </TableView>
+
+            <FlowPane styleClass="tableButtonFlowPane">
+                    <children>
+                        <FlowPane onMouseClicked="#openKeyWord" >
+                            <Label fx:id="tableNoLabel" styleClass="tableLabel" text="Label" />
+                            <Label fx:id="totalNumberLabel" styleClass="tableLabel" text="Label"  />
+                            <Label fx:id="totalPriceLabel" styleClass="tableLabel" text="Label"  />
+                        </FlowPane>
+                        <Button fx:id="clearButton" mnemonicParsing="false" styleClass="button" text="清除" />
+                    </children>
+            </FlowPane>
+           </children>
+         </FlowPane>
+
+         <FlowPane>
+           <children>
+            <FlowPane styleClass="itemsFlowPane" fx:id="itemsFlowPane">
+              <children>
+               </children>
+            </FlowPane>
+            <FlowPane styleClass="goodsButtomFlowPane">
+               <children>
+                  <Button fx:id="cancleButton" mnemonicParsing="false" styleClass="button" text="取消" onAction="#close" />
+                  <Button fx:id="previousGoodsButton" mnemonicParsing="false" styleClass="button" text="上一頁" />
+                  <Button fx:id="nextGoodsButton" mnemonicParsing="false" styleClass="button" text="下一頁" />
+               </children>
+            </FlowPane>
+          </children>
+         </FlowPane>
+      <FlowPane>
+         <children>
+            <FlowPane styleClass="categorysFlowPane">
+               <children>
+               </children>
+            </FlowPane>
+            <FlowPane styleClass="categoryButtomFlowPane">
+               <children>
+                           <Button fx:id="previousCategoryButton" styleClass="categoryButton" text="上" />
+                           <Button fx:id="nextCategoryButton" styleClass="categoryButton" text="下" />
+               </children>
+            </FlowPane>
+         </children>
+      </FlowPane>
+   </children>
+</HBox>

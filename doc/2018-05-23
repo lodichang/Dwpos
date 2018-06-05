@@ -1,0 +1,16 @@
+ALTER TABLE `tb_pos_attaction`
+ADD COLUMN `IS_MUST` varchar(20) NULL DEFAULT 'TRUE' COMMENT '口味是否必选，TRUE-必选，FALSE-非必选' AFTER `IS_SHOW`;
+
+
+DROP TABLE IF EXISTS `tb_pos_table_action`;
+CREATE TABLE `tb_pos_table_action` (
+  `ID` varchar(255) NOT NULL,
+  `TABLE_NUM` varchar(255) DEFAULT NULL COMMENT '台号',
+  `OP_STAFF` varchar(255) DEFAULT NULL COMMENT '操作人编号',
+  `OP_STAFF_NAME` varchar(255) DEFAULT NULL COMMENT '操作人名称',
+  `STATION_ID` varchar(255) DEFAULT NULL COMMENT '机器Id',
+  `T_TIME` datetime DEFAULT NULL COMMENT '操作时间',
+  `OPERATE_TYPE` varchar(255) DEFAULT NULL,
+  `REMARKS` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='桌台操作表';
